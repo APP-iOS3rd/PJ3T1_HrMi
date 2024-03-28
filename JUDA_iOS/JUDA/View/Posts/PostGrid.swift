@@ -71,25 +71,26 @@ struct PostGridContent: View {
             if usedTo == .post {
                 if !postViewModel.isLoading {
                     ForEach(postViewModel.posts, id: \.postField.postID) { post in
-                        NavigationLink(value: Route
-                            .PostDetail(postUserType: authViewModel.currentUser?.userField.userID == post.postField.user.userID ? .writer : .reader,
-                                        post: post,
-                                        usedTo: usedTo)) {
-                            PostCell(usedTo: .post, post: post)
-<<<<<<< 864b10c052d8eafda116c2341fc1c7486b1083e8
-                                .task {
-                                    if post == postViewModel.posts.last {
-                                        await postViewModel.fetchNextPost()
+                        if authViewModel.signInStatus {
+                            NavigationLink(value: Route
+                                .PostDetail(postUserType: authViewModel.currentUser?.userField.userID == post.postField.user.userID ? .writer : .reader,
+                                            post: post,
+                                            usedTo: usedTo)) {
+                                PostCell(usedTo: .post, post: post)
+                                    .task {
+                                        if post == postViewModel.posts.last {
+                                            await postViewModel.fetchNextPost()
+                                        }
                                     }
-=======
+                            }
+                            .buttonStyle(EmptyActionStyle())
+                        } else {
+                            // 비로그인 상태인 경우 눌렀을 때 로그인뷰로 이동
+                            PostCell(usedTo: .post, post: post)
                                 .onTapGesture {
                                     authViewModel.isShowLoginDialog = true
->>>>>>> [Edit] Main, Drink 비로그인 시 로그인 뷰 이동
                                 }
                         }
-                        .buttonStyle(EmptyActionStyle())
-                        // TODO: 비로그인 상태인 경우 눌렀을 때 로그인뷰로 이동
-                        .disabled(!authViewModel.signInStatus)
                     }
 				} else {
 					ForEach(0..<10) { _ in
@@ -101,41 +102,6 @@ struct PostGridContent: View {
 					switch searchTagType {
 					case .userName:
                         ForEach(postViewModel.searchPostsByUserName, id: \.postField.postID) { post in
-<<<<<<< 864b10c052d8eafda116c2341fc1c7486b1083e8
-							NavigationLink(value: Route
-                                .PostDetail(postUserType: authViewModel.currentUser?.userField.userID == post.postField.user.userID ? .writer : .reader,
-                                            post: post,
-                                            usedTo: usedTo)) {
-								PostCell(usedTo: .postSearch, post: post)
-							}
-							.buttonStyle(EmptyActionStyle())
-							// TODO: 비로그인 상태인 경우 눌렀을 때 로그인뷰로 이동
-							.disabled(!authViewModel.signInStatus)
-						}
-					case .drinkTag:
-						ForEach(postViewModel.searchPostsByDrinkTag, id: \.postField.postID) { post in
-							NavigationLink(value: Route
-                                .PostDetail(postUserType: authViewModel.currentUser?.userField.userID == post.postField.user.userID ? .writer : .reader,
-                                            post: post,
-                                            usedTo: usedTo)) {
-								PostCell(usedTo: .postSearch, post: post)
-							}
-							.buttonStyle(EmptyActionStyle())
-							// TODO: 비로그인 상태인 경우 눌렀을 때 로그인뷰로 이동
-							.disabled(!authViewModel.signInStatus)
-						}
-					case .foodTag:
-						ForEach(postViewModel.searchPostsByFoodTag, id: \.postField.postID) { post in
-							NavigationLink(value: Route
-                                .PostDetail(postUserType: authViewModel.currentUser?.userField.userID == post.postField.user.userID ? .writer : .reader,
-                                            post: post,
-                                            usedTo: usedTo)) {
-								PostCell(usedTo: .postSearch, post: post)
-							}
-							.buttonStyle(EmptyActionStyle())
-							// TODO: 비로그인 상태인 경우 눌렀을 때 로그인뷰로 이동
-							.disabled(!authViewModel.signInStatus)
-=======
                             if authViewModel.signInStatus {
                                 NavigationLink(value: Route
                                     .PostDetail(postUserType: authViewModel.currentUser?.userField.userID == post.postField.user.userID ? .writer : .reader,
@@ -187,7 +153,6 @@ struct PostGridContent: View {
                                         authViewModel.isShowLoginDialog = true
                                     }
                             }
->>>>>>> [Edit] Main, Drink 비로그인 시 로그인 뷰 이동
 						}
 					}
 				}

@@ -39,35 +39,35 @@ struct NavigationPostsView: View {
     }
     
     var body: some View {
-        VStack {
-            // 세그먼트 (인기 / 최신)
-            CustomTextSegment(segments: PostSortType.list.map { $0.rawValue },
-                              selectedSegmentIndex: $selectedSegmentIndex)
+        ZStack {
+            VStack {
+                // 세그먼트 (인기 / 최신)
+                CustomTextSegment(segments: PostSortType.list.map { $0.rawValue },
+                                  selectedSegmentIndex: $selectedSegmentIndex)
                 .padding(.vertical, 14)
                 .padding(.horizontal, 20)
                 .frame(maxWidth: .infinity, alignment: .leading)
-            // 인기 or 최신 탭뷰
-            TabView(selection: $selectedSegmentIndex) {
-                ForEach(0..<PostSortType.list.count, id: \.self) { index in
-                    ScrollViewReader { value in
-                        Group {
-                            if PostSortType.list[index] == .popularity {
-                                // 인기순
-								PostGrid(usedTo: usedTo, searchTagType: searchTagType)
-                            } else {
-                                // 최신순
-								PostGrid(usedTo: usedTo, searchTagType: searchTagType)
+                // 인기 or 최신 탭뷰
+                TabView(selection: $selectedSegmentIndex) {
+                    ForEach(0..<PostSortType.list.count, id: \.self) { index in
+                        ScrollViewReader { value in
+                            Group {
+                                if PostSortType.list[index] == .popularity {
+                                    // 인기순
+                                    PostGrid(usedTo: usedTo, searchTagType: searchTagType)
+                                } else {
+                                    // 최신순
+                                    PostGrid(usedTo: usedTo, searchTagType: searchTagType)
+                                }
+                            }
+                            .onChange(of: selectedSegmentIndex) { newValue in
+                                value.scrollTo(newValue, anchor: .center)
                             }
                         }
-                        .onChange(of: selectedSegmentIndex) { newValue in
-                            value.scrollTo(newValue, anchor: .center)
-                        }
                     }
+                    .tabViewStyle(.page(indexDisplayMode: .never))
+                    .ignoresSafeArea()
                 }
-<<<<<<< 864b10c052d8eafda116c2341fc1c7486b1083e8
-=======
-                .tabViewStyle(.page(indexDisplayMode: .never))
-                .ignoresSafeArea()
             }
             
             if authViewModel.isShowLoginDialog {
@@ -79,10 +79,7 @@ struct NavigationPostsView: View {
                     },
                     rightButtonLabel: "로그인",
                     navigationLinkValue: .Login))
->>>>>>> [Edit] Main, Drink 비로그인 시 로그인 뷰 이동
             }
-            .tabViewStyle(.page(indexDisplayMode: .never))
-            .ignoresSafeArea()
         }
         // 데이터 정렬
         .task {
@@ -122,13 +119,10 @@ struct NavigationPostsView: View {
                 }
             }
         }
-<<<<<<< 864b10c052d8eafda116c2341fc1c7486b1083e8
-=======
         .onDisappear {
             authViewModel.isShowLoginDialog = false
         }
         .navigationBarTitleDisplayMode(.inline)
->>>>>>> [Edit] Main, Drink 비로그인 시 로그인 뷰 이동
         .navigationBarBackButtonHidden()
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {

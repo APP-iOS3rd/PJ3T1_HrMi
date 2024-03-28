@@ -18,6 +18,9 @@ enum CustomDialogType {
                 leftButtonLabel: String, leftButtonAction: () -> Void,
                 rightButtonLabel: String, rightButtonAction: () -> Void,
                 rating: Binding<Double>)
+    case navigation(message: String,
+                    leftButtonLabel: String, leftButtonAction: () -> Void,
+                    rightButtonLabel: String, navigationLinkValue: Route)
 }
 
 // MARK: - 커스텀 다이얼로그
@@ -43,6 +46,11 @@ struct CustomDialog: View {
                                       leftButtonLabel: leftButtonLabel, leftButtonAction: leftButtonAction,
                                       rightButtonLabel: rightButtonLabel, rightButtonAction: rightButtonAction,
                                       rating: rating)
+                case let .navigation(message, leftButtonLabel, leftButtonAction, rightButtonLabel, navigationLinkValue):
+                    buildNavigationDialog(message: message,
+                                          leftButtonLabel: leftButtonLabel, leftButtonAction: leftButtonAction,
+                                          rightButtonLabel: rightButtonLabel, navigationLinkValue: navigationLinkValue)
+                    
                 }
             }
             .padding(.top, 30)
@@ -168,6 +176,40 @@ struct CustomDialog: View {
                         .foregroundColor(.mainAccent03)
                 }
                 .frame(width: 115)
+            }
+            .padding(.horizontal, 20)
+        }
+    }
+    // MARK: - 버튼 두개 + navigationLink (왼쪽 버튼 gray01, 오른쪽 버튼 mainAccent03)
+    @ViewBuilder
+    private func buildNavigationDialog(message: String,
+                                      leftButtonLabel: String, leftButtonAction: @escaping () -> Void,
+                                       rightButtonLabel: String, navigationLinkValue: Route) -> some View {
+        Group {
+            // 메세지 텍스트
+            Text(message)
+                .font(.medium16)
+                .multilineTextAlignment(.center)
+                .lineSpacing(10)
+            //
+            CustomDivider()
+            HStack(spacing: 0) {
+                // 왼쪽 버튼
+                Button {
+                    leftButtonAction()
+                } label: {
+                    Text(leftButtonLabel)
+                        .font(.medium16)
+                        .foregroundColor(.gray01)
+                }
+                .frame(width: 115)
+                // 오른쪽 버튼
+                NavigationLink(value: navigationLinkValue) {
+                    Text(rightButtonLabel)
+                        .font(.medium16)
+                        .foregroundColor(.mainAccent03)
+                        .frame(width: 115)
+                }
             }
             .padding(.horizontal, 20)
         }

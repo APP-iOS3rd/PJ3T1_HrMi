@@ -21,117 +21,112 @@ struct PostsView: View {
 	
 	var body: some View {
         NavigationStack(path: $navigationRouter.path) {
-			VStack(spacing: 0) {
-				// 상단 서치바
-                SearchBar(inputText: $postSearchText, isFocused: $isFocused) {
-					Task(priority: .high) {
-                        await postViewModel.getSearchedPosts(from: postSearchText)
-					}
-				}
-				// 서치바 Text가 없을 때, 게시글 검색 결과 비워주기
-				.onChange(of: postSearchText) { _ in
-					if postSearchText == "" {
-                        postViewModel.searchPostsByUserName = []
-                        postViewModel.searchPostsByDrinkTag = []
-                        postViewModel.searchPostsByFoodTag = []
-						}
-					}
-				// MARK: 검색어 입력 중
-				if isFocused == true {
-					VStack {
-						Rectangle()
-							.fill(.background)
-							.frame(maxWidth: .infinity, maxHeight: .infinity)
-						Text("술상을 검색해보세요.")
-							.font(.regular16)
-							.foregroundStyle(.gray01)
-						Rectangle()
-							.fill(.background)
-							.frame(maxWidth: .infinity, maxHeight: .infinity)
-					}
-				// MARK: 검색 중
-				} else if postViewModel.isSearching {
-                    VStack {
-                        Rectangle()
-                            .fill(.background)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
-                        CircularLoaderView(size: 40)
-                        Rectangle()
-                            .fill(.background)
-                            .frame(maxWidth: .infinity, maxHeight: .infinity)
+            ZStack {
+                VStack(spacing: 0) {
+                    // 상단 서치바
+                    SearchBar(inputText: $postSearchText, isFocused: $isFocused) {
+                        Task(priority: .high) {
+                            await postViewModel.getSearchedPosts(from: postSearchText)
+                        }
                     }
-				// MARK: 검색 완료 / 결과 X
-				} else if !postSearchText.isEmpty,
-                          postViewModel.searchPostsByUserName.isEmpty,
-                          postViewModel.searchPostsByDrinkTag.isEmpty,
-                          postViewModel.searchPostsByFoodTag.isEmpty,
-                          isFocused == false {
-					VStack {
-						Rectangle()
-							.fill(.background)
-							.frame(maxWidth: .infinity, maxHeight: .infinity)
-						Text("검색된 술상이 없어요.")
-							.font(.regular16)
-							.foregroundStyle(.gray01)
-						Rectangle()
-							.fill(.background)
-							.frame(maxWidth: .infinity, maxHeight: .infinity)
-					}
-				// MARK: 검색 완료 / 결과 O
-				} else if !postSearchText.isEmpty,
-                          isFocused == false {
-					PostSearchList(searchText: postSearchText)
-				// MARK: 검색 X
-				} else {
-					HStack(alignment: .center) {
-						// 인기, 최신 순으로 선택하여 정렬하기 위한 CustomSegment
-                        CustomTextSegment(segments: PostSortType.list.map { $0.rawValue },
-                                          selectedSegmentIndex: $postViewModel.selectedSegmentIndex)
-						.padding(.bottom, 14)
-						.padding(.top, 20)
-						//
-						Spacer()
-                        NavigationLink(value: Route.AddTag) {
-                            Text("술상 올리기")
-                                .font(.medium16)
-                                .foregroundStyle(.mainBlack)
+                    // 서치바 Text가 없을 때, 게시글 검색 결과 비워주기
+                    .onChange(of: postSearchText) { _ in
+                        if postSearchText == "" {
+                            postViewModel.searchPostsByUserName = []
+                            postViewModel.searchPostsByDrinkTag = []
+                            postViewModel.searchPostsByFoodTag = []
                         }
-						// 비로그인 상태일 때 네비게이션링크 비활성화
-						.opacity(authViewModel.signInStatus ? 1.0 : 0.3)
-						.disabled(!authViewModel.signInStatus)
-                        .task {
-                            recordViewModel.recordPostDataClear()
+                    }
+                    // MARK: 검색어 입력 중
+                    if isFocused == true {
+                        VStack {
+                            Rectangle()
+                                .fill(.background)
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            Text("술상을 검색해보세요.")
+                                .font(.regular16)
+                                .foregroundStyle(.gray01)
+                            Rectangle()
+                                .fill(.background)
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
                         }
-<<<<<<< 864b10c052d8eafda116c2341fc1c7486b1083e8
-					}
-					.padding(.horizontal, 20)
-					// 인기 or 최신 탭뷰
-                    TabView(selection: $postViewModel.selectedSegmentIndex) {
-                        ForEach(0..<PostSortType.list.count, id: \.self) { index in
-							ScrollViewReader { value in
-								Group {
-                                    if PostSortType.list[index] == .popularity {
-										// 인기순
-										PostGrid(usedTo: .post, searchTagType: nil)
-									} else {
-										// 최신순
-										PostGrid(usedTo: .post, searchTagType: nil)
-									}
-								}
-                                .onChange(of: postViewModel.selectedSegmentIndex) { newValue in
-									value.scrollTo(newValue, anchor: .center)
-								}
-							}
-						}
-					}
-					.tabViewStyle(.page(indexDisplayMode: .never))
-				}
-			}
-=======
+                        // MARK: 검색 중
+                    } else if postViewModel.isSearching {
+                        VStack {
+                            Rectangle()
+                                .fill(.background)
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            CircularLoaderView(size: 40)
+                            Rectangle()
+                                .fill(.background)
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        }
+                        // MARK: 검색 완료 / 결과 X
+                    } else if !postSearchText.isEmpty,
+                              postViewModel.searchPostsByUserName.isEmpty,
+                              postViewModel.searchPostsByDrinkTag.isEmpty,
+                              postViewModel.searchPostsByFoodTag.isEmpty,
+                              isFocused == false {
+                        VStack {
+                            Rectangle()
+                                .fill(.background)
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                            Text("검색된 술상이 없어요.")
+                                .font(.regular16)
+                                .foregroundStyle(.gray01)
+                            Rectangle()
+                                .fill(.background)
+                                .frame(maxWidth: .infinity, maxHeight: .infinity)
+                        }
+                        // MARK: 검색 완료 / 결과 O
+                    } else if !postSearchText.isEmpty,
+                              isFocused == false {
+                        PostSearchList(searchText: postSearchText)
+                        // MARK: 검색 X
+                    } else {
+                        HStack(alignment: .center) {
+                            // 인기, 최신 순으로 선택하여 정렬하기 위한 CustomSegment
+                            CustomTextSegment(segments: PostSortType.list.map { $0.rawValue },
+                                              selectedSegmentIndex: $postViewModel.selectedSegmentIndex)
+                            .padding(.bottom, 14)
+                            .padding(.top, 20)
+                            //
+                            Spacer()
+                            NavigationLink(value: Route.AddTag) {
+                                Text("술상 올리기")
+                                    .font(.medium16)
+                                    .foregroundStyle(.mainBlack)
+                            }
+                            // 비로그인 상태일 때 네비게이션링크 비활성화
+                            .opacity(authViewModel.signInStatus ? 1.0 : 0.3)
+                            .disabled(!authViewModel.signInStatus)
+                            .task {
+                                recordViewModel.recordPostDataClear()
+                            }
+                        }
+                        .padding(.horizontal, 20)
+                        // 인기 or 최신 탭뷰
+                        TabView(selection: $postViewModel.selectedSegmentIndex) {
+                            ForEach(0..<PostSortType.list.count, id: \.self) { index in
+                                ScrollViewReader { value in
+                                    Group {
+                                        if PostSortType.list[index] == .popularity {
+                                            // 인기순
+                                            PostGrid(usedTo: .post, searchTagType: nil)
+                                        } else {
+                                            // 최신순
+                                            PostGrid(usedTo: .post, searchTagType: nil)
+                                        }
+                                    }
+                                    .onChange(of: postViewModel.selectedSegmentIndex) { newValue in
+                                        value.scrollTo(newValue, anchor: .center)
+                                    }
+                                }
+                            }
+                        }
                         .tabViewStyle(.page(indexDisplayMode: .never))
                     }
                 }
-                
                 // 로그인 다이얼로그
                 if authViewModel.isShowLoginDialog {
                     CustomDialog(type: .navigation(
@@ -145,7 +140,6 @@ struct PostsView: View {
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
->>>>>>> [Edit] Main, Drink 비로그인 시 로그인 뷰 이동
             .navigationDestination(for: Route.self) { value in
                 switch value {
                 case .ChangeUserName:
@@ -217,12 +211,9 @@ struct PostsView: View {
 			.onAppear {
 				appViewModel.tabBarState = .visible
 			}
-<<<<<<< 864b10c052d8eafda116c2341fc1c7486b1083e8
-=======
             .onDisappear {
                 authViewModel.isShowLoginDialog = false
             }
->>>>>>> [Edit] Main, Drink 비로그인 시 로그인 뷰 이동
 		}
         .environmentObject(navigationRouter)
         .toolbar(appViewModel.tabBarState, for: .tabBar)
