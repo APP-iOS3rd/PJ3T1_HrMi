@@ -168,7 +168,6 @@ struct DrinkInfoView: View {
                 }
             }
             .navigationBarTitleDisplayMode(.inline)
-            .navigationBarBackButtonHidden(authViewModel.isShowLoginDialog)
             .navigationDestination(for: Route.self) { value in
                 switch value {
                 case .ChangeUserName:

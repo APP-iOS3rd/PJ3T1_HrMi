@@ -76,7 +76,7 @@ struct SearchTagView: View {
                     }
                 // 검색 텍스트 O
                 } else {
-                    // MARK: iOS 16.4 이상isShowRatingDialog
+                    // MARK: iOS 16.4 이상
                     if #available(iOS 16.4, *) {
                         ScrollView() {
                             SearchTagListContent(searchResult: searchResult)

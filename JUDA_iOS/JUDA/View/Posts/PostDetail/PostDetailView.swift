@@ -57,7 +57,8 @@ struct PostDetailView: View {
 							await postViewModel.deletePost(userID: post.postField.user.userID,
 														   postID: post.postField.postID ?? "")
                             await postViewModel.fetchFirstPost()
-                            await authViewModel.getCurrentUserPosts(uid: post.postField.user.userID)
+                            // TODO: - currentUser posts refetch
+//                            await authViewModel.getCurrentUserPosts(uid: post.postField.user.userID)
                         }
                         navigationRouter.back()
                     })
