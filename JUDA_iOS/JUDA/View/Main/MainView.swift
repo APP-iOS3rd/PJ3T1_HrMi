@@ -95,7 +95,7 @@ struct MainView: View {
                             // 새로 받아온 기기 토큰 체크 후 업데이트
                             await appViewModel.setUserToken(uid: uid, currentUserToken: user.fcmToken)
                         }
-                    }
+                    }                
                 }
             }
         }

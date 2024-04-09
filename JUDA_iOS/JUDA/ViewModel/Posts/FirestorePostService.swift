@@ -145,7 +145,7 @@ extension FirestorePostService {
 			"postID": postID
 		]
 		
-		functions.httpsCallable("posts_single_post_delete").call(reqData) { _, error in
+		functions.httpsCallable("onPostDelete").call(reqData) { _, error in
 			if let error = error as NSError? {
 				print("error :: deleteRelatedPostDocument", error.localizedDescription)
 			}

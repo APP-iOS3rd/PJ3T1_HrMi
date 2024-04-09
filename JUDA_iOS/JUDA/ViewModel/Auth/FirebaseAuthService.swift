@@ -198,8 +198,9 @@ extension FirebaseAuthService {
 // MARK: - 회원 탈퇴 (Cloud Function)
 extension FirebaseAuthService {
     func deleteUserData(uid: String) {
+		print(uid)
         let reqData = ["userID": uid]
-        functions.httpsCallable("delete_user_data").call(reqData) { _, error in
+        functions.httpsCallable("onUserDelete").call(reqData) { _, error in
             if let error = error as NSError? {
                 print("error :: deleteUserData", error.localizedDescription)
             }

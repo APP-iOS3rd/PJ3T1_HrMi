@@ -569,7 +569,7 @@ extension AuthViewModel {
             guard try getProviderOptionString() == AuthProviderOption.apple.rawValue else { return false }
             let uid = try checkCurrentUserID()
             try await firebaseAuthService.deleteAccountWithApple()
-			firebaseAuthService.deleteUserData(uid: uid)
+			      firebaseAuthService.deleteUserData(uid: uid)
             resetData()
             return true
         } catch {
@@ -621,7 +621,7 @@ extension AuthViewModel {
     private func deleteGoogleAccount() async -> Bool {
         do {
             guard try getProviderOptionString() == AuthProviderOption.google.rawValue else { return false }
-            let uid = try checkCurrentUserID()
+			      let uid = try checkCurrentUserID()
             try await firebaseAuthService.deleteAccountWithGoogle()
             firebaseAuthService.deleteUserData(uid: uid)
             resetData()

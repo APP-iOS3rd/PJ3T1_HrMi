@@ -117,6 +117,9 @@
 		7BBDFF702B6B90EB0036FB8B /* PostGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6D76B62B68972000601B55 /* PostGrid.swift */; };
 		7BBDFF722B6B912C0036FB8B /* TabItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C63DD512B676E1000770E3A /* TabItem.swift */; };
 		7BBDFF732B6B912C0036FB8B /* DrinkInfoSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16EB85B2B63859800E920A3 /* DrinkInfoSegment.swift */; };
+		7BD26B452BADBFEF0036EB91 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7BD26B432BADBFEF0036EB91 /* GoogleService-Info.plist */; };
+		7BD26B462BADBFEF0036EB91 /* APIKEYS.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7BD26B442BADBFEF0036EB91 /* APIKEYS.plist */; };
+		7BD26B482BADC00F0036EB91 /* DrinkLoading.json in Resources */ = {isa = PBXBuildFile; fileRef = 7BD26B472BADC00F0036EB91 /* DrinkLoading.json */; };
 		7BE14B952B84733900C1F6C3 /* Drink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE14B942B84733900C1F6C3 /* Drink.swift */; };
 		7BE14B972B84767000C1F6C3 /* DrinkUploadViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE14B962B84767000C1F6C3 /* DrinkUploadViewModel.swift */; };
 		AC110B572B69658C005390BB /* ChangeUserNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC110B562B69658C005390BB /* ChangeUserNameView.swift */; };
@@ -273,6 +276,9 @@
 		7B92656C2B692F0700840095 /* PostReportContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostReportContent.swift; sourceTree = "<group>"; };
 		7B92656E2B69303F00840095 /* PostReportButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostReportButton.swift; sourceTree = "<group>"; };
 		7B9265702B6941D000840095 /* PostReportToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostReportToolbar.swift; sourceTree = "<group>"; };
+		7BD26B432BADBFEF0036EB91 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../JUDA_file/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		7BD26B442BADBFEF0036EB91 /* APIKEYS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = APIKEYS.plist; path = ../../../../../../JUDA_file/APIKEYS.plist; sourceTree = "<group>"; };
+		7BD26B472BADC00F0036EB91 /* DrinkLoading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = DrinkLoading.json; path = ../../../../../../../../JUDA_file/Lottie/DrinkLoading.json; sourceTree = "<group>"; };
 		7BE14B942B84733900C1F6C3 /* Drink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Drink.swift; sourceTree = "<group>"; };
 		7BE14B962B84767000C1F6C3 /* DrinkUploadViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkUploadViewModel.swift; sourceTree = "<group>"; };
 		AC110B562B69658C005390BB /* ChangeUserNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeUserNameView.swift; sourceTree = "<group>"; };
@@ -423,9 +429,9 @@
 		09BCC1482B7C7E1500FF4D1B /* Lottie */ = {
 			isa = PBXGroup;
 			children = (
+				7BD26B472BADC00F0036EB91 /* DrinkLoading.json */,
 				09BCC14E2B7C7E2900FF4D1B /* Clouds.json */,
 				09BCC1492B7C7E2900FF4D1B /* Loading.json */,
-				09F3BDF82BAC13EB0087E5FC /* DrinkLoading.json */,
 				09BCC14C2B7C7E2900FF4D1B /* Rain.json */,
 				09BCC14D2B7C7E2900FF4D1B /* Snow.json */,
 				09BCC14B2B7C7E2900FF4D1B /* Sun.json */,
@@ -864,10 +870,10 @@
 			buildActionMask = 2147483647;
 			files = (
 				09BCC1512B7C7E2900FF4D1B /* Sun.json in Resources */,
+				7BD26B482BADC00F0036EB91 /* DrinkLoading.json in Resources */,
 				09BCC1502B7C7E2900FF4D1B /* Thunder.json in Resources */,
 				B1B8FE8D2B5EAAAB00921BBE /* Colors.xcassets in Resources */,
 				B121A5732B5F910900667D42 /* Pretendard-Bold.otf in Resources */,
-				09F3BDF92BAC13EB0087E5FC /* DrinkLoading.json in Resources */,
 				09BCC14F2B7C7E2900FF4D1B /* Loading.json in Resources */,
 				B1B8FE842B5EA9DA00921BBE /* Preview Assets.xcassets in Resources */,
 				B121A5782B5F911A00667D42 /* Pretendard-Thin.otf in Resources */,
