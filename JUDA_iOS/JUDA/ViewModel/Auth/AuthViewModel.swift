@@ -49,11 +49,13 @@ final class AuthViewModel: ObservableObject {
     private let drinkCollection = "drinks"
     
     // 현재 유저 있는지 확인, uid 받기
-    private func checkCurrentUserID() throws -> String {
+    private func checkCurrentUserID()  throws -> String {
         guard let uid = Auth.auth().currentUser?.uid else {
             print("error :: currentUser 없음")
             defer {
-                signOut()
+                Task {
+                    await signOut()
+                }
             }
             throw AuthManagerError.noUserID
         }
@@ -154,13 +156,13 @@ final class AuthViewModel: ObservableObject {
             // 프로필 이미지 storage 저장
             let url = await uploadProfileImageToStorage(image: profileImage)
             // 유저 이름, 생일, 성별, 프로필, 알림 동의 등 forestore 에 저장
-            addUserDataToStore(
+            await addUserDataToStore(
                 name: name,
                 age: age,
                 profileImageURL: url,
                 gender: gender,
                 notification: notification
-                )
+            )
             // 유저 데이터 받기
             await getCurrentUser()
         } catch {
@@ -444,7 +446,7 @@ extension AuthViewModel {
 extension AuthViewModel {
     // 유저 정보 저장
     func addUserDataToStore(name: String, age: Int, profileImageURL: URL?,
-                            gender: String, notification: Bool) {
+                            gender: String, notification: Bool) async {
         do {
             let uid = try checkCurrentUserID()
             firebaseAuthService.addUserDataToStore(
@@ -485,7 +487,7 @@ extension AuthViewModel {
 // MARK: - 로그아웃 ( Apple & Google 공통 )
 extension AuthViewModel {
     // 로그아웃
-    func signOut() {
+    func signOut() async {
         do {
             try Auth.auth().signOut()
             resetData()
@@ -528,7 +530,7 @@ extension AuthViewModel {
                 isNewUser = await firebaseAuthService.isNewUser(uid: uid)
                 // 신규 유저
                 if isNewUser {
-                    signOut()
+                    await signOut()
                     self.isNewUser = true
                     print("First ✨ - Apple Sign Up 🍎")
                 } else {
@@ -567,9 +569,9 @@ extension AuthViewModel {
     private func deleteAppleAccount() async -> Bool {
         do {
             guard try getProviderOptionString() == AuthProviderOption.apple.rawValue else { return false }
+            let uid = try checkCurrentUserID()
             try await firebaseAuthService.deleteAccountWithApple()
-			let uid = try checkCurrentUserID()
-			firebaseAuthService.deleteUserData(uid: uid)
+			      firebaseAuthService.deleteUserData(uid: uid)
             resetData()
             return true
         } catch {
@@ -621,8 +623,8 @@ extension AuthViewModel {
     private func deleteGoogleAccount() async -> Bool {
         do {
             guard try getProviderOptionString() == AuthProviderOption.google.rawValue else { return false }
+			      let uid = try checkCurrentUserID()
             try await firebaseAuthService.deleteAccountWithGoogle()
-            let uid = try checkCurrentUserID()
             firebaseAuthService.deleteUserData(uid: uid)
             resetData()
             return true

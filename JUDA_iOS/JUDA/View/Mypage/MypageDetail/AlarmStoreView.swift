@@ -11,25 +11,36 @@ import FirebaseAuth
 // MARK: - 알람 쌓여있는 리스트 화면
 struct AlarmStoreView: View {
     @EnvironmentObject private var navigationRouter: NavigationRouter
+    @EnvironmentObject private var authViewModel: AuthViewModel
 
     var body: some View {
         VStack(spacing: 0) {
-            // 알람 리스트
-            // MARK: iOS 16.4 이상
-            if #available(iOS 16.4, *) {
-                ScrollView() {
-                    AlarmListContent()
-                }
-                .scrollBounceBehavior(.basedOnSize, axes: .vertical)
-            // MARK: iOS 16.4 미만
-            } else {
-                ViewThatFits(in: .vertical) {
-                    AlarmListContent()
-                        .frame(maxHeight: .infinity, alignment: .top)
-                    ScrollView {
+            if let user = authViewModel.currentUser,
+               !user.notifications.isEmpty {
+                // 알람 리스트
+                // MARK: iOS 16.4 이상
+                if #available(iOS 16.4, *) {
+                    ScrollView() {
                         AlarmListContent()
                     }
+                    .scrollBounceBehavior(.basedOnSize, axes: .vertical)
+                    // MARK: iOS 16.4 미만
+                } else {
+                    ViewThatFits(in: .vertical) {
+                        AlarmListContent()
+                            .frame(maxHeight: .infinity, alignment: .top)
+                        ScrollView {
+                            AlarmListContent()
+                        }
+                    }
                 }
+            } else {
+                VStack {
+                    Text("아직 도착한 알람이 없어요!")
+                        .font(.medium16)
+                        .foregroundStyle(.mainBlack)
+                }
+                .frame(maxHeight: .infinity, alignment: .center)
             }
         }
         .navigationBarBackButtonHidden()

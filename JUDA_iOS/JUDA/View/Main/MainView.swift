@@ -100,13 +100,18 @@ struct MainView: View {
                 // 로그인 한 경우 알림권한 받아옴
                 if newValue {
                     appViewModel.setUserNotificationOption()
+                }
+            }
+            .onChange(of: authViewModel.currentUser) { _ in
+                // fcmToken 받아오기
+                if authViewModel.signInStatus {
                     Task {
                         if let user = authViewModel.currentUser?.userField,
                            let uid = user.userID {
                             // 새로 받아온 기기 토큰 체크 후 업데이트
                             await appViewModel.setUserToken(uid: uid, currentUserToken: user.fcmToken)
                         }
-                    }
+                    }                
                 }
             }
         }

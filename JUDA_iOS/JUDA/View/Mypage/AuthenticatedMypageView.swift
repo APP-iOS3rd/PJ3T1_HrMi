@@ -10,7 +10,6 @@ import FirebaseAuth
 
 // MARK: - 마이페이지 탭
 struct AuthenticatedMypageView: View {
-    @EnvironmentObject private var appViewModel: AppViewModel
     @EnvironmentObject private var authViewModel: AuthViewModel
     @EnvironmentObject private var recordViewModel: RecordViewModel
     
@@ -62,31 +61,8 @@ struct AuthenticatedMypageView: View {
                 .frame(maxHeight: .infinity, alignment: .center)
             }
         }
-        .toolbar {
-            ToolbarItem(placement: .topBarLeading) {
-                Text("마이페이지")
-                    .font(.semibold18)
-            }
-            // 알람 모아보는 뷰
-            ToolbarItem(placement: .topBarTrailing) {
-                NavigationLink(value: Route.AlarmStore) {
-                    Image(systemName: "bell")
-                }
-            }
-            // 환경설정 세팅 뷰
-            ToolbarItem(placement: .topBarTrailing) {
-                NavigationLink(value: Route.Setting) {
-                    Image(systemName: "gearshape")
-                }
-            }
+        .task {
+            await authViewModel.startListeningForUserField()
         }
-        .foregroundStyle(.mainBlack)
-        .onAppear {
-            appViewModel.tabBarState = .visible
-            Task {
-                await authViewModel.startListeningForUserField()
-            }
-        }
-        .toolbar(appViewModel.tabBarState, for: .tabBar)
     }
 }

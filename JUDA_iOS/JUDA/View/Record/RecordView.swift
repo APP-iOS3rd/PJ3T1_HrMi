@@ -111,7 +111,7 @@ struct RecordView: View {
                             switch recordType {
                             case .add:
                                 // post images upload, post upload
-                                await recordViewModel.uploadPost(user: authViewModel.currentUser)
+                                await recordViewModel.uploadPost(user: user)
                                 // Post refetch
                                 await postViewModel.fetchFirstPost()
                                 // TODO: User posts ReFetch - cloud Fuction 업데이트 시점에 따라 코드 위치 변경
