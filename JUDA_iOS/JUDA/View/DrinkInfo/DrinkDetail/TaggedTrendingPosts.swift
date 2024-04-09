@@ -25,22 +25,33 @@ struct TaggedTrendingPosts: View {
                 .padding(.horizontal, 20)
             VStack(spacing: 0) {
                 ForEach(posts, id: \.postField.postID) { post in
-                    NavigationLink(value: Route
-                        .PostDetail(postUserType: post.postField.user.userID == authViewModel.currentUser?.userField.userID ? .writer : .reader,
-                                    post: post,
-                                    usedTo: .drinkDetail)) {
-                        if !isLoading {
-                            if let user = authViewModel.currentUser {
-                                PostListCell(post: post,
-                                             isLiked: user.likedPosts.contains(post))
-                            } else {
-                                PostListCell(post: post,
-                                             isLiked: false)
+                    if !isLoading {
+                        if authViewModel.signInStatus {
+                            NavigationLink(value: Route
+                                .PostDetail(postUserType: post.postField.user.userID == authViewModel.currentUser?.userField.userID ? .writer : .reader,
+                                            post: post,
+                                            usedTo: .drinkDetail)) {
+                                if !isLoading {
+                                    if let user = authViewModel.currentUser {
+                                        PostListCell(post: post,
+                                                     isLiked: user.likedPosts.contains(post))
+                                    } else {
+                                        PostListCell(post: post,
+                                                     isLiked: false)
+                                    }
+                                }
                             }
                         } else {
-                            ShimmerPostListCell()
+                            PostListCell(post: post, 
+                                         isLiked: false)
+                                .onTapGesture {
+                                    authViewModel.isShowLoginDialog = true
+                                }
                         }
                     }
+                    else {
+                       ShimmerPostListCell()
+                   }
                 }
             }
         }

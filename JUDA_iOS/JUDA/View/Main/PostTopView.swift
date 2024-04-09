@@ -31,17 +31,25 @@ struct PostTopView: View {
             .padding(20)
 
             ForEach(mainViewModel.posts, id: \.postField.postID) { post in
-                NavigationLink(value: Route
-                    .PostDetail(postUserType: authViewModel.currentUser?.userField.userID == post.postField.user.userID ? .writer : .reader,
-                                post: post,
-                                usedTo: .main)) {
-                    if let user = authViewModel.currentUser {
-                        PostListCell(post: post,
-                                     isLiked: post.likedUsersID.contains(user.userField.userID ?? ""))
-                    } else {
-                        PostListCell(post: post,
-                                     isLiked: false)
+                if authViewModel.signInStatus {
+                    NavigationLink(value: Route
+                        .PostDetail(postUserType: authViewModel.currentUser?.userField.userID == post.postField.user.userID ? .writer : .reader,
+                                    post: post,
+                                    usedTo: .main)) {
+                        if let user = authViewModel.currentUser {
+                            PostListCell(post: post,
+                                         isLiked: post.likedUsersID.contains(user.userField.userID ?? ""))
+                        } else {
+                            PostListCell(post: post,
+                                         isLiked: false)
+                        }
                     }
+                } else {
+                    PostListCell(post: post,
+                                 isLiked: false)
+                        .onTapGesture {
+                            authViewModel.isShowLoginDialog = true
+                        }
                 }
             }
         }

@@ -12,6 +12,7 @@ struct DrinkInfoView: View {
     @StateObject private var navigationRouter = NavigationRouter()
     @EnvironmentObject private var appViewModel: AppViewModel
     @EnvironmentObject private var drinkViewModel: DrinkViewModel
+    @EnvironmentObject private var authViewModel: AuthViewModel
 
 	@State private var isShowingSortSheet: Bool = false
 
@@ -154,7 +155,19 @@ struct DrinkInfoView: View {
                         await drinkViewModel.loadDrinksFirstPage()
                     }
                 }
+                
+                if authViewModel.isShowLoginDialog {
+                    CustomDialog(type: .navigation(
+                        message: "로그인이 필요한 기능이에요.",
+                        leftButtonLabel: "취소",
+                        leftButtonAction: {
+                            authViewModel.isShowLoginDialog = false
+                        },
+                        rightButtonLabel: "로그인",
+                        navigationLinkValue: .Login))
+                }
             }
+            .navigationBarTitleDisplayMode(.inline)
             .navigationDestination(for: Route.self) { value in
                 switch value {
                 case .ChangeUserName:
@@ -213,6 +226,9 @@ struct DrinkInfoView: View {
             }
             .onAppear {
                 appViewModel.tabBarState = .visible
+            }
+            .onDisappear {
+                authViewModel.isShowLoginDialog = false
             }
         }
         .environmentObject(navigationRouter)

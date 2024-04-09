@@ -66,7 +66,10 @@ struct NavigationProfileView: View {
         }
         //
         .task {
-            if userType == .otherUser {
+            switch userType {
+            case .user:
+                await authViewModel.startListeningForUserField()
+            case .otherUser:
                 await userViewModel.getUser(uid: userID)
             }
         }

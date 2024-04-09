@@ -29,6 +29,8 @@ final class RecordViewModel: ObservableObject {
     @Published var postContentIsEmpty: Bool = true
     // post 업로드 완료 확인 및 로딩 뷰 출력용 프로퍼티
     @Published var isPostUploading: Bool = false
+    // CustomRatingDialog 띄워주는 프로퍼티
+    @Published var isShowRatingDialog: Bool = false
     // 화면 너비 받아오기
     var windowWidth: CGFloat {
         TagHandler.getScreenWidthWithoutPadding(padding: 20)

@@ -73,15 +73,19 @@ struct DrinkListCell: View {
                     .foregroundStyle(isLiked ? .mainAccent02 : .gray01)
             } else {
                 Button {
-                    isLiked.toggle()
-                    // 디바운서 콜
-                    debouncer.call {
-                        // drinks/likedUsersID에 userID를 id로 가진 빈 document 추가/삭제
-                        // user/likedDrinks는 클라우드 펑션으로 처리
-                        Task {
-                            await authViewModel.updateLikedDrinks(isLiked: isLiked,
-                                                                  selectedDrink: drink)
+                    if authViewModel.signInStatus {
+                        isLiked.toggle()
+                        // 디바운서 콜
+                        debouncer.call {
+                            // drinks/likedUsersID에 userID를 id로 가진 빈 document 추가/삭제
+                            // user/likedDrinks는 클라우드 펑션으로 처리
+                            Task {
+                                await authViewModel.updateLikedDrinks(isLiked: isLiked,
+                                                                      selectedDrink: drink)
+                            }
                         }
+                    } else {
+                        authViewModel.isShowLoginDialog = true
                     }
                 } label: {
                     Image(systemName: isLiked ? "heart.fill" : "heart")

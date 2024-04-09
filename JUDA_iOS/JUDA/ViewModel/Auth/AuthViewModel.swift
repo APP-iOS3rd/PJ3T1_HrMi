@@ -29,6 +29,8 @@ final class AuthViewModel: ObservableObject {
     // Error
     @Published var showError: Bool = false
     @Published var errorMessage: String = ""
+    // 로그인 다이얼로그
+    @Published var isShowLoginDialog: Bool = false
     // Nonce : 암호와된 임의의 난수
     private var currentNonce: String?
     // Firebase Auth Service

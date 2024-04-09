@@ -48,12 +48,16 @@ struct DrinkDetails: View {
 					Spacer()
 					
 					Button {
-						isLiked.toggle()
-                        debouncer.call {
-                            Task {
-                                await authViewModel.updateLikedDrinks(isLiked: isLiked,
-                                                                      selectedDrink: drink)
+                        if authViewModel.signInStatus {
+                            isLiked.toggle()
+                            debouncer.call {
+                                Task {
+                                    await authViewModel.updateLikedDrinks(isLiked: isLiked,
+                                                                          selectedDrink: drink)
+                                }
                             }
+                        } else {
+                            authViewModel.isShowLoginDialog = true
                         }
 					} label: {
 						Image(systemName: isLiked ? "heart.fill" : "heart")

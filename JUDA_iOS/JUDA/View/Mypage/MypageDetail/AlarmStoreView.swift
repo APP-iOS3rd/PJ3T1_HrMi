@@ -77,9 +77,7 @@ private struct AlarmListContent: View {
                         usedTo: .myPage)) {
                             AlarmStoreListCell(alarm: alarm)
                         }
-                    if alarm != user.notifications.last {
-                        CustomDivider()
-                    }
+                    CustomDivider()
                 }
             }
         }

@@ -11,6 +11,7 @@ import SwiftUI
 struct NavigationPostsView: View {
     @EnvironmentObject private var navigationRouter: NavigationRouter
     @EnvironmentObject private var postViewModel: PostViewModel
+    @EnvironmentObject private var authViewModel: AuthViewModel
 	@State private var selectedSegmentIndex = 0
     
 	let usedTo: WhereUsedPostGridContent
@@ -38,34 +39,47 @@ struct NavigationPostsView: View {
     }
     
     var body: some View {
-        VStack {
-            // 세그먼트 (인기 / 최신)
-            CustomTextSegment(segments: PostSortType.list.map { $0.rawValue },
-                              selectedSegmentIndex: $selectedSegmentIndex)
+        ZStack {
+            VStack {
+                // 세그먼트 (인기 / 최신)
+                CustomTextSegment(segments: PostSortType.list.map { $0.rawValue },
+                                  selectedSegmentIndex: $selectedSegmentIndex)
                 .padding(.vertical, 14)
                 .padding(.horizontal, 20)
                 .frame(maxWidth: .infinity, alignment: .leading)
-            // 인기 or 최신 탭뷰
-            TabView(selection: $selectedSegmentIndex) {
-                ForEach(0..<PostSortType.list.count, id: \.self) { index in
-                    ScrollViewReader { value in
-                        Group {
-                            if PostSortType.list[index] == .popularity {
-                                // 인기순
-								PostGrid(usedTo: usedTo, searchTagType: searchTagType)
-                            } else {
-                                // 최신순
-								PostGrid(usedTo: usedTo, searchTagType: searchTagType)
+                // 인기 or 최신 탭뷰
+                TabView(selection: $selectedSegmentIndex) {
+                    ForEach(0..<PostSortType.list.count, id: \.self) { index in
+                        ScrollViewReader { value in
+                            Group {
+                                if PostSortType.list[index] == .popularity {
+                                    // 인기순
+                                    PostGrid(usedTo: usedTo, searchTagType: searchTagType)
+                                } else {
+                                    // 최신순
+                                    PostGrid(usedTo: usedTo, searchTagType: searchTagType)
+                                }
+                            }
+                            .onChange(of: selectedSegmentIndex) { newValue in
+                                value.scrollTo(newValue, anchor: .center)
                             }
                         }
-                        .onChange(of: selectedSegmentIndex) { newValue in
-                            value.scrollTo(newValue, anchor: .center)
-                        }
                     }
+                    .tabViewStyle(.page(indexDisplayMode: .never))
+                    .ignoresSafeArea()
                 }
             }
-            .tabViewStyle(.page(indexDisplayMode: .never))
-            .ignoresSafeArea()
+            
+            if authViewModel.isShowLoginDialog {
+                CustomDialog(type: .navigation(
+                    message: "로그인이 필요한 기능이에요.",
+                    leftButtonLabel: "취소",
+                    leftButtonAction: {
+                        authViewModel.isShowLoginDialog = false
+                    },
+                    rightButtonLabel: "로그인",
+                    navigationLinkValue: .Login))
+            }
         }
         // 데이터 정렬
         .task {
@@ -105,6 +119,10 @@ struct NavigationPostsView: View {
                 }
             }
         }
+        .onDisappear {
+            authViewModel.isShowLoginDialog = false
+        }
+        .navigationBarTitleDisplayMode(.inline)
         .navigationBarBackButtonHidden()
         .toolbar {
             ToolbarItem(placement: .topBarLeading) {

@@ -26,10 +26,17 @@ final class FirebaseUserService {
     
     
     // firestore 에서 UserField 정보 가져오기
-    func fetchUserFieldData(uid: String) async throws -> UserField {
+    func fetchUserFieldData(uid: String, userType: UserType = .user) async throws -> UserField {
         do {
-            let document = try await db.collection(userCollection).document(uid).getDocument(source: .cache)
+            var document: DocumentSnapshot
+            switch userType {
+            case .user:
+                document = try await db.collection(userCollection).document(uid).getDocument(source: .cache)
+            case .otherUser:
+                document = try await db.collection(userCollection).document(uid).getDocument(source: .server)
+            }
             let userData = try document.data(as: UserField.self)
+            print("fetchUserFieldData from cache")
             return userData
         } catch {
             throw FetchUserError.userField
@@ -69,7 +76,7 @@ final class FirebaseUserService {
             for notificationDocument in userNotificationSnapshot.documents {
                 let notificationFieldData = try notificationDocument.data(as: NotificationField.self)
                 let notificationID = notificationDocument.documentID
-                let notificationPostRef = userNotificationRef.document(notificationID).collection(likedPostCollection)
+                let notificationPostRef = userNotificationRef.document(notificationID).collection("likedPost")
                 // notification 해당되는 post 가져오는 코드 - FirestorePostService
                 let notificationPostList = try await firestorePostService.fetchPostCollection(collection: notificationPostRef)
                 // post는 원래 리스트가 아니라 1개. 하지만, postID 가 필요해서 리스트로 받은 뒤 first 추출

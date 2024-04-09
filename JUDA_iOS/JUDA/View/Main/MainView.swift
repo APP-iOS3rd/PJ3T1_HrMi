@@ -16,17 +16,30 @@ struct MainView: View {
 	
     var body: some View {
         NavigationStack(path: $navigationRouter.path) {
-            ScrollView {
-                VStack(alignment: .leading, spacing: 20) {
-                    // 날씨와 어울리는 술 + 안주
-                    WeatherAndFood()
-                    // 오늘의 술장 Top3
-                    DrinkTopView()
-                    // 오늘의 술상 Top3
-                    PostTopView()
+            ZStack {
+                ScrollView {
+                    VStack(alignment: .leading, spacing: 20) {
+                        // 날씨와 어울리는 술 + 안주
+                        WeatherAndFood()
+                        // 오늘의 술장 Top3
+                        DrinkTopView()
+                        // 오늘의 술상 Top3
+                        PostTopView()
+                    }
+                    .padding(.bottom, 15)
                 }
-                .padding(.bottom, 15)
+                if authViewModel.isShowLoginDialog {
+                    CustomDialog(type: .navigation(
+                        message: "로그인이 필요한 기능이에요.",
+                        leftButtonLabel: "취소",
+                        leftButtonAction: {
+                            authViewModel.isShowLoginDialog = false
+                        },
+                        rightButtonLabel: "로그인",
+                        navigationLinkValue: .Login))
+                }
             }
+            .navigationBarTitleDisplayMode(.inline)
             .navigationDestination(for: Route.self) { value in
                 switch value {
                 case .ChangeUserName:
@@ -79,6 +92,9 @@ struct MainView: View {
             }
             .onAppear {
                 appViewModel.tabBarState = .visible
+            }
+            .onDisappear {
+                authViewModel.isShowLoginDialog = false
             }
             .onChange(of: authViewModel.signInStatus) { newValue in
                 // 로그인 한 경우 알림권한 받아옴

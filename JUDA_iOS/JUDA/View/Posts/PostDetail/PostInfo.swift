@@ -28,7 +28,7 @@ struct PostInfo: View {
             HStack(alignment: .center, spacing: 10) {
                 // 이미지
                 if let url = post.postField.user.userProfileImageURL {
-                    PostCellUserProfileKFImage(url: url)
+                    PostInfoUserProfileKFImage(url: url)
                 } else {
                     Image("defaultprofileimage")
                         .resizable()
@@ -83,10 +83,11 @@ struct PostInfo: View {
         .padding(.horizontal, 20)
         .padding(.vertical, 5)
         .task {
-            if let user = authViewModel.currentUser {
+            if authViewModel.signInStatus,
+               let user = authViewModel.currentUser {
                 self.isLike = user.likedPosts.contains { $0 == post }
-                self.likeCount = post.likedUsersID.count
             }
+            self.likeCount = post.postField.likedCount
         }
     }
 }
@@ -102,6 +103,7 @@ struct PostInfoUserProfileKFImage: View {
             .cacheMemoryOnly() // 메모리 캐시만 사용 (디스크 X)
             .fade(duration: 0.2) // 이미지 부드럽게 띄우기
             .resizable()
+            .aspectRatio(contentMode: .fill)
             .frame(width: 30, height: 30)
             .clipShape(.circle)
     }

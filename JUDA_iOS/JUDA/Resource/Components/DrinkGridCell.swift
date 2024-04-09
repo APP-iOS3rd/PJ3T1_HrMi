@@ -22,13 +22,17 @@ struct DrinkGridCell: View {
         VStack(alignment: .trailing, spacing: 10) {
             // 하트
             Button {
-                isLiked.toggle()
-                // 디바운서 콜
-                debouncer.call {
-                    Task {
-                        await authViewModel.updateLikedDrinks(isLiked: isLiked,
-                                                              selectedDrink: drink)
+                if authViewModel.signInStatus {
+                    isLiked.toggle()
+                    // 디바운서 콜
+                    debouncer.call {
+                        Task {
+                            await authViewModel.updateLikedDrinks(isLiked: isLiked,
+                                                                  selectedDrink: drink)
+                        }
                     }
+                } else {
+                    authViewModel.isShowLoginDialog = true
                 }
             } label: {
                 Image(systemName: isLiked ? "heart.fill" : "heart")

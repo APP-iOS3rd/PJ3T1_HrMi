@@ -76,6 +76,7 @@ struct ChangeUserNameView: View {
             // 닉네임 변경 완료
             Button {
                 Task {
+                    isFocused = false
                     await authViewModel.updateUserName(userName: userChangeNickName)
                     navigationRouter.back()
                 }

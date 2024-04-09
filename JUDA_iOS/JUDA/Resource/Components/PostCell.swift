@@ -75,7 +75,6 @@ struct PostCell: View {
 					// 좋아요를 등록 -> 빨간색이 채워진 하트
 					// 좋아요를 해제 -> 테두리가 회색인 하트
 					Button {
-						// TODO: 로그인 안 되어 있을 때, 로그인 페이지 넘어가기
                         if authViewModel.signInStatus {
                             isLike.toggle()
                             debouncer.call {
@@ -88,6 +87,8 @@ struct PostCell: View {
                                     await authViewModel.updateLikedPosts(isLiked: isLike, selectedPost: post)
                                 }
                             }
+                        } else {
+                            authViewModel.isShowLoginDialog = true
                         }
 					} label: {
 						Image(systemName: isLike ? "heart.fill" : "heart")
@@ -107,8 +108,7 @@ struct PostCell: View {
                let user = authViewModel.currentUser {
                 self.isLike = user.likedPosts.contains { $0 == post }
 			}
-            // TODO: likedCount로 할 것인가 likedUsersID.count로 할 것인가에 대한 논의 및 수정
-            self.likeCount = post.likedUsersID.count
+            self.likeCount = post.postField.likedCount
 		}
 	}
 }
@@ -124,6 +124,7 @@ struct PostCellUserProfileKFImage: View {
             .cacheMemoryOnly() // 메모리 캐시만 사용 (디스크 X)
             .fade(duration: 0.2) // 이미지 부드럽게 띄우기
             .resizable()
+            .aspectRatio(contentMode: .fill)
             .frame(width: 20, height: 20)
             .clipShape(.circle)
     }

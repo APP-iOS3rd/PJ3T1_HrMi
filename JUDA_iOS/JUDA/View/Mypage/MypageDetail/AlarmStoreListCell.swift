@@ -27,7 +27,7 @@ struct AlarmStoreListCell: View {
                 .multilineTextAlignment(.leading)
                 .foregroundStyle(.mainBlack)
                 .overlay(alignment: .topLeading) {
-                    NavigationLink(value: Route.NavigationProfile(userID: alarm.userNotificationID ?? "",
+                    NavigationLink(value: Route.NavigationProfile(userID: alarm.notificationField.likedUser.userID,
                                                                   usedTo: .myPage)) {
                         Text(alarm.notificationField.likedUser.userName)
                             .font(.medium14)
@@ -54,7 +54,7 @@ struct AlarmStoreListCell: View {
                     .cacheMemoryOnly() // 메모리 캐시만 사용 (디스크 X)
                     .fade(duration: 0.2) // 이미지 부드럽게 띄우기
                     .resizable()
-                    .aspectRatio(1.0, contentMode: .fill)
+                    .aspectRatio(contentMode: .fill)
                     .frame(maxWidth: 60, maxHeight: 60)
                     .clipShape(.rect(cornerRadius: 5))
             } else {
