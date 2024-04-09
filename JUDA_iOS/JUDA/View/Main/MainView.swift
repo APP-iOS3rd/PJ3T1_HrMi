@@ -84,6 +84,11 @@ struct MainView: View {
                 // 로그인 한 경우 알림권한 받아옴
                 if newValue {
                     appViewModel.setUserNotificationOption()
+                }
+            }
+            .onChange(of: authViewModel.currentUser) { _ in
+                // fcmToken 받아오기
+                if authViewModel.signInStatus {
                     Task {
                         if let user = authViewModel.currentUser?.userField,
                            let uid = user.userID {

@@ -182,7 +182,7 @@ struct DrinkInfoView: View {
                                         searchTagType: searchTagType,
                                         postSearchText: postSearchText)
                 case .NavigationProfile(let userID,
-                                      let usedTo):
+                                        let usedTo):
                     NavigationProfileView(userID: userID,
                                           usedTo: usedTo)
                 case .Record(let recordType):

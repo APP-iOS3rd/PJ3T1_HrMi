@@ -8,6 +8,7 @@
 import Foundation
 import FirebaseFirestore
 
+// MARK: - User
 // Firebase users 컬렉션 데이터 모델
 struct User {
     var userField: UserField
@@ -29,6 +30,13 @@ struct UserField: Codable {
     var authProviders: String // AuthProviderOption - rawValue
 }
 
+extension User: Equatable {
+    static func == (lhs: User, rhs: User) -> Bool {
+        lhs.userField.userID == rhs.userField.userID
+    }
+}
+
+// MARK: - UserNotification
 struct UserNotification: Equatable {
     @DocumentID var userNotificationID: String?
     var notificationField: NotificationField

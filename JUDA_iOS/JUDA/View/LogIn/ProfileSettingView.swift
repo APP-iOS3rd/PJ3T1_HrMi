@@ -60,7 +60,7 @@ struct ProfileSettingView: View {
                 ScrollView {
                     // 프로필 사진 선택
                     ZStack(alignment: .bottomTrailing) {
-                        // TODO: - 프로필 사진
+                        // 프로필 사진
                         if let image = userProfileImage {
                             Image(uiImage: image)
                                 .resizable()
@@ -192,8 +192,8 @@ struct ProfileSettingView: View {
                                 notification: notificationAllowed
                             )
                         authViewModel.isLoading = false
+                        navigationRouter.clear()
                     }
-                    navigationRouter.back()
                 } label: {
                     Text("완료")
                         .font(.medium20)

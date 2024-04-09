@@ -9,8 +9,6 @@ import SwiftUI
 
 // MARK: - 로그인 X 일 경우 보여지는 MypageView
 struct UnauthenticatedMypageView: View {
-    @EnvironmentObject private var appViewModel: AppViewModel
-
     var body: some View {
         VStack {
             HStack(spacing: 20) {
@@ -43,22 +41,6 @@ struct UnauthenticatedMypageView: View {
                 .foregroundStyle(.gray01)
                 .multilineTextAlignment(.center)
             Spacer()
-        }
-        .toolbar {
-            ToolbarItem(placement: .topBarLeading) {
-                Text("마이페이지")
-                    .font(.semibold18)
-            }
-            // 환경설정 세팅 뷰
-            ToolbarItem(placement: .topBarTrailing) {
-                NavigationLink(value: Route.Setting) {
-                    Image(systemName: "gearshape")
-                }
-            }
-        }
-        .foregroundStyle(.mainBlack)
-        .onAppear {
-            appViewModel.tabBarState = .visible
         }
     }
 }
