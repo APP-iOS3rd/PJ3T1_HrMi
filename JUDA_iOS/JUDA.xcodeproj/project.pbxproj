@@ -20,6 +20,8 @@
 		093357CB2B954A8A00A9ACAB /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 093357CA2B954A8A00A9ACAB /* GoogleSignInSwift */; };
 		093357CF2B95505E00A9ACAB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093357CE2B95505B00A9ACAB /* AppDelegate.swift */; };
 		094D07F82BA7C2F200904E73 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094D07F72BA7C2F200904E73 /* Constants.swift */; };
+		09506F4C2BAC929A000557BE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 09506F4A2BAC929A000557BE /* GoogleService-Info.plist */; };
+		09506F4D2BAC929A000557BE /* APIKEYS.plist in Resources */ = {isa = PBXBuildFile; fileRef = 09506F4B2BAC929A000557BE /* APIKEYS.plist */; };
 		095D708D2B98200B00F76C11 /* FirebaseUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095D708C2B98200B00F76C11 /* FirebaseUserService.swift */; };
 		095D70912B99BD1400F76C11 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095D70902B99BD1400F76C11 /* UserViewModel.swift */; };
 		095D70932B99EAA500F76C11 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095D70922B99EAA500F76C11 /* MainViewModel.swift */; };
@@ -62,8 +64,6 @@
 		09BCC15F2B7CFC7E00FF4D1B /* TermsAndVerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BCC15E2B7CFC7E00FF4D1B /* TermsAndVerificationView.swift */; };
 		09C7C9AF2B8DB57E00F62617 /* NavigationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C7C9AE2B8DB57E00F62617 /* NavigationRouter.swift */; };
 		09F3BD9C2BA9EAE90087E5FC /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 09F3BD9B2BA9EAE90087E5FC /* Lottie */; };
-		09F3BDF62BAC13E30087E5FC /* APIKEYS.plist in Resources */ = {isa = PBXBuildFile; fileRef = 09F3BDF42BAC13E30087E5FC /* APIKEYS.plist */; };
-		09F3BDF72BAC13E30087E5FC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 09F3BDF52BAC13E30087E5FC /* GoogleService-Info.plist */; };
 		09F3BDF92BAC13EB0087E5FC /* DrinkLoading.json in Resources */ = {isa = PBXBuildFile; fileRef = 09F3BDF82BAC13EB0087E5FC /* DrinkLoading.json */; };
 		09F869932B68E36800A56A4C /* Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F869922B68E36800A56A4C /* Formatter.swift */; };
 		09F869962B68E46500A56A4C /* DrinkDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F869952B68E46500A56A4C /* DrinkDetailView.swift */; };
@@ -90,9 +90,6 @@
 		2C63DD672B67EB1B00770E3A /* RecordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C63DD662B67EB1B00770E3A /* RecordView.swift */; };
 		2C69CDAC2B9DF61600F70F80 /* RecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C69CDAB2B9DF61600F70F80 /* RecordViewModel.swift */; };
 		2C7FD5522B848EEF00169512 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7FD5512B848EEF00169512 /* Post.swift */; };
-		2C8E1BFA2BA80A77009B0714 /* DrinkLoading.json in Resources */ = {isa = PBXBuildFile; fileRef = 2C8E1BF92BA80A77009B0714 /* DrinkLoading.json */; };
-		2C8E1C002BA80B47009B0714 /* APIKEYS.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2C8E1BFF2BA80B47009B0714 /* APIKEYS.plist */; };
-		2C8E1C022BA80B6B009B0714 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2C8E1C012BA80B6B009B0714 /* GoogleService-Info.plist */; };
 		2CACB53C2B99BAC500DD6DCE /* FireStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CACB53B2B99BAC500DD6DCE /* FireStorageService.swift */; };
 		7B0A8BC52B8C163E00740E61 /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0A8BC42B8C163E00740E61 /* Report.swift */; };
 		7B0A8BCD2B8CA7E900740E61 /* PostSearchList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0A8BCC2B8CA7E900740E61 /* PostSearchList.swift */; };
@@ -184,6 +181,8 @@
 		093357B92B8E120200A9ACAB /* ErrorPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorPageView.swift; sourceTree = "<group>"; };
 		093357CE2B95505B00A9ACAB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		094D07F72BA7C2F200904E73 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
+		09506F4A2BAC929A000557BE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../흐르미/GoogleService-Info.plist"; sourceTree = "<group>"; };
+		09506F4B2BAC929A000557BE /* APIKEYS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = APIKEYS.plist; path = "../../../흐르미/APIKEYS.plist"; sourceTree = "<group>"; };
 		095D708C2B98200B00F76C11 /* FirebaseUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseUserService.swift; sourceTree = "<group>"; };
 		095D70902B99BD1400F76C11 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		095D70922B99EAA500F76C11 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
@@ -225,8 +224,6 @@
 		09BCC1592B7C8CD300FF4D1B /* IdentityVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityVerificationView.swift; sourceTree = "<group>"; };
 		09BCC15E2B7CFC7E00FF4D1B /* TermsAndVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsAndVerificationView.swift; sourceTree = "<group>"; };
 		09C7C9AE2B8DB57E00F62617 /* NavigationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationRouter.swift; sourceTree = "<group>"; };
-		09F3BDF42BAC13E30087E5FC /* APIKEYS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = APIKEYS.plist; path = "../../../흐르미/APIKEYS.plist"; sourceTree = "<group>"; };
-		09F3BDF52BAC13E30087E5FC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../흐르미/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		09F3BDF82BAC13EB0087E5FC /* DrinkLoading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = DrinkLoading.json; path = "../../../../../흐르미/Lottie/DrinkLoading.json"; sourceTree = "<group>"; };
 		09F869922B68E36800A56A4C /* Formatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatter.swift; sourceTree = "<group>"; };
 		09F869952B68E46500A56A4C /* DrinkDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkDetailView.swift; sourceTree = "<group>"; };
@@ -254,9 +251,6 @@
 		2C63DD662B67EB1B00770E3A /* RecordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordView.swift; sourceTree = "<group>"; };
 		2C69CDAB2B9DF61600F70F80 /* RecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewModel.swift; sourceTree = "<group>"; };
 		2C7FD5512B848EEF00169512 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
-		2C8E1BF92BA80A77009B0714 /* DrinkLoading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = DrinkLoading.json; path = "../../../../../HrMi-JUDA/Lottie/DrinkLoading.json"; sourceTree = "<group>"; };
-		2C8E1BFF2BA80B47009B0714 /* APIKEYS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = APIKEYS.plist; sourceTree = "<group>"; };
-		2C8E1C012BA80B6B009B0714 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2CACB53B2B99BAC500DD6DCE /* FireStorageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FireStorageService.swift; sourceTree = "<group>"; };
 		7B0A8BC42B8C163E00740E61 /* Report.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Report.swift; sourceTree = "<group>"; };
 		7B0A8BCC2B8CA7E900740E61 /* PostSearchList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSearchList.swift; sourceTree = "<group>"; };
@@ -429,7 +423,6 @@
 		09BCC1482B7C7E1500FF4D1B /* Lottie */ = {
 			isa = PBXGroup;
 			children = (
-				2C8E1BF92BA80A77009B0714 /* DrinkLoading.json */,
 				09BCC14E2B7C7E2900FF4D1B /* Clouds.json */,
 				09BCC1492B7C7E2900FF4D1B /* Loading.json */,
 				09F3BDF82BAC13EB0087E5FC /* DrinkLoading.json */,
@@ -571,9 +564,9 @@
 				B121A5652B5F8D2000667D42 /* Resource */,
 				B1B8FE802B5EA9DA00921BBE /* Assets.xcassets */,
 				B1B8FE8C2B5EAAAB00921BBE /* Colors.xcassets */,
-				2C8E1BFF2BA80B47009B0714 /* APIKEYS.plist */,
-				2C8E1C012BA80B6B009B0714 /* GoogleService-Info.plist */,
 				B121A56F2B5F8DA100667D42 /* Info.plist */,
+				09506F4B2BAC929A000557BE /* APIKEYS.plist */,
+				09506F4A2BAC929A000557BE /* GoogleService-Info.plist */,
 				B1B8FE822B5EA9DA00921BBE /* Preview Content */,
 			);
 			path = JUDA;
@@ -871,7 +864,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				09BCC1512B7C7E2900FF4D1B /* Sun.json in Resources */,
-				2C8E1BFA2BA80A77009B0714 /* DrinkLoading.json in Resources */,
 				09BCC1502B7C7E2900FF4D1B /* Thunder.json in Resources */,
 				B1B8FE8D2B5EAAAB00921BBE /* Colors.xcassets in Resources */,
 				B121A5732B5F910900667D42 /* Pretendard-Bold.otf in Resources */,
@@ -883,10 +875,12 @@
 				09BCC1532B7C7E2900FF4D1B /* Snow.json in Resources */,
 				09BCC1542B7C7E2900FF4D1B /* Clouds.json in Resources */,
 				B121A5742B5F910B00667D42 /* Pretendard-Light.otf in Resources */,
+				09506F4C2BAC929A000557BE /* GoogleService-Info.plist in Resources */,
 				09BCC1522B7C7E2900FF4D1B /* Rain.json in Resources */,
 				B121A5762B5F911700667D42 /* Pretendard-Regular.otf in Resources */,
 				B1B8FE812B5EA9DA00921BBE /* Assets.xcassets in Resources */,
 				B121A5752B5F911500667D42 /* Pretendard-Medium.otf in Resources */,
+				09506F4D2BAC929A000557BE /* APIKEYS.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1159,12 +1153,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = JUDA/JUDA.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"JUDA/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = CT6J74BCFP;
+				DEVELOPMENT_TEAM = CT6J74BCFP;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = JUDA/Info.plist;
@@ -1188,7 +1180,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.hrmi.juda;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = dev_JUDA;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -1202,12 +1193,10 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = JUDA/JUDA.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
-				CODE_SIGN_STYLE = Manual;
+				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"JUDA/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
-				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = CT6J74BCFP;
+				DEVELOPMENT_TEAM = CT6J74BCFP;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = JUDA/Info.plist;
@@ -1231,7 +1220,6 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.hrmi.juda;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
-				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = dev_JUDA;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

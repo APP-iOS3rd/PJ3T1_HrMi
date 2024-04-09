@@ -161,13 +161,15 @@ struct SettingView: View {
                     },
                     rightButtonLabel: "로그아웃",
                     rightButtonAction: {
-                        // 로그아웃 - AppStorage 에서 변경
-                        authViewModel.signOut()
-                        //
-                        isLogoutClicked.toggle()
-                        navigationRouter.back()
-                        // MainView 로 보내기
-                        appViewModel.selectedTabIndex = 0
+                        Task {
+                            // 로그아웃 - AppStorage 에서 변경
+                            await authViewModel.signOut()
+                            //
+                            isLogoutClicked.toggle()
+                            navigationRouter.back()
+                            // MainView 로 보내기
+                            appViewModel.selectedTabIndex = 0
+                        }
                     })
                 )
             }

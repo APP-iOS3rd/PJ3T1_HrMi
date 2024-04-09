@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
    LastUpgradeVersion = "1530"
-   version = "1.7">
+   version = "1.8">
    <BuildAction
       parallelizeBuildables = "YES"
       buildImplicitDependencies = "YES"
@@ -42,8 +42,7 @@
       allowLocationSimulation = "YES">
       <PathRunnable
          runnableDebuggingMode = "0"
-         BundleIdentifier = "com.hrmi.juda"
-         FilePath = "/Users/chung-inseon/Library/Developer/Xcode/DerivedData/JUDA-alivsugfiknafgevihdwjnmwgsbv/Build/Products/Debug-iphoneos/JUDA.app">
+         FilePath = "/Users/phang/Library/Developer/Xcode/DerivedData/JUDA-cosstivdqydphqdalurmudoqzqie/Build/Products/Debug-iphoneos/JUDA.app">
       </PathRunnable>
       <MacroExpansion>
          <BuildableReference

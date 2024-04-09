@@ -10,6 +10,7 @@ import SwiftUI
 // MARK: - My Page View
 struct MyPageView: View {
     @StateObject private var navigationRouter = NavigationRouter()
+    @EnvironmentObject private var appViewModel: AppViewModel
     @EnvironmentObject private var authViewModel: AuthViewModel
 
     var body: some View {
@@ -21,6 +22,28 @@ struct MyPageView: View {
                     UnauthenticatedMypageView()
                 }
             }
+            .navigationBarBackButtonHidden()
+            .toolbar {
+                ToolbarItem(placement: .topBarLeading) {
+                    Text("마이페이지")
+                        .font(.semibold18)
+                }
+                if authViewModel.signInStatus {
+                    // 알람 모아보는 뷰
+                    ToolbarItem(placement: .topBarTrailing) {
+                        NavigationLink(value: Route.AlarmStore) {
+                            Image(systemName: "bell")
+                        }
+                    }
+                }
+                // 환경설정 세팅 뷰
+                ToolbarItem(placement: .topBarTrailing) {
+                    NavigationLink(value: Route.Setting) {
+                        Image(systemName: "gearshape")
+                    }
+                }
+            }
+            .foregroundStyle(.mainBlack)
             .navigationDestination(for: Route.self) { value in
                 switch value {
                 case .ChangeUserName:
@@ -64,8 +87,11 @@ struct MyPageView: View {
                         .modifier(TabBarHidden())
                 }
             }
+            .onAppear {
+                appViewModel.tabBarState = .visible
+            }
         }
+        .toolbar(appViewModel.tabBarState, for: .tabBar)
         .environmentObject(navigationRouter)
     }
 }
-
