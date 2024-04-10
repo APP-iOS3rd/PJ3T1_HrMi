@@ -22,6 +22,7 @@ struct MyPageView: View {
                     UnauthenticatedMypageView()
                 }
             }
+            .navigationBarTitleDisplayMode(.inline)
             .navigationBarBackButtonHidden()
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
