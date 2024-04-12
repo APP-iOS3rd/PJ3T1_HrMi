@@ -26,15 +26,14 @@ struct PostsView: View {
                     // 상단 서치바
                     SearchBar(inputText: $postSearchText, isFocused: $isFocused) {
                         Task(priority: .high) {
+							postViewModel.clearSearchedPosts()
                             await postViewModel.getSearchedPosts(from: postSearchText)
                         }
                     }
                     // 서치바 Text가 없을 때, 게시글 검색 결과 비워주기
                     .onChange(of: postSearchText) { _ in
                         if postSearchText == "" {
-                            postViewModel.searchPostsByUserName = []
-                            postViewModel.searchPostsByDrinkTag = []
-                            postViewModel.searchPostsByFoodTag = []
+							postViewModel.clearSearchedPosts()
                         }
                     }
                     // MARK: 검색어 입력 중

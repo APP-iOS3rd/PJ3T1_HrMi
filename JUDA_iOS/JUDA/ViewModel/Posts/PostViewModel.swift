@@ -293,6 +293,13 @@ extension PostViewModel {
             searchPostsByFoodTag = result
         }
     }
+	
+	// '검색된 게시글' 배열 요소 전체 삭제
+	func clearSearchedPosts() {
+		searchPostsByUserName = []
+		searchPostsByDrinkTag = []
+		searchPostsByFoodTag = []
+	}
 }
 
 // MARK: - Report Upload
