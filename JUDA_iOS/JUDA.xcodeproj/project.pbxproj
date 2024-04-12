@@ -20,8 +20,6 @@
 		093357CB2B954A8A00A9ACAB /* GoogleSignInSwift in Frameworks */ = {isa = PBXBuildFile; productRef = 093357CA2B954A8A00A9ACAB /* GoogleSignInSwift */; };
 		093357CF2B95505E00A9ACAB /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 093357CE2B95505B00A9ACAB /* AppDelegate.swift */; };
 		094D07F82BA7C2F200904E73 /* Constants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 094D07F72BA7C2F200904E73 /* Constants.swift */; };
-		09506F4C2BAC929A000557BE /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 09506F4A2BAC929A000557BE /* GoogleService-Info.plist */; };
-		09506F4D2BAC929A000557BE /* APIKEYS.plist in Resources */ = {isa = PBXBuildFile; fileRef = 09506F4B2BAC929A000557BE /* APIKEYS.plist */; };
 		095D708D2B98200B00F76C11 /* FirebaseUserService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095D708C2B98200B00F76C11 /* FirebaseUserService.swift */; };
 		095D70912B99BD1400F76C11 /* UserViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095D70902B99BD1400F76C11 /* UserViewModel.swift */; };
 		095D70932B99EAA500F76C11 /* MainViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 095D70922B99EAA500F76C11 /* MainViewModel.swift */; };
@@ -64,7 +62,6 @@
 		09BCC15F2B7CFC7E00FF4D1B /* TermsAndVerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BCC15E2B7CFC7E00FF4D1B /* TermsAndVerificationView.swift */; };
 		09C7C9AF2B8DB57E00F62617 /* NavigationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C7C9AE2B8DB57E00F62617 /* NavigationRouter.swift */; };
 		09F3BD9C2BA9EAE90087E5FC /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 09F3BD9B2BA9EAE90087E5FC /* Lottie */; };
-		09F3BDF92BAC13EB0087E5FC /* DrinkLoading.json in Resources */ = {isa = PBXBuildFile; fileRef = 09F3BDF82BAC13EB0087E5FC /* DrinkLoading.json */; };
 		09F869932B68E36800A56A4C /* Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F869922B68E36800A56A4C /* Formatter.swift */; };
 		09F869962B68E46500A56A4C /* DrinkDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F869952B68E46500A56A4C /* DrinkDetailView.swift */; };
 		09F869982B68E48400A56A4C /* DrinkDetails.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F869972B68E48400A56A4C /* DrinkDetails.swift */; };
@@ -78,8 +75,6 @@
 		09F869BB2B6A4A9C00A56A4C /* LikedDrinkList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F869BA2B6A4A9C00A56A4C /* LikedDrinkList.swift */; };
 		09F869BD2B6A4AAE00A56A4C /* LikedPostGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F869BC2B6A4AAE00A56A4C /* LikedPostGrid.swift */; };
 		2C2044E82B63B9D600773266 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2044E72B63B9D600773266 /* ContentView.swift */; };
-		2C22D7B32BAC94980082CE0F /* APIKEYS.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2C22D7B22BAC94980082CE0F /* APIKEYS.plist */; };
-		2C22D7B72BAC94C90082CE0F /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2C22D7B62BAC94C90082CE0F /* GoogleService-Info.plist */; };
 		2C2AD4FD2B68891C00C681F4 /* SearchTagView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2AD4FC2B68891C00C681F4 /* SearchTagView.swift */; };
 		2C2AD5012B689CA500C681F4 /* SelectedPhotoHorizontalScroll.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2AD5002B689CA500C681F4 /* SelectedPhotoHorizontalScroll.swift */; };
 		2C2AD5032B68A15E00C681F4 /* FoodTagAddTextField.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C2AD5022B68A15E00C681F4 /* FoodTagAddTextField.swift */; };
@@ -98,6 +93,8 @@
 		7B0A8BCF2B8CA8C300740E61 /* PostSearchListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0A8BCE2B8CA8C300740E61 /* PostSearchListCell.swift */; };
 		7B5174922B69EAB300915793 /* NavigationPostsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5174912B69EAB300915793 /* NavigationPostsView.swift */; };
 		7B56AE172BA66C8200C47F3C /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = 7B56AE162BA66C8200C47F3C /* FirebaseFunctions */; };
+		7B648FC52BC52969009010DC /* APIKEYS.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7B648FC32BC52969009010DC /* APIKEYS.plist */; };
+		7B648FC62BC52969009010DC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7B648FC42BC52969009010DC /* GoogleService-Info.plist */; };
 		7B6D76A72B677A8F00601B55 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6D76A62B677A8F00601B55 /* Button.swift */; };
 		7B6D76AB2B67CE3D00601B55 /* PostDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6D76AA2B67CE3D00601B55 /* PostDetailView.swift */; };
 		7B6D76AF2B67CFC900601B55 /* PostInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6D76AE2B67CFC900601B55 /* PostInfo.swift */; };
@@ -119,8 +116,6 @@
 		7BBDFF702B6B90EB0036FB8B /* PostGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6D76B62B68972000601B55 /* PostGrid.swift */; };
 		7BBDFF722B6B912C0036FB8B /* TabItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C63DD512B676E1000770E3A /* TabItem.swift */; };
 		7BBDFF732B6B912C0036FB8B /* DrinkInfoSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16EB85B2B63859800E920A3 /* DrinkInfoSegment.swift */; };
-		7BD26B452BADBFEF0036EB91 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7BD26B432BADBFEF0036EB91 /* GoogleService-Info.plist */; };
-		7BD26B462BADBFEF0036EB91 /* APIKEYS.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7BD26B442BADBFEF0036EB91 /* APIKEYS.plist */; };
 		7BD26B482BADC00F0036EB91 /* DrinkLoading.json in Resources */ = {isa = PBXBuildFile; fileRef = 7BD26B472BADC00F0036EB91 /* DrinkLoading.json */; };
 		7BE14B952B84733900C1F6C3 /* Drink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE14B942B84733900C1F6C3 /* Drink.swift */; };
 		7BE14B972B84767000C1F6C3 /* DrinkUploadViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE14B962B84767000C1F6C3 /* DrinkUploadViewModel.swift */; };
@@ -186,8 +181,6 @@
 		093357B92B8E120200A9ACAB /* ErrorPageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ErrorPageView.swift; sourceTree = "<group>"; };
 		093357CE2B95505B00A9ACAB /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		094D07F72BA7C2F200904E73 /* Constants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Constants.swift; sourceTree = "<group>"; };
-		09506F4A2BAC929A000557BE /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../흐르미/GoogleService-Info.plist"; sourceTree = "<group>"; };
-		09506F4B2BAC929A000557BE /* APIKEYS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = APIKEYS.plist; path = "../../../흐르미/APIKEYS.plist"; sourceTree = "<group>"; };
 		095D708C2B98200B00F76C11 /* FirebaseUserService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FirebaseUserService.swift; sourceTree = "<group>"; };
 		095D70902B99BD1400F76C11 /* UserViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserViewModel.swift; sourceTree = "<group>"; };
 		095D70922B99EAA500F76C11 /* MainViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainViewModel.swift; sourceTree = "<group>"; };
@@ -229,7 +222,6 @@
 		09BCC1592B7C8CD300FF4D1B /* IdentityVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityVerificationView.swift; sourceTree = "<group>"; };
 		09BCC15E2B7CFC7E00FF4D1B /* TermsAndVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsAndVerificationView.swift; sourceTree = "<group>"; };
 		09C7C9AE2B8DB57E00F62617 /* NavigationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationRouter.swift; sourceTree = "<group>"; };
-		09F3BDF82BAC13EB0087E5FC /* DrinkLoading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = DrinkLoading.json; path = "../../../../../흐르미/Lottie/DrinkLoading.json"; sourceTree = "<group>"; };
 		09F869922B68E36800A56A4C /* Formatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatter.swift; sourceTree = "<group>"; };
 		09F869952B68E46500A56A4C /* DrinkDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkDetailView.swift; sourceTree = "<group>"; };
 		09F869972B68E48400A56A4C /* DrinkDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkDetails.swift; sourceTree = "<group>"; };
@@ -243,8 +235,6 @@
 		09F869BA2B6A4A9C00A56A4C /* LikedDrinkList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikedDrinkList.swift; sourceTree = "<group>"; };
 		09F869BC2B6A4AAE00A56A4C /* LikedPostGrid.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LikedPostGrid.swift; sourceTree = "<group>"; };
 		2C2044E72B63B9D600773266 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		2C22D7B22BAC94980082CE0F /* APIKEYS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = APIKEYS.plist; path = "../../../HrMi-JUDA/APIKEY & plist.plist/APIKEYS.plist"; sourceTree = "<group>"; };
-		2C22D7B62BAC94C90082CE0F /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../HrMi-JUDA/APIKEY & plist.plist/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2C2AD4FC2B68891C00C681F4 /* SearchTagView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTagView.swift; sourceTree = "<group>"; };
 		2C2AD5002B689CA500C681F4 /* SelectedPhotoHorizontalScroll.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectedPhotoHorizontalScroll.swift; sourceTree = "<group>"; };
 		2C2AD5022B68A15E00C681F4 /* FoodTagAddTextField.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FoodTagAddTextField.swift; sourceTree = "<group>"; };
@@ -263,6 +253,8 @@
 		7B0A8BCC2B8CA7E900740E61 /* PostSearchList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSearchList.swift; sourceTree = "<group>"; };
 		7B0A8BCE2B8CA8C300740E61 /* PostSearchListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSearchListCell.swift; sourceTree = "<group>"; };
 		7B5174912B69EAB300915793 /* NavigationPostsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationPostsView.swift; sourceTree = "<group>"; };
+		7B648FC32BC52969009010DC /* APIKEYS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = APIKEYS.plist; path = ../../../../../../JUDA_file/APIKEYS.plist; sourceTree = "<group>"; };
+		7B648FC42BC52969009010DC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../JUDA_file/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7B6D76A62B677A8F00601B55 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		7B6D76AA2B67CE3D00601B55 /* PostDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailView.swift; sourceTree = "<group>"; };
 		7B6D76AE2B67CFC900601B55 /* PostInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostInfo.swift; sourceTree = "<group>"; };
@@ -280,8 +272,6 @@
 		7B92656C2B692F0700840095 /* PostReportContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostReportContent.swift; sourceTree = "<group>"; };
 		7B92656E2B69303F00840095 /* PostReportButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostReportButton.swift; sourceTree = "<group>"; };
 		7B9265702B6941D000840095 /* PostReportToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostReportToolbar.swift; sourceTree = "<group>"; };
-		7BD26B432BADBFEF0036EB91 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../JUDA_file/GoogleService-Info.plist"; sourceTree = "<group>"; };
-		7BD26B442BADBFEF0036EB91 /* APIKEYS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = APIKEYS.plist; path = ../../../../../../JUDA_file/APIKEYS.plist; sourceTree = "<group>"; };
 		7BD26B472BADC00F0036EB91 /* DrinkLoading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = DrinkLoading.json; path = ../../../../../../../../JUDA_file/Lottie/DrinkLoading.json; sourceTree = "<group>"; };
 		7BE14B942B84733900C1F6C3 /* Drink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Drink.swift; sourceTree = "<group>"; };
 		7BE14B962B84767000C1F6C3 /* DrinkUploadViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkUploadViewModel.swift; sourceTree = "<group>"; };
@@ -498,6 +488,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		7B648FC22BC528F7009010DC /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		B121A5652B5F8D2000667D42 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
@@ -559,6 +556,7 @@
 			children = (
 				B1B8FE7B2B5EA9D900921BBE /* JUDA */,
 				7B56AE152BA66C8200C47F3C /* Frameworks */,
+				7B648FC22BC528F7009010DC /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -575,8 +573,8 @@
 				B1B8FE802B5EA9DA00921BBE /* Assets.xcassets */,
 				B1B8FE8C2B5EAAAB00921BBE /* Colors.xcassets */,
 				B121A56F2B5F8DA100667D42 /* Info.plist */,
-				2C22D7B22BAC94980082CE0F /* APIKEYS.plist */,
-				2C22D7B62BAC94C90082CE0F /* GoogleService-Info.plist */,
+				7B648FC32BC52969009010DC /* APIKEYS.plist */,
+				7B648FC42BC52969009010DC /* GoogleService-Info.plist */,
 				B1B8FE822B5EA9DA00921BBE /* Preview Content */,
 			);
 			path = JUDA;
@@ -883,15 +881,14 @@
 				B121A5782B5F911A00667D42 /* Pretendard-Thin.otf in Resources */,
 				B121A5772B5F911900667D42 /* Pretendard-SemiBold.otf in Resources */,
 				09BCC1532B7C7E2900FF4D1B /* Snow.json in Resources */,
-				2C22D7B72BAC94C90082CE0F /* GoogleService-Info.plist in Resources */,
 				09BCC1542B7C7E2900FF4D1B /* Clouds.json in Resources */,
 				B121A5742B5F910B00667D42 /* Pretendard-Light.otf in Resources */,
-				09506F4C2BAC929A000557BE /* GoogleService-Info.plist in Resources */,
+				7B648FC52BC52969009010DC /* APIKEYS.plist in Resources */,
 				09BCC1522B7C7E2900FF4D1B /* Rain.json in Resources */,
 				B121A5762B5F911700667D42 /* Pretendard-Regular.otf in Resources */,
 				B1B8FE812B5EA9DA00921BBE /* Assets.xcassets in Resources */,
 				B121A5752B5F911500667D42 /* Pretendard-Medium.otf in Resources */,
-				2C22D7B32BAC94980082CE0F /* APIKEYS.plist in Resources */,
+				7B648FC62BC52969009010DC /* GoogleService-Info.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1164,10 +1161,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = JUDA/JUDA.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"JUDA/Preview Content\"";
-				DEVELOPMENT_TEAM = CT6J74BCFP;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = CT6J74BCFP;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = JUDA/Info.plist;
@@ -1191,6 +1190,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.hrmi.juda;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = dev_JUDA;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
