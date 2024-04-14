@@ -65,9 +65,9 @@ struct NavigationPostsView: View {
                             }
                         }
                     }
-                    .tabViewStyle(.page(indexDisplayMode: .never))
                     .ignoresSafeArea()
                 }
+				.tabViewStyle(.page(indexDisplayMode: .never))
             }
             
             if authViewModel.isShowLoginDialog {

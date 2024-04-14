@@ -14,6 +14,7 @@ final class PostViewModel: ObservableObject {
 	// 파이어베이스 연결
     private let db = Firestore.firestore()
 	private let postCollection = "posts"
+	private var listener: ListenerRegistration?
 	private let firestorePostService = FirestorePostService()
     private let firestoreDrinkService = FirestoreDrinkService()
 	private let firestoreReportService = FirestoreReportService()
@@ -187,7 +188,7 @@ extension PostViewModel {
                 let postFieldData = try postDocument.data(as: PostField.self)
                 let postID = postDocument.documentID
                 let documentRef = collectionRef.document(postID)
-                //
+                
                 await withTaskGroup(of: Void.self) { group in
                     group.addTask {
                         await self.updateSearchResults(for: .userName, postField: postFieldData,
@@ -299,6 +300,40 @@ extension PostViewModel {
 		searchPostsByUserName = []
 		searchPostsByDrinkTag = []
 		searchPostsByFoodTag = []
+	}
+}
+
+// MARK: - real time database with firestore
+extension PostViewModel {
+	func startListening() async {
+		listener = db.collection(postCollection).addSnapshotListener { querySnapshot, error in
+			guard let snapshot = querySnapshot, error == nil else {
+				print("Error fetching snapshots: \(error!)")
+				return
+			}
+			
+			snapshot.documentChanges.forEach { diff in
+				do {
+					if diff.type == .added {
+						let post = try diff.document.data(as: PostField.self)
+						self.posts.append(Post(postField: post, likedUsersID: []))
+					}
+					
+					if diff.type == .modified {
+						
+					}
+					
+					if diff.type == .removed {
+						let post = try diff.document.data(as: PostField.self)
+						if let index = self.posts.firstIndex(where: { $0.postField.postID == post.postID }) {
+							self.posts.remove(at: index)
+						}
+					}
+				} catch {
+					print(error.localizedDescription)
+				}
+			}
+		}
 	}
 }
 
