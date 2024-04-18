@@ -314,18 +314,21 @@ extension PostViewModel {
 			
 			snapshot.documentChanges.forEach { diff in
 				do {
-					if diff.type == .added {
-						let post = try diff.document.data(as: PostField.self)
-						self.posts.append(Post(postField: post, likedUsersID: []))
-					}
+//					if diff.type == .added {
+//						let postField = try diff.document.data(as: PostField.self)
+//						self.posts.append(Post(postField: postField, likedUsersID: []))
+//					}
 					
 					if diff.type == .modified {
-						
+						let postField = try diff.document.data(as: PostField.self)
+						if let index = self.posts.firstIndex(where: { $0.postField.postID == postField.postID }) {
+							self.posts[index].postField = postField
+						}
 					}
 					
 					if diff.type == .removed {
-						let post = try diff.document.data(as: PostField.self)
-						if let index = self.posts.firstIndex(where: { $0.postField.postID == post.postID }) {
+						let postField = try diff.document.data(as: PostField.self)
+						if let index = self.posts.firstIndex(where: { $0.postField.postID == postField.postID }) {
 							self.posts.remove(at: index)
 						}
 					}
@@ -334,6 +337,10 @@ extension PostViewModel {
 				}
 			}
 		}
+	}
+	
+	func stopListening() {
+		listener?.remove()
 	}
 }
 

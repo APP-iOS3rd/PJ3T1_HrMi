@@ -179,7 +179,6 @@ struct PostsView: View {
                 case .DrinkDetailWithUsedTo(let drink, let usedTo):
                     DrinkDetailView(drink: drink, usedTo: usedTo)
                         .modifier(TabBarHidden())
-                //
                 case .PostDetail(let postUserType,
                                  let post,
                                  let usedTo):
