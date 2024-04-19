@@ -91,16 +91,10 @@ extension DrinkViewModel {
             sortType: DrinkSortType(rawValue: selectedSortedTypeString),
             query: getReference(category: DrinkType.list[selectedDrinkTypeIndex]))
             .limit(to: paginationCount)
+        self.drinks.removeAll() // 기존 술 배열 비우기
         do {
             let drinksSnapshot = try await collectionRef.getDocuments()
-            self.drinks.removeAll() // 기존 술 배열 비우기
-            for drinkDocument in drinksSnapshot.documents {
-                let drinkID = drinkDocument.documentID
-                let documentRef = db.collection(drinkCollection).document(drinkID)
-                let drinkData = try await firestoreDrinkService.fetchDrinkDocument(document: documentRef)
-                self.drinks.append(drinkData)
-            }
-            self.lastSnapshot = drinksSnapshot.documents.last
+            await fetchDrinks(querySnapshot: drinksSnapshot)
         } catch {
             print("error :: loadDrinksFirstPage", error.localizedDescription)
         }
@@ -120,15 +114,24 @@ extension DrinkViewModel {
             .limit(to: paginationCount)
         do {
             let drinksSnapshot = try await collectionRef.getDocuments()
-            for drinkDocument in drinksSnapshot.documents {
+            await fetchDrinks(querySnapshot: drinksSnapshot)
+        } catch {
+            print("error :: loadDrinksNextPage", error.localizedDescription)
+        }
+    }
+    
+    // 데이터 가져오기
+    func fetchDrinks(querySnapshot: QuerySnapshot) async {
+        do {
+            for drinkDocument in querySnapshot.documents {
                 let drinkID = drinkDocument.documentID
                 let documentRef = db.collection(drinkCollection).document(drinkID)
                 let drinkData = try await firestoreDrinkService.fetchDrinkDocument(document: documentRef)
+                self.lastSnapshot = querySnapshot.documents.last
                 self.drinks.append(drinkData)
             }
-            self.lastSnapshot = drinksSnapshot.documents.last
         } catch {
-            print("error :: loadDrinksNextPage", error.localizedDescription)
+            print("error :: fetchDrinks", error.localizedDescription)
         }
     }
 }

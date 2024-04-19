@@ -46,11 +46,11 @@ struct DrinkGridContent: View {
                     NavigationLink(value: Route
                         .DrinkDetail(drink: drink)) {
 							DrinkGridCell(drink: drink)
-                    }
-                    .task {
-                        if drink.drinkField.drinkID == drinkViewModel.drinks.last?.drinkField.drinkID {
-                            await drinkViewModel.loadDrinksNextPage()
-                        }
+                                .task {
+                                    if drink == drinkViewModel.drinks.last {
+                                        await drinkViewModel.loadDrinksNextPage()
+                                    }
+                                }
                     }
                     .buttonStyle(EmptyActionStyle())
                 }
