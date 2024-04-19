@@ -234,6 +234,84 @@ extension PostViewModel {
             print("error :: updateSearchResults", error.localizedDescription)
         }
     }
+	
+	func getSearchedPosts2(from keyword: String) async -> (name: [Post], drinkTag: [Post], foodTag: [Post]) {
+		self.isSearching = true
+		
+		var searchPostsByUserName = [Post]()
+		var searchPostsByDrinkTag = [Post]()
+		var searchPostsByFoodTag = [Post]()
+		
+		do {
+			let collectionRef = db.collection(postCollection)
+			let postSnapshot = try await collectionRef.getDocuments()
+			for postDocument in postSnapshot.documents {
+				let postFieldData = try postDocument.data(as: PostField.self)
+				let postID = postDocument.documentID
+				let documentRef = collectionRef.document(postID)
+				
+				await withTaskGroup(of: (Post?, SearchTagType).self) { group in
+					group.addTask {
+						let post = await self.updateSearchResults2(for: .userName, postField: postFieldData,
+																   keyword: keyword, documentRef: documentRef)
+						return (post, .userName)
+					}
+					group.addTask {
+						let post = await self.updateSearchResults2(for: .drinkTag, postField: postFieldData,
+																   keyword: keyword, documentRef: documentRef)
+						return (post, .drinkTag)
+					}
+					group.addTask {
+						let post = await self.updateSearchResults2(for: .foodTag, postField: postFieldData,
+																   keyword: keyword, documentRef: documentRef)
+						return (post, .foodTag)
+					}
+					
+					for await task in group {
+						if let post = task.0 {
+							switch task.1 {
+							case .userName:
+								searchPostsByUserName.append(post)
+							case .drinkTag:
+								searchPostsByDrinkTag.append(post)
+							case .foodTag:
+								searchPostsByFoodTag.append(post)
+							}
+						}
+					}
+				}
+			}
+		} catch {
+			print("error :: getSearchedPosts", error.localizedDescription)
+		}
+		self.isSearching = false
+		return (searchPostsByUserName, searchPostsByDrinkTag, searchPostsByFoodTag)
+	}
+	
+	private func updateSearchResults2(for category: SearchTagType, postField: PostField, keyword: String, documentRef: DocumentReference) async -> Post? {
+		do {
+			switch category {
+			case .userName:
+				let postData = try await firestorePostService.fetchPostDocument(document: documentRef)
+				if isKeywordInUserName(postField: postData.postField, keyword: keyword) {
+					return postData
+				}
+			case .drinkTag:
+				let postData = try await firestorePostService.fetchPostDocument(document: documentRef)
+				if isKeywordInDrinkTags(postField: postData.postField, keyword: keyword) {
+					return postData
+				}
+			case .foodTag:
+				let postData = try await firestorePostService.fetchPostDocument(document: documentRef)
+				if isKeywordInFoodTags(postField: postData.postField, keyword: keyword) {
+					return postData
+				}
+			}
+		} catch {
+			print("error :: updateSearchResults", error.localizedDescription)
+		}
+		return nil
+	}
     
     // 키워드가 post 를 작성한 유저의 이름에 포함되는지
     private func isKeywordInUserName(postField: PostField, keyword: String) -> Bool {
