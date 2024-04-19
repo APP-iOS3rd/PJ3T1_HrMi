@@ -42,7 +42,8 @@
       allowLocationSimulation = "YES">
       <PathRunnable
          runnableDebuggingMode = "0"
-         FilePath = "/Users/phang/Library/Developer/Xcode/DerivedData/JUDA-cosstivdqydphqdalurmudoqzqie/Build/Products/Debug-iphoneos/JUDA.app">
+         BundleIdentifier = "com.hrmi.juda"
+         FilePath = "/Users/phang/Library/Developer/Xcode/DerivedData/JUDA-cosstivdqydphqdalurmudoqzqie/Build/Products/Debug-iphonesimulator/JUDA.app">
       </PathRunnable>
       <MacroExpansion>
          <BuildableReference

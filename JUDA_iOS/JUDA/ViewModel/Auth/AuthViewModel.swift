@@ -49,7 +49,7 @@ final class AuthViewModel: ObservableObject {
     private let drinkCollection = "drinks"
     
     // 현재 유저 있는지 확인, uid 받기
-    private func checkCurrentUserID()  throws -> String {
+    private func checkCurrentUserID() throws -> String {
         guard let uid = Auth.auth().currentUser?.uid else {
             print("error :: currentUser 없음")
             defer {
@@ -89,9 +89,9 @@ final class AuthViewModel: ObservableObject {
     func startListeningForUserField() async {
         do {
             let uid = try checkCurrentUserID()
-            firebaseAuthService.startListeningForUser(uid: uid) { user in
-                if let user = user {
-                    self.currentUser?.userField = user
+            firebaseAuthService.startListeningForUser(uid: uid) { userFieldData in
+                if let userFieldData = userFieldData {
+                    self.currentUser?.userField = userFieldData
                 }
             }
         } catch {
@@ -151,7 +151,6 @@ final class AuthViewModel: ObservableObject {
                 let appleIDCredential = try await signWithApple()
                 isLoading = true
                 await signInApple(appleIDCredential: appleIDCredential)
-                signInStatus = true
             }
             // 프로필 이미지 storage 저장
             let url = await uploadProfileImageToStorage(image: profileImage)
@@ -165,6 +164,7 @@ final class AuthViewModel: ObservableObject {
             )
             // 유저 데이터 받기
             await getCurrentUser()
+            signInStatus = true
         } catch {
             errorMessage = "회원가입에 문제가 발생했어요.\n다시 시도해주세요."
             showError = true

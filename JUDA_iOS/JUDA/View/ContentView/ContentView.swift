@@ -71,11 +71,7 @@ struct ContentView: View {
         case .posts:
             PostsView()
         case .liked:
-            if authViewModel.signInStatus {
-                LikedView()
-            } else {
-                EmptyView()
-            }
+            LikedView()
         case .myPage:
             MyPageView()
         }

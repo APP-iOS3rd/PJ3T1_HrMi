@@ -168,19 +168,18 @@ struct PostsView: View {
                                         postSearchText: postSearchText)
                     .modifier(TabBarHidden())
                 case .NavigationProfile(let userID,
-                                      let usedTo):
+                                        let usedTo):
                     NavigationProfileView(userID: userID,
                                           usedTo: usedTo)
                 case .Record(let recordType):
                     RecordView(recordType: recordType)
-                //
                 case .DrinkDetail(let drink):
                     DrinkDetailView(drink: drink)
                         .modifier(TabBarHidden())
                 case .DrinkDetailWithUsedTo(let drink, let usedTo):
-                    DrinkDetailView(drink: drink, usedTo: usedTo)
+                    DrinkDetailView(drink: drink,
+                                    usedTo: usedTo)
                         .modifier(TabBarHidden())
-                //
                 case .PostDetail(let postUserType,
                                  let post,
                                  let usedTo):

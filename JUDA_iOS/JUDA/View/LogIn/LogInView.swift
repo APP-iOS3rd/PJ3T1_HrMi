@@ -77,43 +77,44 @@ struct LogInView: View {
                     .font(.thin12)
                     .multilineTextAlignment(.center)
             }
-            // 로그인 도중에 생기는 로딩
-            .loadingView($authViewModel.isLoading)
-            .navigationBarBackButtonHidden()
-            .toolbar {
-                ToolbarItem(placement: .topBarLeading) {
-                    Button {
-                        navigationRouter.back()
-                    } label: {
-                        Image(systemName: "chevron.backward")
-                    }
-                    .foregroundStyle(.mainBlack)
-                }
-            }
-            // 로그인 완료 시, 화면 이동
-            .onChange(of: authViewModel.signInStatus) { newValue in
-                authViewModel.isLoading = false
-                if newValue == true {
-                    // 기존 유저의 경우, 뒤로 가기 ( 메인 뷰로 이동 )
-                    navigationRouter.back()
-                }
-            }
-            // 신규 유저의 경우, 이용약관 뷰 이동
-            .onChange(of: authViewModel.isNewUser) { _ in
-                authViewModel.isLoading = false
-                if authViewModel.isNewUser == true {
-                    nextView = true
-                }
-            }
-            .fullScreenCover(isPresented: $nextView) {
-                TermsAndVerificationView()
-            }
             if authViewModel.showError {
                 CustomDialog(type: .oneButton(
                     message: authViewModel.errorMessage,
                     buttonLabel: "확인",
-                    action: { authViewModel.showError = false }))
+                    action: { authViewModel.showError = false })
+                )
             }
+        }
+        // 로그인 도중에 생기는 로딩
+        .loadingView($authViewModel.isLoading)
+        .navigationBarBackButtonHidden()
+        .toolbar {
+            ToolbarItem(placement: .topBarLeading) {
+                Button {
+                    navigationRouter.back()
+                } label: {
+                    Image(systemName: "chevron.backward")
+                }
+                .foregroundStyle(.mainBlack)
+            }
+        }
+        // 로그인 완료 시, 화면 이동
+        .onChange(of: authViewModel.signInStatus) { newValue in
+            authViewModel.isLoading = false
+            if newValue == true {
+                // 기존 유저의 경우, 뒤로 가기 ( 로그인 이전 뷰로 이동 )
+                navigationRouter.back()
+            }
+        }
+        // 신규 유저의 경우, 이용약관 뷰 이동
+        .onChange(of: authViewModel.isNewUser) { _ in
+            authViewModel.isLoading = false
+            if authViewModel.isNewUser == true {
+                nextView = true
+            }
+        }
+        .fullScreenCover(isPresented: $nextView) {
+            TermsAndVerificationView()
         }
     }
 }
