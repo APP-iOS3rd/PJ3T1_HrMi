@@ -24,7 +24,9 @@ struct NavigationPostsView: View {
 	var selectedFoodTag: String?
     // post 검색 시 받아올 정보
     var postSearchText: String?
-    
+    // post 검색 혹은 음식태그로 post 검색
+	var searchPosts: [Post]?
+	
     var titleText: String {
         switch usedTo {
         case .postSearch:
