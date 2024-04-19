@@ -161,10 +161,12 @@ struct PostsView: View {
                                         selectedFoodTag: selectedFoodTag)
                 case .NavigationPostsTo(let usedTo,
                                         let searchTagType,
-                                        let postSearchText):
+                                        let postSearchText,
+										let searchPosts):
                     NavigationPostsView(usedTo: usedTo,
                                         searchTagType: searchTagType,
-                                        postSearchText: postSearchText)
+										postSearchText: postSearchText,
+										searchPosts: searchPosts)
                     .modifier(TabBarHidden())
                 case .NavigationProfile(let userID,
                                       let usedTo):
