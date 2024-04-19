@@ -198,7 +198,8 @@ struct PostsView: View {
 			}
 			.task {
 				if postViewModel.posts.isEmpty {
-                    await postViewModel.fetchFirstPost()
+                    await postViewModel.fetchFirstPost() // 첫 술상 페이지 진입 시 Post 패치
+					await postViewModel.startListening() // Post 실시간 Listener 구독 시작
 				}
 			}
             .onChange(of: postViewModel.selectedSegmentIndex) { _ in

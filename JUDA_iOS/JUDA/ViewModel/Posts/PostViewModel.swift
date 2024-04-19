@@ -314,18 +314,19 @@ extension PostViewModel {
 			
 			snapshot.documentChanges.forEach { diff in
 				do {
-//					if diff.type == .added {
-//						let postField = try diff.document.data(as: PostField.self)
-//						self.posts.append(Post(postField: postField, likedUsersID: []))
-//					}
-					
+					// 게시글이 추가된 경우, 술상 정렬타입이 인기순이라면 배열의 0번째에 추가
+					if diff.type == .added, self.selectedSegmentIndex == 1 {
+						let postField = try diff.document.data(as: PostField.self)
+						self.posts.insert(Post(postField: postField, likedUsersID: []), at: 0)
+					}
+					// 게시글이 수정된 경우, 해당 게시글이 배열에 존재하면 해당 인덱스에 수정사항 반영
 					if diff.type == .modified {
 						let postField = try diff.document.data(as: PostField.self)
 						if let index = self.posts.firstIndex(where: { $0.postField.postID == postField.postID }) {
 							self.posts[index].postField = postField
 						}
 					}
-					
+					// 게시글이 삭제된 경우, 해당 게시글이 배열에 존재하면 배열에서 삭제
 					if diff.type == .removed {
 						let postField = try diff.document.data(as: PostField.self)
 						if let index = self.posts.firstIndex(where: { $0.postField.postID == postField.postID }) {
