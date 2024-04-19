@@ -16,7 +16,8 @@ struct PostSearchList: View {
             NavigationLink(value: Route
                 .NavigationPostsTo(usedTo: .postSearch,
                                    searchTagType: .userName,
-                                   postSearchText: searchText)) {
+								   postSearchText: searchText, 
+								   searchPosts: postViewModel.searchPostsByUserName)) {
                 PostSearchListCell(searchTagType: .userName,
                                    searchText: searchText,
                                    postCount: postViewModel.searchPostsByUserName.count)
@@ -27,7 +28,8 @@ struct PostSearchList: View {
             NavigationLink(value: Route
                 .NavigationPostsTo(usedTo: .postSearch,
                                    searchTagType: .drinkTag,
-                                   postSearchText: searchText)) {
+								   postSearchText: searchText, 
+								   searchPosts: postViewModel.searchPostsByDrinkTag)) {
                 PostSearchListCell(searchTagType: .drinkTag,
                                    searchText: searchText,
                                    postCount: postViewModel.searchPostsByDrinkTag.count)
@@ -38,7 +40,8 @@ struct PostSearchList: View {
             NavigationLink(value: Route
                 .NavigationPostsTo(usedTo: .postSearch,
                                    searchTagType: .foodTag,
-                                   postSearchText: searchText)) {
+								   postSearchText: searchText, 
+								   searchPosts: postViewModel.searchPostsByFoodTag)) {
                 PostSearchListCell(searchTagType: .foodTag,
                                    searchText: searchText,
                                    postCount: postViewModel.searchPostsByFoodTag.count)
