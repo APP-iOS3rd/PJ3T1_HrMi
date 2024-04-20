@@ -11,15 +11,18 @@ import FirebaseFirestore
 // MARK: - Post View Model ( 술상 )
 @MainActor
 final class PostViewModel: ObservableObject {
-	// 파이어베이스 연결
-    private let db = Firestore.firestore()
+    private let db = Firestore.firestore() // 파이어베이스 연결
 	private let postCollection = "posts"
-	private var listener: ListenerRegistration?
 	private let firestorePostService = FirestorePostService()
     private let firestoreDrinkService = FirestoreDrinkService()
 	private let firestoreReportService = FirestoreReportService()
-    // Fire Storage Service
     private let fireStorageService = FireStorageService()
+	
+	private var listener: ListenerRegistration?
+	
+	private(set) var searchPostsByUserNameCount = 0
+	private(set) var searchPostsByDrinkTagCount = 0
+	private(set) var searchPostsByFoodTagCount = 0
 	
 	// 게시글 객체 배열
 	@Published var posts = [Post]()
@@ -235,12 +238,11 @@ extension PostViewModel {
         }
     }
 	
-	func getSearchedPosts2(from keyword: String) async -> (name: [Post], drinkTag: [Post], foodTag: [Post]) {
+	func getSearchedPostsCount(from keyword: String) async {
 		self.isSearching = true
-		
-		var searchPostsByUserName = [Post]()
-		var searchPostsByDrinkTag = [Post]()
-		var searchPostsByFoodTag = [Post]()
+		self.searchPostsByUserNameCount = 0
+		self.searchPostsByDrinkTagCount = 0
+		self.searchPostsByFoodTagCount = 0
 		
 		do {
 			let collectionRef = db.collection(postCollection)
@@ -250,42 +252,75 @@ extension PostViewModel {
 				let postID = postDocument.documentID
 				let documentRef = collectionRef.document(postID)
 				
-				await withTaskGroup(of: (Post?, SearchTagType).self) { group in
+				await withTaskGroup(of: Void.self) { group in
 					group.addTask {
-						let post = await self.updateSearchResults2(for: .userName, postField: postFieldData,
-																   keyword: keyword, documentRef: documentRef)
-						return (post, .userName)
+						await self.countBySearchType(for: .userName, postField: postFieldData,
+													   keyword: keyword, documentRef: documentRef)
 					}
 					group.addTask {
-						let post = await self.updateSearchResults2(for: .drinkTag, postField: postFieldData,
-																   keyword: keyword, documentRef: documentRef)
-						return (post, .drinkTag)
+						await self.countBySearchType(for: .drinkTag, postField: postFieldData,
+													   keyword: keyword, documentRef: documentRef)
 					}
 					group.addTask {
-						let post = await self.updateSearchResults2(for: .foodTag, postField: postFieldData,
-																   keyword: keyword, documentRef: documentRef)
-						return (post, .foodTag)
-					}
-					
-					for await task in group {
-						if let post = task.0 {
-							switch task.1 {
-							case .userName:
-								searchPostsByUserName.append(post)
-							case .drinkTag:
-								searchPostsByDrinkTag.append(post)
-							case .foodTag:
-								searchPostsByFoodTag.append(post)
-							}
-						}
+						await self.countBySearchType(for: .foodTag, postField: postFieldData,
+													   keyword: keyword, documentRef: documentRef)
 					}
 				}
 			}
 		} catch {
+			print("error :: getSearchedPostsCount", error.localizedDescription)
+		}
+		self.isSearching = false
+	}
+	
+	private func countBySearchType(for category: SearchTagType, postField: PostField, keyword: String, documentRef: DocumentReference) async {
+		do {
+			switch category {
+			case .userName:
+				let postData = try await firestorePostService.fetchPostDocument(document: documentRef)
+				if isKeywordInUserName(postField: postData.postField, keyword: keyword) {
+					self.searchPostsByUserNameCount += 1
+				}
+			case .drinkTag:
+				let postData = try await firestorePostService.fetchPostDocument(document: documentRef)
+				if isKeywordInDrinkTags(postField: postData.postField, keyword: keyword) {
+					self.searchPostsByDrinkTagCount += 1
+				}
+			case .foodTag:
+				let postData = try await firestorePostService.fetchPostDocument(document: documentRef)
+				if isKeywordInFoodTags(postField: postData.postField, keyword: keyword) {
+					self.searchPostsByFoodTagCount += 1
+				}
+			}
+		} catch {
+			print("error :: updateSearchResults", error.localizedDescription)
+		}
+	}
+	
+	func getSearchedPosts2(from keyword: String, category: SearchTagType) async -> [Post] {
+		self.isSearching = true
+		
+		var searchPosts = [Post]()
+		
+		do {
+			let collectionRef = db.collection(postCollection)
+			let postSnapshot = try await collectionRef.getDocuments()
+			for postDocument in postSnapshot.documents {
+				let postFieldData = try postDocument.data(as: PostField.self)
+				let postID = postDocument.documentID
+				let documentRef = collectionRef.document(postID)
+				
+				if let post = await self.updateSearchResults2(for: category, postField: postFieldData,
+															  keyword: keyword, documentRef: documentRef) {
+					searchPosts.append(post)
+				}
+			}
+//			return searchPosts
+		} catch {
 			print("error :: getSearchedPosts", error.localizedDescription)
 		}
 		self.isSearching = false
-		return (searchPostsByUserName, searchPostsByDrinkTag, searchPostsByFoodTag)
+		return searchPosts
 	}
 	
 	private func updateSearchResults2(for category: SearchTagType, postField: PostField, keyword: String, documentRef: DocumentReference) async -> Post? {
@@ -340,8 +375,8 @@ extension PostViewModel {
     func sortedPosts(_ postData: [Post], postSortType: PostSortType) async -> [Post] {
         var result = [Post]()
         if postSortType == .popularity {
-            result = postData.sorted { 
-                $0.likedUsersID.count > $1.likedUsersID.count
+            result = postData.sorted {
+				$0.postField.likedCount > $1.postField.likedCount
             } // 인기순
         } else {
             result = postData.sorted { 
