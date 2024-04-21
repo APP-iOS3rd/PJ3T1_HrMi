@@ -11,27 +11,24 @@ import FirebaseFirestore
 // MARK: - Post View Model ( 술상 )
 @MainActor
 final class PostViewModel: ObservableObject {
-    private let db = Firestore.firestore() // 파이어베이스 연결
+	// 파이어베이스 연결
+    private let db = Firestore.firestore()
 	private let postCollection = "posts"
 	private let firestorePostService = FirestorePostService()
     private let firestoreDrinkService = FirestoreDrinkService()
 	private let firestoreReportService = FirestoreReportService()
     private let fireStorageService = FireStorageService()
 	
+	// 파이어스토어 실시간 데이터 리스너
 	private var listener: ListenerRegistration?
 	
+	// 키워드 검색에 대한 카운트
 	private(set) var searchPostsByUserNameCount = 0
 	private(set) var searchPostsByDrinkTagCount = 0
 	private(set) var searchPostsByFoodTagCount = 0
 	
 	// 게시글 객체 배열
 	@Published var posts = [Post]()
-    // 이름으로 검색된 게시글 객체 배열
-    @Published var searchPostsByUserName = [Post]()
-    // 술 태그로 검색된 게시글 객체 배열
-    @Published var searchPostsByDrinkTag = [Post]()
-    // 음식 태그로 검색된 게시글 객체 배열
-    @Published var searchPostsByFoodTag = [Post]()
     // DrinkDetail 에서 이동했을 때, '태그된 게시글' 객체 정렬해서 사용할 배열
     @Published var drinkTaggedPosts = [Post]()
     // 게시글 정렬 방식 선택
@@ -40,7 +37,7 @@ final class PostViewModel: ObservableObject {
 	@Published var lastQuerydocumentSnapshot: QueryDocumentSnapshot?
 	// 게시글 불러오기 또는 삭제 작업이 진행중인지 나타내는 상태 프로퍼티
     @Published var isLoading = false
-    // 검색 중
+    // 검색 중인지 나타내는 상태 프로퍼티
 	@Published var isSearching = false
 }
 
@@ -181,63 +178,6 @@ extension PostViewModel {
 
 // MARK: - Search
 extension PostViewModel {
-    // 게시글 검색해서 데이터 받아오기
-    func getSearchedPosts(from keyword: String) async {
-        self.isSearching = true
-        do {
-            let collectionRef = db.collection(postCollection)
-            let postSnapshot = try await collectionRef.getDocuments()
-            for postDocument in postSnapshot.documents {
-                let postFieldData = try postDocument.data(as: PostField.self)
-                let postID = postDocument.documentID
-                let documentRef = collectionRef.document(postID)
-                
-                await withTaskGroup(of: Void.self) { group in
-                    group.addTask {
-                        await self.updateSearchResults(for: .userName, postField: postFieldData,
-                                                       keyword: keyword, documentRef: documentRef)
-                    }
-                    group.addTask {
-                        await self.updateSearchResults(for: .drinkTag, postField: postFieldData,
-                                                       keyword: keyword, documentRef: documentRef)
-                    }
-                    group.addTask {
-                        await self.updateSearchResults(for: .foodTag, postField: postFieldData,
-                                                       keyword: keyword, documentRef: documentRef)
-                    }
-                }
-            }
-        } catch {
-            print("error :: getSearchedPosts", error.localizedDescription)
-        }
-        self.isSearching = false
-    }
-    
-    // searchPostsBy... 배열에 값을 채워주는 메서드
-    private func updateSearchResults(for category: SearchTagType, postField: PostField, keyword: String, documentRef: DocumentReference) async {
-        do {
-            switch category {
-            case .userName:
-                if isKeywordInUserName(postField: postField, keyword: keyword) {
-                    let postData = try await firestorePostService.fetchPostDocument(document: documentRef)
-                    self.searchPostsByUserName.append(postData)
-                }
-            case .drinkTag:
-                if isKeywordInDrinkTags(postField: postField, keyword: keyword) {
-                    let postData = try await firestorePostService.fetchPostDocument(document: documentRef)
-                    self.searchPostsByDrinkTag.append(postData)
-                }
-            case .foodTag:
-                if isKeywordInFoodTags(postField: postField, keyword: keyword) {
-                    let postData = try await firestorePostService.fetchPostDocument(document: documentRef)
-                    self.searchPostsByFoodTag.append(postData)
-                }
-            }
-        } catch {
-            print("error :: updateSearchResults", error.localizedDescription)
-        }
-    }
-	
 	func getSearchedPostsCount(from keyword: String) async {
 		self.isSearching = true
 		self.searchPostsByUserNameCount = 0
@@ -297,7 +237,7 @@ extension PostViewModel {
 		}
 	}
 	
-	func getSearchedPosts2(from keyword: String, category: SearchTagType) async -> [Post] {
+	func getSearchedPosts(from keyword: String, category: SearchTagType) async -> [Post] {
 		self.isSearching = true
 		
 		var searchPosts = [Post]()
@@ -310,12 +250,11 @@ extension PostViewModel {
 				let postID = postDocument.documentID
 				let documentRef = collectionRef.document(postID)
 				
-				if let post = await self.updateSearchResults2(for: category, postField: postFieldData,
+				if let post = await self.updateSearchResults(for: category, postField: postFieldData,
 															  keyword: keyword, documentRef: documentRef) {
 					searchPosts.append(post)
 				}
 			}
-//			return searchPosts
 		} catch {
 			print("error :: getSearchedPosts", error.localizedDescription)
 		}
@@ -323,7 +262,7 @@ extension PostViewModel {
 		return searchPosts
 	}
 	
-	private func updateSearchResults2(for category: SearchTagType, postField: PostField, keyword: String, documentRef: DocumentReference) async -> Post? {
+	private func updateSearchResults(for category: SearchTagType, postField: PostField, keyword: String, documentRef: DocumentReference) async -> Post? {
 		do {
 			switch category {
 			case .userName:
@@ -385,35 +324,6 @@ extension PostViewModel {
         }
         return result
     }
-    
-    // '검색된 게시글' 배열 정렬
-    func sortedSearchedPosts(searchTagType: SearchTagType, postSortType: PostSortType) async {
-        let postsToSort: [Post]
-        switch searchTagType {
-        case .userName:
-            postsToSort = searchPostsByUserName
-        case .drinkTag:
-            postsToSort = searchPostsByDrinkTag
-        case .foodTag:
-            postsToSort = searchPostsByFoodTag
-        }
-        let result = await sortedPosts(postsToSort, postSortType: postSortType)
-        switch searchTagType {
-        case .userName:
-            searchPostsByUserName = result
-        case .drinkTag:
-            searchPostsByDrinkTag = result
-        case .foodTag:
-            searchPostsByFoodTag = result
-        }
-    }
-	
-	// '검색된 게시글' 배열 요소 전체 삭제
-	func clearSearchedPosts() {
-		searchPostsByUserName = []
-		searchPostsByDrinkTag = []
-		searchPostsByFoodTag = []
-	}
 }
 
 // MARK: - real time database with firestore

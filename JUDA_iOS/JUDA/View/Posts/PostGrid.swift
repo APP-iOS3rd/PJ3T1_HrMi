@@ -13,39 +13,59 @@ struct PostGrid: View {
 	
 	@State private var scrollAxis: Axis.Set = .vertical
 	@State private var vHeight = 0.0
+	@Binding var searchPosts: [Post]
+	@Binding var navigationPostSelectedSegmentIndex: Int
 	
 	let usedTo: WhereUsedPostGridContent
 	let searchTagType: SearchTagType?
-	let searchPosts: [Post]?
+	let postSearchText: String?
 	
-	init(usedTo: WhereUsedPostGridContent = .post, searchTagType: SearchTagType?, searchPosts: [Post]?) {
+	init(usedTo: WhereUsedPostGridContent = .post,
+		 searchTagType: SearchTagType?,
+		 postSearchText: String?,
+		 searchPosts: Binding<[Post]>,
+		 navigationPostSelectedSegmentIndex: Binding<Int>) {
 		self.usedTo = usedTo
 		self.searchTagType = searchTagType
-		self.searchPosts = searchPosts
+		self.postSearchText = postSearchText
+		self._searchPosts = searchPosts
+		self._navigationPostSelectedSegmentIndex = navigationPostSelectedSegmentIndex
 	}
 	
 	var body: some View {
 		// MARK: iOS 16.4 이상
 		if #available(iOS 16.4, *) {
 			ScrollView() {
-				PostGridContent(usedTo: usedTo, searchTagType: searchTagType, searchPosts: searchPosts)
+				PostGridContent(usedTo: usedTo, searchTagType: searchTagType, searchPosts: $searchPosts)
 			}
 			.scrollBounceBehavior(.basedOnSize, axes: .vertical)
 			.scrollDismissesKeyboard(.immediately)
 			.refreshable {
-				await postViewModel.fetchFirstPost()
+				if usedTo == .post {
+					await postViewModel.fetchFirstPost()
+				} else if usedTo == .postSearch, let searchTagType = searchTagType, let postSearchText = postSearchText {
+					searchPosts = await postViewModel.getSearchedPosts(from: postSearchText, category: searchTagType)
+					searchPosts = await postViewModel.sortedPosts(searchPosts,
+																  postSortType: PostSortType.list[navigationPostSelectedSegmentIndex])
+				}
 			}
 		// MARK: iOS 16.4 미만
 		} else {
 			ViewThatFits(in: .vertical) {
-				PostGridContent(usedTo: usedTo, searchTagType: searchTagType, searchPosts: searchPosts)
+				PostGridContent(usedTo: usedTo, searchTagType: searchTagType, searchPosts: $searchPosts)
 					.frame(maxHeight: .infinity, alignment: .top)
 				ScrollView {
-					PostGridContent(usedTo: usedTo, searchTagType: searchTagType, searchPosts: searchPosts)
+					PostGridContent(usedTo: usedTo, searchTagType: searchTagType, searchPosts: $searchPosts)
 				}
 				.scrollDismissesKeyboard(.immediately)
 				.refreshable {
-					await postViewModel.fetchFirstPost()
+					if usedTo == .post {
+						await postViewModel.fetchFirstPost()
+					} else if usedTo == .postSearch {
+						searchPosts = await postViewModel.getSearchedPosts(from: postSearchText, category: searchTagType)
+						searchPosts = await postViewModel.sortedPosts(searchPosts,
+																	  postSortType: PostSortType.list[navigationPostSelectedSegmentIndex])
+					}
 				}
 			}
 		}
@@ -58,16 +78,17 @@ struct PostGridContent: View {
 	@EnvironmentObject private var postViewModel: PostViewModel
 	@EnvironmentObject private var userViewModel: UserViewModel
 	
+	@Binding var searchPosts: [Post]
+	
 	let usedTo: WhereUsedPostGridContent
 	let searchTagType: SearchTagType?
 	let userType: UserType
-	let searchPosts: [Post]?
 	
-	init(usedTo: WhereUsedPostGridContent, searchTagType: SearchTagType?, userType: UserType = .user, searchPosts: [Post]?) {
+	init(usedTo: WhereUsedPostGridContent, searchTagType: SearchTagType?, userType: UserType = .user, searchPosts: Binding<[Post]>) {
 		self.usedTo = usedTo
 		self.searchTagType = searchTagType
 		self.userType = userType
-		self.searchPosts = searchPosts
+		self._searchPosts = searchPosts
 	}
 	
 	var body: some View {
@@ -102,95 +123,8 @@ struct PostGridContent: View {
 					}
 				}
 			} else if usedTo == .postSearch {
-				if let searchPosts = searchPosts {
-					ForEach(searchPosts, id: \.postField.postID) { post in
-						if authViewModel.signInStatus {
-							NavigationLink(value: Route
-								.PostDetail(postUserType: authViewModel.currentUser?.userField.userID == post.postField.user.userID ? .writer : .reader,
-											post: post,
-											usedTo: usedTo)) {
-								PostCell(usedTo: .postSearch, post: post)
-							}
-							.buttonStyle(EmptyActionStyle())
-						} else {
-							// 비로그인 상태인 경우 눌렀을 때 로그인뷰로 이동
-							PostCell(usedTo: .postSearch, post: post)
-								.onTapGesture {
-									authViewModel.isShowLoginDialog = true
-								}
-						}
-					}
-				}
-//				if let searchTagType = searchTagType {
-//					switch searchTagType {
-//					case .userName:
-//						ForEach(postViewModel.searchPostsByUserName, id: \.postField.postID) { post in
-//							if authViewModel.signInStatus {
-//								NavigationLink(value: Route
-//									.PostDetail(postUserType: authViewModel.currentUser?.userField.userID == post.postField.user.userID ? .writer : .reader,
-//												post: post,
-//												usedTo: usedTo)) {
-//									PostCell(usedTo: .postSearch, post: post)
-//								}
-//								.buttonStyle(EmptyActionStyle())
-//							} else {
-//								// 비로그인 상태인 경우 눌렀을 때 로그인뷰로 이동
-//								PostCell(usedTo: .postSearch, post: post)
-//									.onTapGesture {
-//										authViewModel.isShowLoginDialog = true
-//									}
-//							}
-//						}
-//					case .drinkTag:
-//						ForEach(postViewModel.searchPostsByDrinkTag, id: \.postField.postID) { post in
-//							if authViewModel.signInStatus {
-//								NavigationLink(value: Route
-//									.PostDetail(postUserType: authViewModel.currentUser?.userField.userID == post.postField.user.userID ? .writer : .reader,
-//												post: post,
-//												usedTo: usedTo)) {
-//									PostCell(usedTo: .postSearch, post: post)
-//								}
-//								.buttonStyle(EmptyActionStyle())
-//							} else {
-//								// 비로그인 상태인 경우 눌렀을 때 로그인뷰로 이동
-//								PostCell(usedTo: .postSearch, post: post)
-//									.onTapGesture {
-//										authViewModel.isShowLoginDialog = true
-//									}
-//							}
-//						}
-//					case .foodTag:
-//						ForEach(postViewModel.searchPostsByFoodTag, id: \.postField.postID) { post in
-//							if authViewModel.signInStatus {
-//								NavigationLink(value: Route
-//									.PostDetail(postUserType: authViewModel.currentUser?.userField.userID == post.postField.user.userID ? .writer : .reader,
-//												post: post,
-//												usedTo: usedTo)) {
-//									PostCell(usedTo: .postSearch, post: post)
-//								}
-//								.buttonStyle(EmptyActionStyle())
-//							} else {
-//								// 비로그인 상태인 경우 눌렀을 때 로그인뷰로 이동
-//								PostCell(usedTo: .postSearch, post: post)
-//									.onTapGesture {
-//										authViewModel.isShowLoginDialog = true
-//									}
-//							}
-//						}
-//					}
-//				}
-			} else if usedTo == .postFoodTag {
-//				ForEach(postViewModel.searchPostsByFoodTag, id: \.postField.postID) { post in
-//					NavigationLink(value: Route
-//						.PostDetail(postUserType: authViewModel.currentUser?.userField.userID == post.postField.user.userID ? .writer : .reader,
-//									post: post,
-//									usedTo: usedTo)) {
-//						PostCell(usedTo: .postSearch, post: post)
-//					}
-//					.buttonStyle(EmptyActionStyle())
-//				}
-				if let searchPosts = searchPosts {
-					ForEach(searchPosts, id: \.postField.postID) { post in
+				ForEach(searchPosts, id: \.postField.postID) { post in
+					if authViewModel.signInStatus {
 						NavigationLink(value: Route
 							.PostDetail(postUserType: authViewModel.currentUser?.userField.userID == post.postField.user.userID ? .writer : .reader,
 										post: post,
@@ -198,6 +132,12 @@ struct PostGridContent: View {
 							PostCell(usedTo: .postSearch, post: post)
 						}
 						.buttonStyle(EmptyActionStyle())
+					} else {
+						// 비로그인 상태인 경우 눌렀을 때 로그인뷰로 이동
+						PostCell(usedTo: .postSearch, post: post)
+							.onTapGesture {
+								authViewModel.isShowLoginDialog = true
+							}
 					}
 				}
 			} else if usedTo == .drinkDetail {

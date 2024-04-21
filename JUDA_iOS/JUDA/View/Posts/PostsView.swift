@@ -26,18 +26,9 @@ struct PostsView: View {
 					// 상단 서치바
 					SearchBar(inputText: $postSearchText, isFocused: $isFocused) {
 						Task(priority: .high) {
-//							await postViewModel.getSearchedPosts(from: postSearchText)
 							await postViewModel.getSearchedPostsCount(from: postSearchText)
 						}
 					}
-					// 서치바 Text가 없을 때, 게시글 검색 결과 비워주기
-//					.onChange(of: postSearchText) { _ in
-//						if postSearchText == "" {
-//							postViewModel.searchPostsByUserName = []
-//							postViewModel.searchPostsByDrinkTag = []
-//							postViewModel.searchPostsByFoodTag = []
-//						}
-//					}
 					// MARK: 검색어 입력 중
 					if isFocused == true {
 						VStack {
@@ -62,7 +53,7 @@ struct PostsView: View {
 								.fill(.background)
 								.frame(maxWidth: .infinity, maxHeight: .infinity)
 						}
-						// MARK: 검색 완료 / 결과 X
+					// MARK: 검색 완료 / 결과 X
 					} else if !postSearchText.isEmpty,
 							  postViewModel.searchPostsByUserNameCount == 0,
 							  postViewModel.searchPostsByDrinkTagCount == 0,
@@ -79,11 +70,11 @@ struct PostsView: View {
 								.fill(.background)
 								.frame(maxWidth: .infinity, maxHeight: .infinity)
 						}
-						// MARK: 검색 완료 / 결과 O
+					// MARK: 검색 완료 / 결과 O
 					} else if !postSearchText.isEmpty,
 							  isFocused == false {
 						PostSearchList(searchText: postSearchText)
-						// MARK: 검색 X
+					// MARK: 검색 X
 					} else {
 						HStack(alignment: .center) {
 							// 인기, 최신 순으로 선택하여 정렬하기 위한 CustomSegment
@@ -91,7 +82,6 @@ struct PostsView: View {
 											  selectedSegmentIndex: $postViewModel.selectedSegmentIndex)
 							.padding(.bottom, 14)
 							.padding(.top, 20)
-							//
 							Spacer()
 							NavigationLink(value: Route.AddTag) {
 								Text("술상 올리기")
@@ -113,10 +103,18 @@ struct PostsView: View {
 									Group {
 										if PostSortType.list[index] == .popularity {
 											// 인기순
-											PostGrid(usedTo: .post, searchTagType: nil, searchPosts: nil)
+											PostGrid(usedTo: .post,
+													 searchTagType: nil,
+													 postSearchText: nil,
+													 searchPosts: .constant([]),
+													 navigationPostSelectedSegmentIndex: .constant(0))
 										} else {
 											// 최신순
-											PostGrid(usedTo: .post, searchTagType: nil, searchPosts: nil)
+											PostGrid(usedTo: .post,
+													 searchTagType: nil,
+													 postSearchText: nil,
+													 searchPosts: .constant([]),
+													 navigationPostSelectedSegmentIndex: .constant(0))
 										}
 									}
 									.onChange(of: postViewModel.selectedSegmentIndex) { newValue in
@@ -154,13 +152,11 @@ struct PostsView: View {
 				case .NavigationPosts(let usedTo,
 									  let searchTagType,
 									  let taggedPosts,
-									  let selectedDrinkName,
-									  let selectedFoodTag):
+									  let selectedDrinkName):
 					NavigationPostsView(usedTo: usedTo,
 										searchTagType: searchTagType,
 										taggedPosts: taggedPosts,
-										selectedDrinkName: selectedDrinkName,
-										selectedFoodTag: selectedFoodTag)
+										selectedDrinkName: selectedDrinkName)
 				case .NavigationPostsTo(let usedTo,
 										let searchTagType,
 										let postSearchText):
@@ -174,14 +170,14 @@ struct PostsView: View {
 										  usedTo: usedTo)
 				case .Record(let recordType):
 					RecordView(recordType: recordType)
-				//
+					
 				case .DrinkDetail(let drink):
 					DrinkDetailView(drink: drink)
 						.modifier(TabBarHidden())
 				case .DrinkDetailWithUsedTo(let drink, let usedTo):
 					DrinkDetailView(drink: drink, usedTo: usedTo)
 						.modifier(TabBarHidden())
-				//
+				
 				case .PostDetail(let postUserType,
 								 let post,
 								 let usedTo):

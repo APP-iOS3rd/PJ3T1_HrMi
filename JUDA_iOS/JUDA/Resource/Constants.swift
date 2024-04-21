@@ -188,7 +188,6 @@ enum WhereUsedDrinkListCell {
 enum WhereUsedPostGridContent {
     case post
     case postSearch
-    case postFoodTag
     case drinkDetail
     case liked
     case myPage
