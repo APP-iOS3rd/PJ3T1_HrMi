@@ -235,7 +235,3 @@ struct DrinkInfoView: View {
         .toolbar(appViewModel.tabBarState, for: .tabBar)
 	}
 }
-
-#Preview {
-	DrinkInfoView()
-}

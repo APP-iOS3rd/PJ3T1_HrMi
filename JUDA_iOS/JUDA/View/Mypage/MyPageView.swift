@@ -22,7 +22,7 @@ struct MyPageView: View {
                     UnauthenticatedMypageView()
                 }
             }
-            .navigationBarBackButtonHidden()
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Text("마이페이지")
