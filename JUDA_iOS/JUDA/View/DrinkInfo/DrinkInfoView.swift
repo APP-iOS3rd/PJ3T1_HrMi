@@ -181,13 +181,11 @@ struct DrinkInfoView: View {
                 case .NavigationPosts(let usedTo,
                                       let searchTagType,
                                       let taggedPosts,
-                                      let selectedDrinkName,
-                                      let selectedFoodTag):
+                                      let selectedDrinkName):
                     NavigationPostsView(usedTo: usedTo,
                                         searchTagType: searchTagType,
                                         taggedPosts: taggedPosts,
-                                        selectedDrinkName: selectedDrinkName,
-                                        selectedFoodTag: selectedFoodTag)
+                                        selectedDrinkName: selectedDrinkName)
                 case .NavigationPostsTo(let usedTo,
                                         let searchTagType,
                                         let postSearchText):

@@ -16,35 +16,35 @@ struct PostSearchList: View {
             NavigationLink(value: Route
                 .NavigationPostsTo(usedTo: .postSearch,
                                    searchTagType: .userName,
-                                   postSearchText: searchText)) {
+								   postSearchText: searchText)) {
                 PostSearchListCell(searchTagType: .userName,
                                    searchText: searchText,
-                                   postCount: postViewModel.searchPostsByUserName.count)
+								   postCount: postViewModel.searchPostsByUserNameCount)
             }
-            .disabled(postViewModel.searchPostsByUserName.isEmpty)
-            .foregroundStyle(postViewModel.searchPostsByUserName.isEmpty ? .gray01 : .mainBlack)
+			.disabled(postViewModel.searchPostsByUserNameCount == 0 ? true : false)
+            .foregroundStyle(postViewModel.searchPostsByUserNameCount == 0 ? .gray01 : .mainBlack)
 
             NavigationLink(value: Route
                 .NavigationPostsTo(usedTo: .postSearch,
                                    searchTagType: .drinkTag,
-                                   postSearchText: searchText)) {
+								   postSearchText: searchText)) {
                 PostSearchListCell(searchTagType: .drinkTag,
                                    searchText: searchText,
-                                   postCount: postViewModel.searchPostsByDrinkTag.count)
+                                   postCount: postViewModel.searchPostsByDrinkTagCount)
             }
-            .disabled(postViewModel.searchPostsByDrinkTag.isEmpty)
-            .foregroundStyle(postViewModel.searchPostsByDrinkTag.isEmpty ? .gray01 : .mainBlack)
+            .disabled(postViewModel.searchPostsByDrinkTagCount == 0 ? true : false)
+            .foregroundStyle(postViewModel.searchPostsByDrinkTagCount == 0 ? .gray01 : .mainBlack)
 
             NavigationLink(value: Route
                 .NavigationPostsTo(usedTo: .postSearch,
                                    searchTagType: .foodTag,
-                                   postSearchText: searchText)) {
+								   postSearchText: searchText)) {
                 PostSearchListCell(searchTagType: .foodTag,
                                    searchText: searchText,
-                                   postCount: postViewModel.searchPostsByFoodTag.count)
+                                   postCount: postViewModel.searchPostsByFoodTagCount)
             }
-            .disabled(postViewModel.searchPostsByFoodTag.isEmpty)
-            .foregroundStyle(postViewModel.searchPostsByFoodTag.isEmpty ? .gray01 : .mainBlack)
+			.disabled(postViewModel.searchPostsByFoodTagCount == 0 ? true : false)
+            .foregroundStyle(postViewModel.searchPostsByFoodTagCount == 0 ? .gray01 : .mainBlack)
             Spacer()
         }
         .padding(20)

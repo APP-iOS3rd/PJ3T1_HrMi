@@ -59,7 +59,8 @@ struct PostDetailView: View {
 						Task {
 							await postViewModel.deletePost(userID: post.postField.user.userID,
 														   postID: post.postField.postID ?? "")
-                            await postViewModel.fetchFirstPost()
+							// Post 실시간 처리로 인한 코드 주석처리
+                            // await postViewModel.fetchFirstPost()
                             // TODO: - currentUser posts refetch
 //                            await authViewModel.getCurrentUserPosts(uid: post.postField.user.userID)
                         }

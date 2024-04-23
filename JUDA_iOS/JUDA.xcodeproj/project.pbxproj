@@ -96,6 +96,8 @@
 		7B0A8BCF2B8CA8C300740E61 /* PostSearchListCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0A8BCE2B8CA8C300740E61 /* PostSearchListCell.swift */; };
 		7B5174922B69EAB300915793 /* NavigationPostsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B5174912B69EAB300915793 /* NavigationPostsView.swift */; };
 		7B56AE172BA66C8200C47F3C /* FirebaseFunctions in Frameworks */ = {isa = PBXBuildFile; productRef = 7B56AE162BA66C8200C47F3C /* FirebaseFunctions */; };
+		7B648FC52BC52969009010DC /* APIKEYS.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7B648FC32BC52969009010DC /* APIKEYS.plist */; };
+		7B648FC62BC52969009010DC /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7B648FC42BC52969009010DC /* GoogleService-Info.plist */; };
 		7B6D76A72B677A8F00601B55 /* Button.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6D76A62B677A8F00601B55 /* Button.swift */; };
 		7B6D76AB2B67CE3D00601B55 /* PostDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6D76AA2B67CE3D00601B55 /* PostDetailView.swift */; };
 		7B6D76AF2B67CFC900601B55 /* PostInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6D76AE2B67CFC900601B55 /* PostInfo.swift */; };
@@ -117,6 +119,7 @@
 		7BBDFF702B6B90EB0036FB8B /* PostGrid.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B6D76B62B68972000601B55 /* PostGrid.swift */; };
 		7BBDFF722B6B912C0036FB8B /* TabItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C63DD512B676E1000770E3A /* TabItem.swift */; };
 		7BBDFF732B6B912C0036FB8B /* DrinkInfoSegment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B16EB85B2B63859800E920A3 /* DrinkInfoSegment.swift */; };
+		7BD26B482BADC00F0036EB91 /* DrinkLoading.json in Resources */ = {isa = PBXBuildFile; fileRef = 7BD26B472BADC00F0036EB91 /* DrinkLoading.json */; };
 		7BE14B952B84733900C1F6C3 /* Drink.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE14B942B84733900C1F6C3 /* Drink.swift */; };
 		7BE14B972B84767000C1F6C3 /* DrinkUploadViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7BE14B962B84767000C1F6C3 /* DrinkUploadViewModel.swift */; };
 		AC110B572B69658C005390BB /* ChangeUserNameView.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC110B562B69658C005390BB /* ChangeUserNameView.swift */; };
@@ -222,7 +225,6 @@
 		09BCC1592B7C8CD300FF4D1B /* IdentityVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityVerificationView.swift; sourceTree = "<group>"; };
 		09BCC15E2B7CFC7E00FF4D1B /* TermsAndVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsAndVerificationView.swift; sourceTree = "<group>"; };
 		09C7C9AE2B8DB57E00F62617 /* NavigationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationRouter.swift; sourceTree = "<group>"; };
-		09E3B6E72BC51396001BC529 /* DrinkLoading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = DrinkLoading.json; path = "../../../../../흐르미/Lottie/DrinkLoading.json"; sourceTree = "<group>"; };
 		09E3B6E92BC5139F001BC529 /* APIKEYS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = APIKEYS.plist; path = "../../../흐르미/APIKEYS.plist"; sourceTree = "<group>"; };
 		09E3B6EA2BC5139F001BC529 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../흐르미/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		09F869922B68E36800A56A4C /* Formatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatter.swift; sourceTree = "<group>"; };
@@ -256,6 +258,8 @@
 		7B0A8BCC2B8CA7E900740E61 /* PostSearchList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSearchList.swift; sourceTree = "<group>"; };
 		7B0A8BCE2B8CA8C300740E61 /* PostSearchListCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSearchListCell.swift; sourceTree = "<group>"; };
 		7B5174912B69EAB300915793 /* NavigationPostsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationPostsView.swift; sourceTree = "<group>"; };
+		7B648FC32BC52969009010DC /* APIKEYS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = APIKEYS.plist; path = ../../../../../../JUDA_file/APIKEYS.plist; sourceTree = "<group>"; };
+		7B648FC42BC52969009010DC /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../../../../JUDA_file/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		7B6D76A62B677A8F00601B55 /* Button.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Button.swift; sourceTree = "<group>"; };
 		7B6D76AA2B67CE3D00601B55 /* PostDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostDetailView.swift; sourceTree = "<group>"; };
 		7B6D76AE2B67CFC900601B55 /* PostInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostInfo.swift; sourceTree = "<group>"; };
@@ -273,6 +277,7 @@
 		7B92656C2B692F0700840095 /* PostReportContent.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostReportContent.swift; sourceTree = "<group>"; };
 		7B92656E2B69303F00840095 /* PostReportButton.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostReportButton.swift; sourceTree = "<group>"; };
 		7B9265702B6941D000840095 /* PostReportToolbar.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostReportToolbar.swift; sourceTree = "<group>"; };
+		7BD26B472BADC00F0036EB91 /* DrinkLoading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = DrinkLoading.json; path = ../../../../../../../../JUDA_file/Lottie/DrinkLoading.json; sourceTree = "<group>"; };
 		7BE14B942B84733900C1F6C3 /* Drink.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Drink.swift; sourceTree = "<group>"; };
 		7BE14B962B84767000C1F6C3 /* DrinkUploadViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkUploadViewModel.swift; sourceTree = "<group>"; };
 		AC110B562B69658C005390BB /* ChangeUserNameView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChangeUserNameView.swift; sourceTree = "<group>"; };
@@ -495,6 +500,13 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		7B648FC22BC528F7009010DC /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Recovered References";
+			sourceTree = "<group>";
+		};
 		B121A5652B5F8D2000667D42 /* Resource */ = {
 			isa = PBXGroup;
 			children = (
@@ -556,7 +568,6 @@
 			children = (
 				B1B8FE7B2B5EA9D900921BBE /* JUDA */,
 				7B56AE152BA66C8200C47F3C /* Frameworks */,
-				09E3B6E62BC51344001BC529 /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};

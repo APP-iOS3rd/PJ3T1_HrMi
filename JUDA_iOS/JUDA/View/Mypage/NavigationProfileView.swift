@@ -46,7 +46,8 @@ struct NavigationProfileView: View {
                 ScrollView() {
                     PostGridContent(usedTo: .myPage,
                                     searchTagType: nil,
-                                    userType: userType)
+									userType: userType,
+									searchPosts: .constant([]))
                 }
                 .scrollBounceBehavior(.basedOnSize, axes: .vertical)
                 // MARK: iOS 16.4 미만
@@ -54,12 +55,14 @@ struct NavigationProfileView: View {
                 ViewThatFits(in: .vertical) {
                     PostGridContent(usedTo: .myPage,
                                     searchTagType: nil,
-                                    userType: userType)                 
+									userType: userType,
+									searchPosts: .constant([]))
                     .frame(maxHeight: .infinity, alignment: .top)
                     ScrollView {
                         PostGridContent(usedTo: .myPage,
                                         searchTagType: nil,
-                                        userType: userType)
+										userType: userType,
+										searchPosts: .constant([]))
                     }
                 }
             }

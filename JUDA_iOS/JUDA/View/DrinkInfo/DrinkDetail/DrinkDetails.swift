@@ -95,8 +95,7 @@ struct DrinkDetails: View {
                         .NavigationPosts(usedTo: .drinkDetail,
                                          searchTagType: nil,
                                          taggedPosts: drink.taggedPosts,
-                                         selectedDrinkName: drink.drinkField.name,
-                                         selectedFoodTag: nil)) {
+                                         selectedDrinkName: drink.drinkField.name)) {
                         Text("\(drink.taggedPosts.count)개의 태그된 게시물")
                             .font(.regular16)
                             .foregroundStyle(.gray01)
