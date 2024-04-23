@@ -22,11 +22,9 @@ struct PostTags: View {
 				HStack(spacing: 15) {
 					ForEach(row, id: \.self) { tag in
                         NavigationLink(value: Route
-                            .NavigationPosts(usedTo: .postFoodTag,
-                                             searchTagType: .foodTag,
-                                             taggedPosts: [],
-                                             selectedDrinkName: nil,
-                                             selectedFoodTag: tag)) {
+							.NavigationPostsTo(usedTo: .postSearch,
+											   searchTagType: .foodTag,
+											   postSearchText: tag)) {
                             Text("# \(tag)")
                                 .font(.semibold14)
                                 .foregroundStyle(.mainAccent04)

@@ -53,13 +53,11 @@ struct MainView: View {
                 case .NavigationPosts(let usedTo,
                                       let searchTagType,
                                       let taggedPosts,
-                                      let selectedDrinkName,
-                                      let selectedFoodTag):
+                                      let selectedDrinkName):
                     NavigationPostsView(usedTo: usedTo,
                                         searchTagType: searchTagType,
                                         taggedPosts: taggedPosts,
-                                        selectedDrinkName: selectedDrinkName,
-                                        selectedFoodTag: selectedFoodTag)
+                                        selectedDrinkName: selectedDrinkName)
                 case .NavigationPostsTo(let usedTo,
                                         let searchTagType,
                                         let postSearchText):
@@ -75,8 +73,10 @@ struct MainView: View {
                 case .DrinkDetail(let drink):
                     DrinkDetailView(drink: drink)
                         .modifier(TabBarHidden())
-                case .DrinkDetailWithUsedTo(let drink, let usedTo):
-                    DrinkDetailView(drink: drink, usedTo: usedTo)
+                case .DrinkDetailWithUsedTo(let drink,
+                                            let usedTo):
+                    DrinkDetailView(drink: drink,
+                                    usedTo: usedTo)
                         .modifier(TabBarHidden())
                 case .PostDetail(let postUserType,
                                  let post,
@@ -109,7 +109,8 @@ struct MainView: View {
                         if let user = authViewModel.currentUser?.userField,
                            let uid = user.userID {
                             // 새로 받아온 기기 토큰 체크 후 업데이트
-                            await appViewModel.setUserToken(uid: uid, currentUserToken: user.fcmToken)
+                            await appViewModel.setUserToken(uid: uid,
+                                                            currentUserToken: user.fcmToken)
                         }
                     }                
                 }
