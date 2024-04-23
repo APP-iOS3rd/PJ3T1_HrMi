@@ -60,6 +60,12 @@ struct CustomDialog: View {
             .background(.background)
             .cornerRadius(10)
         }
+        .onAppear {
+            UINavigationController.allowSwipeBack = false
+        }
+        .onDisappear {
+            UINavigationController.allowSwipeBack = true
+        }
         .navigationBarBackButtonHidden()
     }
     

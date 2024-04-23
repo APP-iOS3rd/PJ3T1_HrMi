@@ -67,10 +67,10 @@ struct NavigationPostsView: View {
 								value.scrollTo(newValue, anchor: .center)
 							}
 						}
-					}
-					.tabViewStyle(.page(indexDisplayMode: .never))
-					.ignoresSafeArea()
+					}	
 				}
+        .tabViewStyle(.page(indexDisplayMode: .never))
+				.ignoresSafeArea()
 			}
 			
 			if authViewModel.isShowLoginDialog {

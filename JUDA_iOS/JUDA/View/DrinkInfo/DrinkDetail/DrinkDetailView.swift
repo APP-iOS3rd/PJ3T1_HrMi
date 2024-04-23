@@ -94,6 +94,7 @@ struct DrinkDetailView: View {
                 } label: {
                     Image(systemName: "chevron.backward")
                 }
+                .disabled(authViewModel.isShowLoginDialog)
             }
             ToolbarItem(placement: .topBarTrailing) {
                 // 공유하기
@@ -107,6 +108,7 @@ struct DrinkDetailView: View {
                 ) {
                     Image(systemName: "square.and.arrow.up")
                 }
+                .disabled(authViewModel.isShowLoginDialog)
             }
         }
         .tint(.mainBlack)
