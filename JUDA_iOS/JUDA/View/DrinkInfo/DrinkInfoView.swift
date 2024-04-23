@@ -204,7 +204,8 @@ struct DrinkInfoView: View {
                     DrinkDetailView(drink: drink)
                         .modifier(TabBarHidden())
                 case .DrinkDetailWithUsedTo(let drink, let usedTo):
-                    DrinkDetailView(drink: drink, usedTo: usedTo)
+                    DrinkDetailView(drink: drink,
+                                    usedTo: usedTo)
                         .modifier(TabBarHidden())
                 case .PostDetail(let postUserType,
                                  let post,

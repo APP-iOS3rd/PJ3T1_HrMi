@@ -75,8 +75,10 @@ struct MainView: View {
                 case .DrinkDetail(let drink):
                     DrinkDetailView(drink: drink)
                         .modifier(TabBarHidden())
-                case .DrinkDetailWithUsedTo(let drink, let usedTo):
-                    DrinkDetailView(drink: drink, usedTo: usedTo)
+                case .DrinkDetailWithUsedTo(let drink,
+                                            let usedTo):
+                    DrinkDetailView(drink: drink,
+                                    usedTo: usedTo)
                         .modifier(TabBarHidden())
                 case .PostDetail(let postUserType,
                                  let post,
@@ -109,7 +111,8 @@ struct MainView: View {
                         if let user = authViewModel.currentUser?.userField,
                            let uid = user.userID {
                             // 새로 받아온 기기 토큰 체크 후 업데이트
-                            await appViewModel.setUserToken(uid: uid, currentUserToken: user.fcmToken)
+                            await appViewModel.setUserToken(uid: uid,
+                                                            currentUserToken: user.fcmToken)
                         }
                     }                
                 }

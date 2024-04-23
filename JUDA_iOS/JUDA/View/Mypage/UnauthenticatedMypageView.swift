@@ -24,7 +24,8 @@ struct UnauthenticatedMypageView: View {
                 }
                 Spacer()
             }
-            .padding()
+            .padding(.horizontal, 20)
+            .padding(.vertical, 10)
             // 내가 작성한 게시물 -- '새 글 작성하기'
             HStack {
                 Text("내가 작성한 술상")
