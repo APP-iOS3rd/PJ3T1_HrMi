@@ -43,7 +43,7 @@ struct PostsView: View {
 								.frame(maxWidth: .infinity, maxHeight: .infinity)
 						}
 						// MARK: 검색 중
-					} else if postViewModel.isSearching {
+					} else if postViewModel.isLoading {
 						VStack {
 							Rectangle()
 								.fill(.background)

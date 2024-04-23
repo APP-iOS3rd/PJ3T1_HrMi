@@ -61,11 +61,11 @@ struct PostGrid: View {
 				.refreshable {
 					if usedTo == .post {
 						await postViewModel.fetchFirstPost()
-					} else if usedTo == .postSearch {
-						searchPosts = await postViewModel.getSearchedPosts(from: postSearchText, category: searchTagType)
-						searchPosts = await postViewModel.sortedPosts(searchPosts,
-																	  postSortType: PostSortType.list[navigationPostSelectedSegmentIndex])
-					}
+                    } else if usedTo == .postSearch, let searchTagType = searchTagType, let postSearchText = postSearchText {
+                        searchPosts = await postViewModel.getSearchedPosts(from: postSearchText, category: searchTagType)
+                        searchPosts = await postViewModel.sortedPosts(searchPosts,
+                                                                      postSortType: PostSortType.list[navigationPostSelectedSegmentIndex])
+                    }
 				}
 			}
 		}
@@ -123,23 +123,29 @@ struct PostGridContent: View {
 					}
 				}
 			} else if usedTo == .postSearch {
-				ForEach(searchPosts, id: \.postField.postID) { post in
-					if authViewModel.signInStatus {
-						NavigationLink(value: Route
-							.PostDetail(postUserType: authViewModel.currentUser?.userField.userID == post.postField.user.userID ? .writer : .reader,
-										post: post,
-										usedTo: usedTo)) {
-							PostCell(usedTo: .postSearch, post: post)
-						}
-						.buttonStyle(EmptyActionStyle())
-					} else {
-						// 비로그인 상태인 경우 눌렀을 때 로그인뷰로 이동
-						PostCell(usedTo: .postSearch, post: post)
-							.onTapGesture {
-								authViewModel.isShowLoginDialog = true
-							}
-					}
-				}
+                if !postViewModel.isLoading {
+                    ForEach(searchPosts, id: \.postField.postID) { post in
+                        if authViewModel.signInStatus {
+                            NavigationLink(value: Route
+                                .PostDetail(postUserType: authViewModel.currentUser?.userField.userID == post.postField.user.userID ? .writer : .reader,
+                                            post: post,
+                                            usedTo: usedTo)) {
+                                PostCell(usedTo: .postSearch, post: post)
+                            }
+                                            .buttonStyle(EmptyActionStyle())
+                        } else {
+                            // 비로그인 상태인 경우 눌렀을 때 로그인뷰로 이동
+                            PostCell(usedTo: .postSearch, post: post)
+                                .onTapGesture {
+                                    authViewModel.isShowLoginDialog = true
+                                }
+                        }
+                    }
+                } else {
+                    ForEach(0..<10) { _ in
+                        ShimmerPostCell()
+                    }
+                }
 			} else if usedTo == .drinkDetail {
 				if !postViewModel.isLoading {
 					ForEach(postViewModel.drinkTaggedPosts, id: \.postField.postID) { post in

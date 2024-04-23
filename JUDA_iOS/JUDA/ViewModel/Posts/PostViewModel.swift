@@ -37,8 +37,6 @@ final class PostViewModel: ObservableObject {
 	@Published var lastQuerydocumentSnapshot: QueryDocumentSnapshot?
 	// 게시글 불러오기 또는 삭제 작업이 진행중인지 나타내는 상태 프로퍼티
     @Published var isLoading = false
-    // 검색 중인지 나타내는 상태 프로퍼티
-	@Published var isSearching = false
 }
 
 // MARK: - Fetch
@@ -179,7 +177,11 @@ extension PostViewModel {
 // MARK: - Search
 extension PostViewModel {
 	func getSearchedPostsCount(from keyword: String) async {
-		self.isSearching = true
+		self.isLoading = true
+        defer {
+            self.isLoading = false
+        }
+        
 		self.searchPostsByUserNameCount = 0
 		self.searchPostsByDrinkTagCount = 0
 		self.searchPostsByFoodTagCount = 0
@@ -210,7 +212,6 @@ extension PostViewModel {
 		} catch {
 			print("error :: getSearchedPostsCount", error.localizedDescription)
 		}
-		self.isSearching = false
 	}
 	
 	private func countBySearchType(for category: SearchTagType, postField: PostField, keyword: String, documentRef: DocumentReference) async {
@@ -238,8 +239,11 @@ extension PostViewModel {
 	}
 	
 	func getSearchedPosts(from keyword: String, category: SearchTagType) async -> [Post] {
-		self.isSearching = true
-		
+		self.isLoading = true
+        defer {
+            self.isLoading = false
+        }
+        
 		var searchPosts = [Post]()
 		
 		do {
@@ -258,7 +262,6 @@ extension PostViewModel {
 		} catch {
 			print("error :: getSearchedPosts", error.localizedDescription)
 		}
-		self.isSearching = false
 		return searchPosts
 	}
 	
