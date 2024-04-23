@@ -48,7 +48,3 @@ struct ErrorPageView: View {
         .tint(.mainBlack)
     }
 }
-
-#Preview {
-    ErrorPageView()
-}

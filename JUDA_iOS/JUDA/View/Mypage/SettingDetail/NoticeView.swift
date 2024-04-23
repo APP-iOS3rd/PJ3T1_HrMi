@@ -34,7 +34,3 @@ struct NoticeView: View {
         }
     }
 }
-
-#Preview {
-    NoticeView()
-}

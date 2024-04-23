@@ -188,7 +188,6 @@ struct PostsView: View {
 				default:
 					ErrorPageView()
 						.modifier(TabBarHidden())
-
 				}
 			}
 			// 키보드 내리기

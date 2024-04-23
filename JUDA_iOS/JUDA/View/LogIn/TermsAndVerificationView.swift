@@ -24,7 +24,3 @@ struct TermsAndVerificationView: View {
         }
     }
 }
-
-#Preview {
-    TermsAndVerificationView()
-}

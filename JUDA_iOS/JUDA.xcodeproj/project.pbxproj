@@ -61,6 +61,9 @@
 		09BCC15A2B7C8CD300FF4D1B /* IdentityVerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BCC1592B7C8CD300FF4D1B /* IdentityVerificationView.swift */; };
 		09BCC15F2B7CFC7E00FF4D1B /* TermsAndVerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BCC15E2B7CFC7E00FF4D1B /* TermsAndVerificationView.swift */; };
 		09C7C9AF2B8DB57E00F62617 /* NavigationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C7C9AE2B8DB57E00F62617 /* NavigationRouter.swift */; };
+		09E3B6E82BC51396001BC529 /* DrinkLoading.json in Resources */ = {isa = PBXBuildFile; fileRef = 09E3B6E72BC51396001BC529 /* DrinkLoading.json */; };
+		09E3B6EB2BC5139F001BC529 /* APIKEYS.plist in Resources */ = {isa = PBXBuildFile; fileRef = 09E3B6E92BC5139F001BC529 /* APIKEYS.plist */; };
+		09E3B6EC2BC5139F001BC529 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 09E3B6EA2BC5139F001BC529 /* GoogleService-Info.plist */; };
 		09F3BD9C2BA9EAE90087E5FC /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 09F3BD9B2BA9EAE90087E5FC /* Lottie */; };
 		09F869932B68E36800A56A4C /* Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F869922B68E36800A56A4C /* Formatter.swift */; };
 		09F869962B68E46500A56A4C /* DrinkDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F869952B68E46500A56A4C /* DrinkDetailView.swift */; };
@@ -222,6 +225,8 @@
 		09BCC1592B7C8CD300FF4D1B /* IdentityVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityVerificationView.swift; sourceTree = "<group>"; };
 		09BCC15E2B7CFC7E00FF4D1B /* TermsAndVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsAndVerificationView.swift; sourceTree = "<group>"; };
 		09C7C9AE2B8DB57E00F62617 /* NavigationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationRouter.swift; sourceTree = "<group>"; };
+		09E3B6E92BC5139F001BC529 /* APIKEYS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = APIKEYS.plist; path = "../../../흐르미/APIKEYS.plist"; sourceTree = "<group>"; };
+		09E3B6EA2BC5139F001BC529 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../흐르미/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		09F869922B68E36800A56A4C /* Formatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatter.swift; sourceTree = "<group>"; };
 		09F869952B68E46500A56A4C /* DrinkDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkDetailView.swift; sourceTree = "<group>"; };
 		09F869972B68E48400A56A4C /* DrinkDetails.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkDetails.swift; sourceTree = "<group>"; };
@@ -423,7 +428,7 @@
 		09BCC1482B7C7E1500FF4D1B /* Lottie */ = {
 			isa = PBXGroup;
 			children = (
-				7BD26B472BADC00F0036EB91 /* DrinkLoading.json */,
+				09E3B6E72BC51396001BC529 /* DrinkLoading.json */,
 				09BCC14E2B7C7E2900FF4D1B /* Clouds.json */,
 				09BCC1492B7C7E2900FF4D1B /* Loading.json */,
 				09BCC14C2B7C7E2900FF4D1B /* Rain.json */,
@@ -432,6 +437,13 @@
 				09BCC14A2B7C7E2900FF4D1B /* Thunder.json */,
 			);
 			path = Lottie;
+			sourceTree = "<group>";
+		};
+		09E3B6E62BC51344001BC529 /* Recovered References */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = "Recovered References";
 			sourceTree = "<group>";
 		};
 		09F869942B68E44A00A56A4C /* DrinkDetail */ = {
@@ -556,7 +568,6 @@
 			children = (
 				B1B8FE7B2B5EA9D900921BBE /* JUDA */,
 				7B56AE152BA66C8200C47F3C /* Frameworks */,
-				7B648FC22BC528F7009010DC /* Recovered References */,
 			);
 			sourceTree = "<group>";
 		};
@@ -573,8 +584,8 @@
 				B1B8FE802B5EA9DA00921BBE /* Assets.xcassets */,
 				B1B8FE8C2B5EAAAB00921BBE /* Colors.xcassets */,
 				B121A56F2B5F8DA100667D42 /* Info.plist */,
-				7B648FC32BC52969009010DC /* APIKEYS.plist */,
-				7B648FC42BC52969009010DC /* GoogleService-Info.plist */,
+				09E3B6E92BC5139F001BC529 /* APIKEYS.plist */,
+				09E3B6EA2BC5139F001BC529 /* GoogleService-Info.plist */,
 				B1B8FE822B5EA9DA00921BBE /* Preview Content */,
 			);
 			path = JUDA;
@@ -872,23 +883,23 @@
 			buildActionMask = 2147483647;
 			files = (
 				09BCC1512B7C7E2900FF4D1B /* Sun.json in Resources */,
-				7BD26B482BADC00F0036EB91 /* DrinkLoading.json in Resources */,
 				09BCC1502B7C7E2900FF4D1B /* Thunder.json in Resources */,
 				B1B8FE8D2B5EAAAB00921BBE /* Colors.xcassets in Resources */,
 				B121A5732B5F910900667D42 /* Pretendard-Bold.otf in Resources */,
 				09BCC14F2B7C7E2900FF4D1B /* Loading.json in Resources */,
+				09E3B6E82BC51396001BC529 /* DrinkLoading.json in Resources */,
 				B1B8FE842B5EA9DA00921BBE /* Preview Assets.xcassets in Resources */,
 				B121A5782B5F911A00667D42 /* Pretendard-Thin.otf in Resources */,
 				B121A5772B5F911900667D42 /* Pretendard-SemiBold.otf in Resources */,
 				09BCC1532B7C7E2900FF4D1B /* Snow.json in Resources */,
 				09BCC1542B7C7E2900FF4D1B /* Clouds.json in Resources */,
+				09E3B6EC2BC5139F001BC529 /* GoogleService-Info.plist in Resources */,
 				B121A5742B5F910B00667D42 /* Pretendard-Light.otf in Resources */,
-				7B648FC52BC52969009010DC /* APIKEYS.plist in Resources */,
 				09BCC1522B7C7E2900FF4D1B /* Rain.json in Resources */,
 				B121A5762B5F911700667D42 /* Pretendard-Regular.otf in Resources */,
 				B1B8FE812B5EA9DA00921BBE /* Assets.xcassets in Resources */,
 				B121A5752B5F911500667D42 /* Pretendard-Medium.otf in Resources */,
-				7B648FC62BC52969009010DC /* GoogleService-Info.plist in Resources */,
+				09E3B6EB2BC5139F001BC529 /* APIKEYS.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1204,10 +1215,12 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_ENTITLEMENTS = JUDA/JUDA.entitlements;
 				CODE_SIGN_IDENTITY = "Apple Development";
-				CODE_SIGN_STYLE = Automatic;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
+				CODE_SIGN_STYLE = Manual;
 				CURRENT_PROJECT_VERSION = 6;
 				DEVELOPMENT_ASSET_PATHS = "\"JUDA/Preview Content\"";
-				DEVELOPMENT_TEAM = CT6J74BCFP;
+				DEVELOPMENT_TEAM = "";
+				"DEVELOPMENT_TEAM[sdk=iphoneos*]" = CT6J74BCFP;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = JUDA/Info.plist;
@@ -1231,6 +1244,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.hrmi.juda;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
+				"PROVISIONING_PROFILE_SPECIFIER[sdk=iphoneos*]" = dev_JUDA;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";

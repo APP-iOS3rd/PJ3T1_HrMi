@@ -30,14 +30,14 @@ struct SettingView: View {
     
     private var version: String? {
         guard let dictionary = Bundle.main.infoDictionary,
-              let version = dictionary["CFBundleShortVersionString"] as? String else {return nil}
-        return version // 1.0
+              let version = dictionary["CFBundleShortVersionString"] as? String else { return nil }
+        return version // ex) 1.0
     }
     
     private var build: String? {
         guard let dictionary = Bundle.main.infoDictionary,
-              let build = dictionary["CFBundleVersion"] as? String else {return nil}
-        return build // 1
+              let build = dictionary["CFBundleVersion"] as? String else { return nil }
+        return build // ex) 1
     }
     
     var body: some View {
@@ -69,7 +69,9 @@ struct SettingView: View {
                     HStack {
                         Text("화면 모드 설정")
                         Spacer()
-                        CustomSortingButton(optionNameList: optionNameList, selectedSortingOption: selectedSortingOption, isShowingSheet: $isShowingSheet)
+                        CustomSortingButton(optionNameList: optionNameList,
+                                            selectedSortingOption: selectedSortingOption,
+                                            isShowingSheet: $isShowingSheet)
                         // CustomSortingButton에서 선택한 selectedSortingOption로 화면 색상 설정하기
                             .onChange(of: selectedSortingOption) { _ in
                                 switch selectedSortingOption {
@@ -262,4 +264,3 @@ private struct CustomText: ViewModifier {
 			.padding(.vertical, 10)
 	}
 }
-

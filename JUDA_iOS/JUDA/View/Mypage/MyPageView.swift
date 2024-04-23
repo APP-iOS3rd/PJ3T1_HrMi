@@ -15,15 +15,14 @@ struct MyPageView: View {
 
     var body: some View {
         NavigationStack(path: $navigationRouter.path) {
-            VStack {
+            Group {
                 if authViewModel.signInStatus {
                     AuthenticatedMypageView()
                 } else {
                     UnauthenticatedMypageView()
                 }
             }
-            .navigationBarBackButtonHidden()
-			.navigationBarTitleDisplayMode(.inline)
+            .navigationBarTitleDisplayMode(.inline)
             .toolbar {
                 ToolbarItem(placement: .topBarLeading) {
                     Text("마이페이지")
@@ -73,8 +72,10 @@ struct MyPageView: View {
                 case .DrinkDetail(let drink):
                     DrinkDetailView(drink: drink)
                         .modifier(TabBarHidden())
-                case .DrinkDetailWithUsedTo(let drink, let usedTo):
-                    DrinkDetailView(drink: drink, usedTo: usedTo)
+                case .DrinkDetailWithUsedTo(let drink,
+                                            let usedTo):
+                    DrinkDetailView(drink: drink,
+                                    usedTo: usedTo)
                         .modifier(TabBarHidden())
                 case .PostDetail(let postUserType,
                                  let post,
@@ -92,7 +93,7 @@ struct MyPageView: View {
                 appViewModel.tabBarState = .visible
             }
         }
-        .toolbar(appViewModel.tabBarState, for: .tabBar)
         .environmentObject(navigationRouter)
+        .toolbar(appViewModel.tabBarState, for: .tabBar)
     }
 }

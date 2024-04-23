@@ -26,7 +26,8 @@ struct DrinkDetailView: View {
             ScrollView {
                 VStack(spacing: 10) {
                     // 술 정보 (이미지, 이름, 나라, 도수, 가격, 별점, 태그된 게시물)
-                    DrinkDetails(drink: drink, usedTo: usedTo)
+                    DrinkDetails(drink: drink,
+                                 usedTo: usedTo)
                     CustomDivider()
                     // 단맛 / 신맛 / 청량 / 바디 / 탄산  or  향 / 맛 / 여운
                     switch drink.drinkField.category {

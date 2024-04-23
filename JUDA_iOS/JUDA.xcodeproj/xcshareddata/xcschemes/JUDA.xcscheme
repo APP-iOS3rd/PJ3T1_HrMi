@@ -43,6 +43,7 @@
       <PathRunnable
          runnableDebuggingMode = "0"
          FilePath = "/Users/minjaekim/Library/Developer/Xcode/DerivedData/JUDA-gzjyaxsluhlruncajghxttycvogn/Build/Products/Debug-iphoneos/JUDA.app">
+         BundleIdentifier = "com.hrmi.juda"
       </PathRunnable>
       <MacroExpansion>
          <BuildableReference
