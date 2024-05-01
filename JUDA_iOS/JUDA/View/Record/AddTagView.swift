@@ -120,6 +120,7 @@ struct AddTagView: View {
                         Image(systemName: "chevron.backward")
                     }
                     .foregroundStyle(.mainBlack)
+                    .disabled(recordViewModel.isShowRatingDialog)
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     NavigationLink(value: Route.Record(recordType: .add)) {
@@ -127,13 +128,16 @@ struct AddTagView: View {
                             .font(.regular16)
                     }
                     // 선택된 사진이 없을 때, 다음 페이지 이동 불가
-                    .foregroundStyle(!selectedPhotos.isEmpty ? .mainBlack : .gray01)
-                    .disabled(selectedPhotos.isEmpty)
+                    .foregroundStyle((selectedPhotos.isEmpty || recordViewModel.isShowRatingDialog) ? .gray01 : .mainBlack)
+                    .disabled(selectedPhotos.isEmpty || recordViewModel.isShowRatingDialog)
                 }
             }
             // SearchTageView Sheet 띄워주기
             .sheet(isPresented: $isShowSearchTag) {
                 SearchTagView(isShowSearchTag: $isShowSearchTag)
+                    .onDisappear {
+                        recordViewModel.isShowRatingDialog = false
+                    }
             }
         }
     }
