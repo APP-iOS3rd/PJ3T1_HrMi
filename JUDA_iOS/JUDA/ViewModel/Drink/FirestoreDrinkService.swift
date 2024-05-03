@@ -110,26 +110,19 @@ extension FirestoreDrinkService {
 	// drinks/agePreferenceUID collection
 	// 각 '연령대'에 맞는 document에 접근하여 UsersID collection에 해당하는 ducument의 갯수를 count
 	func fetchAgePreferenceUID(ref: CollectionReference) async -> AgePreference {
-		let ages = Age.allCases
 		var agePreference = AgePreference(twenty: 0, thirty: 0, fourty: 0, fifty: 0)
-		
 		do {
-			for age in ages {
-				switch age {
-				case .twenty:
-					agePreference.twenty = try await ref.document(age.rawValue).collection("usersID").getDocuments().count
-					break
-				case .thirty:
-					agePreference.thirty = try await ref.document(age.rawValue).collection("usersID").getDocuments().count
-					break
-				case .fourty:
-					agePreference.fourty = try await ref.document(age.rawValue).collection("usersID").getDocuments().count
-					break
-				case .fifty:
-					agePreference.fifty = try await ref.document(age.rawValue).collection("usersID").getDocuments().count
-					break
-				}
-			}
+            async let twenty = ref.document(Age.twenty.rawValue).collection("usersID").getDocuments().count
+            async let thirty = ref.document(Age.thirty.rawValue).collection("usersID").getDocuments().count
+            async let fourty = ref.document(Age.fourty.rawValue).collection("usersID").getDocuments().count
+            async let fifty = ref.document(Age.fifty.rawValue).collection("usersID").getDocuments().count
+            
+            let (twentyResult, thirtyResult, fourtyResult, fiftyResult) = try await (twenty, thirty, fourty, fifty)
+            
+            agePreference = AgePreference(twenty: twentyResult,
+                                          thirty: thirtyResult,
+                                          fourty: fourtyResult,
+                                          fifty: fiftyResult)
 		} catch {
 			print("error :: fetchAgePreferenceUID() -> fetch agePreferece collection data failure")
 			print(error.localizedDescription)
@@ -140,18 +133,13 @@ extension FirestoreDrinkService {
 	// drinks/genderPreferenceUID collection
 	// 각 '성별'에 맞는 document에 접근하여 UsersID collection에 해당하는 ducument의 갯수를 count
 	func fetchGenderPreferenceUID(ref: CollectionReference) async -> GenderPreference {
-		let genders = Gender.allCases
 		var genderPreference = GenderPreference(male: 0, female: 0)
-		
 		do {
-			for gender in genders {
-				switch gender {
-				case .male:
-					genderPreference.male = try await ref.document(gender.rawValue).collection("usersID").getDocuments().count
-				case .female:
-					genderPreference.female = try await ref.document(gender.rawValue).collection("usersID").getDocuments().count
-				}
-			}
+            async let male = ref.document(Gender.male.rawValue).collection("usersID").getDocuments().count
+            async let female = ref.document(Gender.female.rawValue).collection("usersID").getDocuments().count
+            let (maleResult, femaleResult) = try await (male, female)
+            genderPreference = GenderPreference(male: maleResult,
+                                                female: femaleResult)
 		} catch {
 			print("error :: fetchGenderPreferenceUID() -> fetch genderPreferece collection data failure")
 			print(error.localizedDescription)
