@@ -44,33 +44,37 @@ extension FirestoreDrinkService {
     
 	// drinks collection의 document data 불러오는 메서드
 	// 불러오지 못 할 경우 error를 throw
-	func fetchDrinkDocument(document: DocumentReference) async throws -> Drink {
-		do {
-			let taggedPostsRef = document.collection("taggedPosts")
-			let agePreferenceUIDRef = document.collection("agePreferenceUID")
-			let genderPreferenceUIDRef = document.collection("genderPreferenceUID")
-			let likedUsersIDRef = document.collection("likedUsersID")
-			
-			let drikField = try await fetchDrinkField(document: document)
-			let taggedPosts = await fetchTaggedPosts(ref: taggedPostsRef)
-			let agePreference = await fetchAgePreferenceUID(ref: agePreferenceUIDRef)
-			let genderPreference = await fetchGenderPreferenceUID(ref: genderPreferenceUIDRef)
-			let likedUsersID = await fetchDrinkLikedUsersID(ref: likedUsersIDRef)
-			
-			return Drink(drinkField: drikField, 
-						 taggedPosts: taggedPosts,
-						 agePreference: agePreference,
-						 genderPreference: genderPreference,
-						 likedUsersID: likedUsersID)
-		} catch DrinkError.fetchDrinkField {
-			print("error :: fetchDrinkField() -> fetch drink field data failure")
-			throw DrinkError.fetchDrinkField
-		} catch {
-			print("error :: fetchDrinkField() -> fetch drink field data failure")
-			print(error.localizedDescription)
-			throw DrinkError.fetchDrinkDocument
-		}
-	}
+    func fetchDrinkDocument(document: DocumentReference) async throws -> Drink {
+        do {
+            let taggedPostsRef = document.collection("taggedPosts")
+            let agePreferenceUIDRef = document.collection("agePreferenceUID")
+            let genderPreferenceUIDRef = document.collection("genderPreferenceUID")
+            let likedUsersIDRef = document.collection("likedUsersID")
+            
+            // 병렬로 각각의 비동기 호출 시작
+            async let drinkField = fetchDrinkField(document: document)
+            async let taggedPosts = fetchTaggedPosts(ref: taggedPostsRef)
+            async let agePreference = fetchAgePreferenceUID(ref: agePreferenceUIDRef)
+            async let genderPreference = fetchGenderPreferenceUID(ref: genderPreferenceUIDRef)
+            async let likedUsersID = fetchDrinkLikedUsersID(ref: likedUsersIDRef)
+            
+            // 모든 비동기 호출이 완료될 때까지 대기
+            let (drikFieldResult, taggedPostsResult, agePreferenceResult, genderPreferenceResult, likedUsersIDResult) = try await (drinkField, taggedPosts, agePreference, genderPreference, likedUsersID)
+            
+            return Drink(drinkField: drikFieldResult,
+                         taggedPosts: taggedPostsResult,
+                         agePreference: agePreferenceResult,
+                         genderPreference: genderPreferenceResult,
+                         likedUsersID: likedUsersIDResult)
+        } catch DrinkError.fetchDrinkField {
+            print("error :: fetchDrinkField() -> fetch drink field data failure")
+            throw DrinkError.fetchDrinkField
+        } catch {
+            print("error :: fetchDrinkField() -> fetch drink field data failure")
+            print(error.localizedDescription)
+            throw DrinkError.fetchDrinkDocument
+        }
+    }
 	
 	// drinks collection의 하위 collection인 taggedPosts document data 불러오는 메서드
 	// 불러오지 못 할 경우 배열에 추가 x
