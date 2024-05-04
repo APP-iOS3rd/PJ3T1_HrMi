@@ -26,12 +26,13 @@ struct ProfileSettingView: View {
     @State private var birthDate: String = ""
     @State private var selectedGender: Gender?
     
+    // 닉네임 형식을 만족하는지 판별하기 위한 상태 프로퍼티
+    @State private var isValidNameFormat: Bool = false
+    // 생년월일 형식을 만족하는지 판별하기 위한 상태 프로퍼티
+    @State private var isValidBirthFormat: Bool = false
+    
     // 이미지 가져오다가 에러나면 띄워줄 alert
     @State private var isShowAlertDialog = false
-    
-    var nameReference: Bool {
-        focusedField == .name && (name.count <= 1 || name.count > 10)
-    }
 
     // 상위 뷰 체인지를 위함
     @Binding var viewType: TermsOrVerification
@@ -109,6 +110,9 @@ struct ProfileSettingView: View {
                             .keyboardType(.default)
                             .textInputAutocapitalization(.never)
                             .autocorrectionDisabled() // 자동 수정 비활성화
+                            .onChange(of: name) { _ in
+                                isValidNameFormat = (name.count >= 2) && (name.count <= 10)
+                            }
                             Spacer()
                             // 텍스트 한번에 지우는 xmark 버튼
                             if !name.isEmpty && focusedField == .name {
@@ -127,7 +131,7 @@ struct ProfileSettingView: View {
                         // 닉네임 만족 기준
                         Text("닉네임을 2자~10자 이내로 적어주세요.")
                             .font(.light14)
-                            .foregroundStyle(nameReference ? .mainAccent01 : .clear)
+                            .foregroundStyle(name.isEmpty || isValidNameFormat ? .clear : .mainAccent01)
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
                     // 생일 + 성별
@@ -203,14 +207,17 @@ struct ProfileSettingView: View {
                 .buttonStyle(.borderedProminent)
                 .tint(.mainAccent03)
                 // 모든 정보 입력 시, 버튼 보이도록
-                .disabled(name.isEmpty || birthDate.isEmpty || selectedGender == nil)
+                .disabled(!isValidNameFormat || !isValidBirthFormat || selectedGender == nil)
                 .padding(.bottom, 10)
             }
             .padding(.horizontal, 20)
             // 생일 6글자 치면 끝
             .onChange(of: birthDate) { _ in
                 if birthDate.count == 6 {
+                    isValidBirthFormat = true
                     focusedField = nil
+                } else {
+                    isValidBirthFormat = false
                 }
             }
             // 텍스트필드에서 엔터 시, 이동
