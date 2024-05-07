@@ -29,7 +29,10 @@ struct ErrorPageView: View {
                     .frame(width: 290)
                     .cornerRadius(10)
             }
-            Text("잘못된 페이지 요청입니다 🥲 🍸")
+            Text("잘못된 페이지 요청입니다 🍸")
+                .font(.medium16)
+            Text("삭제되었거나 현재 존재하지 않는 데이터입니다 🥲")
+                .font(.medium16)
             Spacer()
         }
         .navigationBarBackButtonHidden()
@@ -40,9 +43,6 @@ struct ErrorPageView: View {
                 } label: {
                     Image(systemName: "chevron.backward")
                 }
-            }
-            ToolbarItem(placement: .principal) {
-                Text("🍺 404 Not Found 🍺")
             }
         }
         .tint(.mainBlack)
