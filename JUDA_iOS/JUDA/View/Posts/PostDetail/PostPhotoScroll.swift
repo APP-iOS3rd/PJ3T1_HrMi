@@ -19,7 +19,7 @@ struct PostPhotoScroll: View {
 		// 사진 페이징 스크롤 형식
 		TabView(selection: $selectedIndex) {
 			if !postPhotosURL.isEmpty {
-				ForEach(0..<postPhotosURL.count, id: \.self) { index in
+                ForEach(0..<postPhotosURL.count, id: \.self) { index in
 					KFImage.url(postPhotosURL[index])
 						.placeholder {
 							CircularLoaderView(size: 20)

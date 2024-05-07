@@ -68,10 +68,10 @@ struct NavigationPostsView: View {
 							}
 						}
 					}	
-				}
-        .tabViewStyle(.page(indexDisplayMode: .never))
-				.ignoresSafeArea()
-			}
+                }
+                .tabViewStyle(.page(indexDisplayMode: .never))
+                .ignoresSafeArea()
+            }
 			
 			if authViewModel.isShowLoginDialog {
 				CustomDialog(type: .navigation(
