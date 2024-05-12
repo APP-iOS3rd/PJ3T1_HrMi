@@ -124,7 +124,7 @@ final class AuthViewModel: ObservableObject {
         guard let user = currentUser else {
             return false
         }
-        return changeName.count >= 2 && changeName.count <= 10 && user.userField.name != changeName
+        return changeName.count >= 2 && changeName.count <= 10 && user.userField.name != changeName && user.userField.name.contains(" ")
     }
     
     // 유저 프로필 사진 변경 시, 사용되는 메서드
