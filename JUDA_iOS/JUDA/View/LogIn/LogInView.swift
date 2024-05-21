@@ -96,6 +96,7 @@ struct LogInView: View {
                     Image(systemName: "chevron.backward")
                 }
                 .foregroundStyle(.mainBlack)
+                .disabled(authViewModel.showError)
             }
         }
         // 로그인 완료 시, 화면 이동

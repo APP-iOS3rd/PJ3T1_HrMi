@@ -130,6 +130,7 @@ struct NavigationPostsView: View {
 				} label: {
 					Image(systemName: "chevron.left")
 				}
+                .disabled(authViewModel.isShowLoginDialog)
 			}
 			ToolbarItem(placement: .principal) {
 				Text(titleText)

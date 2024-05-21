@@ -9,21 +9,23 @@ import SwiftUI
 
 // MARK: - 기록 시, 태그 된 술 리스트
 struct DrinkTagScroll: View {
+    // CustomDialog - Rating 상태 값 받기
+    @Binding var isShowRatingDialog: Bool
     
     var body: some View {
         // MARK: iOS 16.4 이상
         if #available(iOS 16.4, *) {
             ScrollView {
-                DrinkTagContent()
+                DrinkTagContent(isShowRatingDialog: $isShowRatingDialog)
             }
             .scrollBounceBehavior(.basedOnSize, axes: .vertical)
         // MARK: iOS 16.4 미만
         } else {
             ViewThatFits(in: .vertical) {
-                DrinkTagContent()
+                DrinkTagContent(isShowRatingDialog: $isShowRatingDialog)
                     .frame(maxHeight: .infinity, alignment: .top)
                 ScrollView {
-                    DrinkTagContent()
+                    DrinkTagContent(isShowRatingDialog: $isShowRatingDialog)
                 }
             }
         }
@@ -33,6 +35,8 @@ struct DrinkTagScroll: View {
 // MARK: - DrinkTagScroll 로 보여줄 내용
 struct DrinkTagContent: View {
     @EnvironmentObject private var recordViewModel: RecordViewModel
+    // CustomDialog - Rating 상태 값 받기
+    @Binding var isShowRatingDialog: Bool
     
     var body: some View {
         LazyVStack {
@@ -41,8 +45,8 @@ struct DrinkTagContent: View {
                     .onTapGesture {
                         // 현재 선택된 DrinkTagCell의 술 태그 정보 받아오기
                         recordViewModel.selectedDrinkTag = drinkTag
-                        // CustomRatingDialog 띄우기
-                        recordViewModel.isShowRatingDialog = true
+                        // CustomDialog - Rating 띄우기
+                        isShowRatingDialog = true
                     }
             }
         }

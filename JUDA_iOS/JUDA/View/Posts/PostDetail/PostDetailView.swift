@@ -81,6 +81,7 @@ struct PostDetailView: View {
 				} label: {
 					Image(systemName: "chevron.left")
 				}
+                .disabled(isDeleteDialogPresented)
 			}
 			switch postUserType {
 			case .writer:

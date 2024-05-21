@@ -15,12 +15,15 @@ struct SearchTagView: View {
     @EnvironmentObject private var drinkViewModel: DrinkViewModel
     // drink 검색 결과를 담은 배열
     @State var searchResult = [Drink]()
-    // SearchTagView Sheet를 띄워주는 상태 프로퍼티
-    @Binding var isShowSearchTag: Bool
-    // 점수
+    // DrinkListCell 선택 후 CustomDialog에서 사용되는 점수
     @State private var rating: Double = 0
     // 서치바 Text
-	@State private var tagSearchText = ""
+    @State private var tagSearchText = ""
+    // CustomDialog - Rating 을 띄워주는 상태 프로퍼티
+    @State private var isShowRatingDialog: Bool = false
+    // SearchTagView Sheet를 띄워주는 상태 프로퍼티
+    @Binding var isShowSearchTag: Bool
+    // SearchBar의 Focus여부를 판별하는 FocusState
     @FocusState private var isFocused: Bool
 	
     var body: some View {
@@ -79,17 +82,17 @@ struct SearchTagView: View {
                     // MARK: iOS 16.4 이상
                     if #available(iOS 16.4, *) {
                         ScrollView() {
-                            SearchTagListContent(searchResult: searchResult)
+                            SearchTagListContent(isShowRatingDialog: $isShowRatingDialog, searchResult: searchResult)
                         }
                         .scrollBounceBehavior(.basedOnSize, axes: .vertical)
                         .scrollDismissesKeyboard(.immediately)
                     // MARK: iOS 16.4 미만
                     } else {
                         ViewThatFits(in: .vertical) {
-                            SearchTagListContent(searchResult: searchResult)
+                            SearchTagListContent(isShowRatingDialog: $isShowRatingDialog, searchResult: searchResult)
                                 .frame(maxHeight: .infinity, alignment: .top)
                             ScrollView {
-                                SearchTagListContent(searchResult: searchResult)
+                                SearchTagListContent(isShowRatingDialog: $isShowRatingDialog, searchResult: searchResult)
                             }
                             .scrollDismissesKeyboard(.immediately)
                         }
@@ -101,7 +104,7 @@ struct SearchTagView: View {
                 isFocused = false
             }
             // CustomDialog - .rating
-            if recordViewModel.isShowRatingDialog {
+            if isShowRatingDialog {
                 // 선택된 Cell의 술 정보 데이터를 잘 받아왔을 때
                 if let selectedDrinkTag = recordViewModel.selectedDrinkTag {
                     CustomDialog(type: .rating(
@@ -110,7 +113,7 @@ struct SearchTagView: View {
                         leftButtonLabel: "취소",
                         leftButtonAction: {
                             // CustomRatingDialog 사라지게 하기
-                            recordViewModel.isShowRatingDialog = false
+                            isShowRatingDialog = false
                         },
                         rightButtonLabel: "평가",
                         rightButtonAction: {
@@ -133,7 +136,7 @@ struct SearchTagView: View {
                                                                               drinkRating: rating))
                                 }
                                 // 변경 후 CustomRatingDialog, SearchTagView 사라지게 하기
-                                recordViewModel.isShowRatingDialog = false
+                                isShowRatingDialog = false
                                 isShowSearchTag.toggle()
                             }
                         },
@@ -152,6 +155,8 @@ struct SearchTagView: View {
 // MARK: - 스크롤 뷰 or 뷰 로 보여질 태그 추가 시, DrinkListCell 리스트
 struct SearchTagListContent: View {
     @EnvironmentObject private var recordViewModel: RecordViewModel
+    // CustomDialog - Rating 상태 값 받기
+    @Binding var isShowRatingDialog: Bool
     // drink 검색 결과 배열
     let searchResult: [Drink]
         
@@ -163,8 +168,8 @@ struct SearchTagListContent: View {
                         // 현재 선택된 DrinkListCell의 술 정보를 받아오기
                         guard let drinkID = drink.drinkField.drinkID else { return }
                         recordViewModel.selectedDrinkTag = DrinkTag(drinkID: drinkID, drinkName: drink.drinkField.name, drinkAmount: drink.drinkField.amount, drinkRating: 0)
-                        // CustomRatingDialog 띄우기
-                        recordViewModel.isShowRatingDialog = true
+                        // CustomDialog - Rating 띄우기
+                        isShowRatingDialog = true
                     }
             }
         }

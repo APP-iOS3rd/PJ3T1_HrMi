@@ -244,6 +244,7 @@ struct SettingView: View {
                     Image(systemName: "chevron.backward")
                 }
                 .tint(.mainBlack)
+                .disabled(isLogoutClicked || isDeletAccount || authViewModel.showError)
             }
             ToolbarItem(placement: .principal) {
                 Text("설정")

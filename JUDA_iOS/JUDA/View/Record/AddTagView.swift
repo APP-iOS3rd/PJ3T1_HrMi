@@ -18,6 +18,8 @@ struct AddTagView: View {
 	@State private var isShowSearchTag = false
     // CustomDialog - oneButton 을 띄워주는 상태 프로퍼티
 	@State private var isShowAlertDialog: Bool = false
+    // CustomDialog - Rating 을 띄워주는 상태 프로퍼티
+    @State private var isShowRatingDialog: Bool = false
     // 숱 태그가 5개를 넘어가는지 확인하는 상태 프로퍼티
     @State private var isTagsCountAboveFive: Bool = false
     // 평점을 담아주는 프로퍼티
@@ -58,18 +60,18 @@ struct AddTagView: View {
                     } else {
                         // 술 태그가 있을 때, DrinkTagCellScrollView 보여주기
                         // DrinkTagScroll 내부 Cell을 탭하면 CustomRatingDialog 띄워주기 위한 상태 프로퍼티 파라미터로 넘기기
-                        DrinkTagScroll()
+                        DrinkTagScroll(isShowRatingDialog: $isShowRatingDialog)
                     }
                 }
                 // CustomDialog - .rating
-                if recordViewModel.isShowRatingDialog {
+                if isShowRatingDialog {
                     CustomDialog(type: .rating(
                         // 선택된 술 태그의 술 이름
                         drinkName: recordViewModel.selectedDrinkTag?.drinkName ?? "",
                         leftButtonLabel: "취소",
                         leftButtonAction: {
                             // CustomRatingDialog 사라지게 하기
-                            recordViewModel.isShowRatingDialog = false
+                            isShowRatingDialog = false
                         },
                         rightButtonLabel: "수정",
                         rightButtonAction: {
@@ -81,7 +83,7 @@ struct AddTagView: View {
                                     recordViewModel.drinkTags[index] = DrinkTag(drinkID: selectedDrinkTag.drinkID, drinkName: selectedDrinkTag.drinkName, drinkAmount: selectedDrinkTag.drinkAmount, drinkRating: rating)
                                 }
                                 // 점수 변경 후 CustomRatingDialog 사라지게 하기
-                                recordViewModel.isShowRatingDialog = false
+                                isShowRatingDialog = false
                             }
                         },
                         // 선택된 술 태그의 점수를 CustomDialog에 반영해서 띄워주기 위함
@@ -120,6 +122,7 @@ struct AddTagView: View {
                         Image(systemName: "chevron.backward")
                     }
                     .foregroundStyle(.mainBlack)
+                    .disabled(isShowRatingDialog)
                 }
                 ToolbarItem(placement: .topBarTrailing) {
                     NavigationLink(value: Route.Record(recordType: .add)) {
@@ -127,13 +130,16 @@ struct AddTagView: View {
                             .font(.regular16)
                     }
                     // 선택된 사진이 없을 때, 다음 페이지 이동 불가
-                    .foregroundStyle(!selectedPhotos.isEmpty ? .mainBlack : .gray01)
-                    .disabled(selectedPhotos.isEmpty)
+                    .foregroundStyle(selectedPhotos.isEmpty ? .gray01 : .mainBlack)
+                    .disabled(selectedPhotos.isEmpty || isShowRatingDialog)
                 }
             }
             // SearchTageView Sheet 띄워주기
             .sheet(isPresented: $isShowSearchTag) {
                 SearchTagView(isShowSearchTag: $isShowSearchTag)
+                    .onDisappear {
+                        isShowRatingDialog = false
+                    }
             }
         }
     }
