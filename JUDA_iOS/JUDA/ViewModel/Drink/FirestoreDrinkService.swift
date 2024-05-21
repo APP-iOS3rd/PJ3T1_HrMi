@@ -44,33 +44,37 @@ extension FirestoreDrinkService {
     
 	// drinks collection의 document data 불러오는 메서드
 	// 불러오지 못 할 경우 error를 throw
-	func fetchDrinkDocument(document: DocumentReference) async throws -> Drink {
-		do {
-			let taggedPostsRef = document.collection("taggedPosts")
-			let agePreferenceUIDRef = document.collection("agePreferenceUID")
-			let genderPreferenceUIDRef = document.collection("genderPreferenceUID")
-			let likedUsersIDRef = document.collection("likedUsersID")
-			
-			let drikField = try await fetchDrinkField(document: document)
-			let taggedPosts = await fetchTaggedPosts(ref: taggedPostsRef)
-			let agePreference = await fetchAgePreferenceUID(ref: agePreferenceUIDRef)
-			let genderPreference = await fetchGenderPreferenceUID(ref: genderPreferenceUIDRef)
-			let likedUsersID = await fetchDrinkLikedUsersID(ref: likedUsersIDRef)
-			
-			return Drink(drinkField: drikField, 
-						 taggedPosts: taggedPosts,
-						 agePreference: agePreference,
-						 genderPreference: genderPreference,
-						 likedUsersID: likedUsersID)
-		} catch DrinkError.fetchDrinkField {
-			print("error :: fetchDrinkField() -> fetch drink field data failure")
-			throw DrinkError.fetchDrinkField
-		} catch {
-			print("error :: fetchDrinkField() -> fetch drink field data failure")
-			print(error.localizedDescription)
-			throw DrinkError.fetchDrinkDocument
-		}
-	}
+    func fetchDrinkDocument(document: DocumentReference) async throws -> Drink {
+        do {
+            let taggedPostsRef = document.collection("taggedPosts")
+            let agePreferenceUIDRef = document.collection("agePreferenceUID")
+            let genderPreferenceUIDRef = document.collection("genderPreferenceUID")
+            let likedUsersIDRef = document.collection("likedUsersID")
+            
+            // 병렬로 각각의 비동기 호출 시작
+            async let drinkField = fetchDrinkField(document: document)
+            async let taggedPosts = fetchTaggedPosts(ref: taggedPostsRef)
+            async let agePreference = fetchAgePreferenceUID(ref: agePreferenceUIDRef)
+            async let genderPreference = fetchGenderPreferenceUID(ref: genderPreferenceUIDRef)
+            async let likedUsersID = fetchDrinkLikedUsersID(ref: likedUsersIDRef)
+            
+            // 모든 비동기 호출이 완료될 때까지 대기
+            let (drikFieldResult, taggedPostsResult, agePreferenceResult, genderPreferenceResult, likedUsersIDResult) = try await (drinkField, taggedPosts, agePreference, genderPreference, likedUsersID)
+            
+            return Drink(drinkField: drikFieldResult,
+                         taggedPosts: taggedPostsResult,
+                         agePreference: agePreferenceResult,
+                         genderPreference: genderPreferenceResult,
+                         likedUsersID: likedUsersIDResult)
+        } catch DrinkError.fetchDrinkField {
+            print("error :: fetchDrinkField() -> fetch drink field data failure")
+            throw DrinkError.fetchDrinkField
+        } catch {
+            print("error :: fetchDrinkField() -> fetch drink field data failure")
+            print(error.localizedDescription)
+            throw DrinkError.fetchDrinkDocument
+        }
+    }
 	
 	// drinks collection의 하위 collection인 taggedPosts document data 불러오는 메서드
 	// 불러오지 못 할 경우 배열에 추가 x
@@ -106,26 +110,19 @@ extension FirestoreDrinkService {
 	// drinks/agePreferenceUID collection
 	// 각 '연령대'에 맞는 document에 접근하여 UsersID collection에 해당하는 ducument의 갯수를 count
 	func fetchAgePreferenceUID(ref: CollectionReference) async -> AgePreference {
-		let ages = Age.allCases
 		var agePreference = AgePreference(twenty: 0, thirty: 0, fourty: 0, fifty: 0)
-		
 		do {
-			for age in ages {
-				switch age {
-				case .twenty:
-					agePreference.twenty = try await ref.document(age.rawValue).collection("usersID").getDocuments().count
-					break
-				case .thirty:
-					agePreference.thirty = try await ref.document(age.rawValue).collection("usersID").getDocuments().count
-					break
-				case .fourty:
-					agePreference.fourty = try await ref.document(age.rawValue).collection("usersID").getDocuments().count
-					break
-				case .fifty:
-					agePreference.fifty = try await ref.document(age.rawValue).collection("usersID").getDocuments().count
-					break
-				}
-			}
+            async let twenty = ref.document(Age.twenty.rawValue).collection("usersID").getDocuments().count
+            async let thirty = ref.document(Age.thirty.rawValue).collection("usersID").getDocuments().count
+            async let fourty = ref.document(Age.fourty.rawValue).collection("usersID").getDocuments().count
+            async let fifty = ref.document(Age.fifty.rawValue).collection("usersID").getDocuments().count
+            
+            let (twentyResult, thirtyResult, fourtyResult, fiftyResult) = try await (twenty, thirty, fourty, fifty)
+            
+            agePreference = AgePreference(twenty: twentyResult,
+                                          thirty: thirtyResult,
+                                          fourty: fourtyResult,
+                                          fifty: fiftyResult)
 		} catch {
 			print("error :: fetchAgePreferenceUID() -> fetch agePreferece collection data failure")
 			print(error.localizedDescription)
@@ -136,18 +133,13 @@ extension FirestoreDrinkService {
 	// drinks/genderPreferenceUID collection
 	// 각 '성별'에 맞는 document에 접근하여 UsersID collection에 해당하는 ducument의 갯수를 count
 	func fetchGenderPreferenceUID(ref: CollectionReference) async -> GenderPreference {
-		let genders = Gender.allCases
 		var genderPreference = GenderPreference(male: 0, female: 0)
-		
 		do {
-			for gender in genders {
-				switch gender {
-				case .male:
-					genderPreference.male = try await ref.document(gender.rawValue).collection("usersID").getDocuments().count
-				case .female:
-					genderPreference.female = try await ref.document(gender.rawValue).collection("usersID").getDocuments().count
-				}
-			}
+            async let male = ref.document(Gender.male.rawValue).collection("usersID").getDocuments().count
+            async let female = ref.document(Gender.female.rawValue).collection("usersID").getDocuments().count
+            let (maleResult, femaleResult) = try await (male, female)
+            genderPreference = GenderPreference(male: maleResult,
+                                                female: femaleResult)
 		} catch {
 			print("error :: fetchGenderPreferenceUID() -> fetch genderPreferece collection data failure")
 			print(error.localizedDescription)

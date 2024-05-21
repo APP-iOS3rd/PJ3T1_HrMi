@@ -94,6 +94,7 @@ extension DrinkViewModel {
         self.drinks.removeAll() // 기존 술 배열 비우기
         do {
             let drinksSnapshot = try await collectionRef.getDocuments()
+            self.lastSnapshot = drinksSnapshot.documents.last
             await fetchDrinks(querySnapshot: drinksSnapshot)
         } catch {
             print("error :: loadDrinksFirstPage", error.localizedDescription)
@@ -114,6 +115,7 @@ extension DrinkViewModel {
             .limit(to: paginationCount)
         do {
             let drinksSnapshot = try await collectionRef.getDocuments()
+            self.lastSnapshot = drinksSnapshot.documents.last
             await fetchDrinks(querySnapshot: drinksSnapshot)
         } catch {
             print("error :: loadDrinksNextPage", error.localizedDescription)
@@ -127,7 +129,6 @@ extension DrinkViewModel {
                 let drinkID = drinkDocument.documentID
                 let documentRef = db.collection(drinkCollection).document(drinkID)
                 let drinkData = try await firestoreDrinkService.fetchDrinkDocument(document: documentRef)
-                self.lastSnapshot = querySnapshot.documents.last
                 self.drinks.append(drinkData)
             }
         } catch {

@@ -45,11 +45,14 @@ extension FirestorePostService {
 	// 불러오지 못 할 수 경우 error throw
 	func fetchPostDocument(document: DocumentReference) async throws -> Post {
 		do {
-			let postField = try await fetchPostField(document: document)
-			let likedUsersIDRef = document.collection("likedUsersID")
-			let likedUsersID: [String] = await fetchPostLikedUsersID(ref: likedUsersIDRef)
-			
-			return Post(postField: postField, likedUsersID: likedUsersID)
+            let likedUsersIDRef = document.collection("likedUsersID")
+            // 병렬 처리
+            async let postField = fetchPostField(document: document)
+            async let likedUsersID: [String] = fetchPostLikedUsersID(ref: likedUsersIDRef)
+			// 모든 비동기 호출이 완료될 때까지 대기
+            let (postFieldResult, likedUserIDResult) = try await (postField, likedUsersID)
+            //
+			return Post(postField: postFieldResult, likedUsersID: likedUserIDResult)
 		} catch PostError.fieldFetch {
 			print("error :: fetchPostField() -> fetch post field data failure")
 			throw PostError.fieldFetch

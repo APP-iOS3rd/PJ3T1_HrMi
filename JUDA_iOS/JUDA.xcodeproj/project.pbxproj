@@ -60,8 +60,11 @@
 		09BCC1582B7C805400FF4D1B /* UserAgreementView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BCC1572B7C805400FF4D1B /* UserAgreementView.swift */; };
 		09BCC15A2B7C8CD300FF4D1B /* IdentityVerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BCC1592B7C8CD300FF4D1B /* IdentityVerificationView.swift */; };
 		09BCC15F2B7CFC7E00FF4D1B /* TermsAndVerificationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09BCC15E2B7CFC7E00FF4D1B /* TermsAndVerificationView.swift */; };
+		09C31ADC2BD77DC300623F5C /* DrinkLoading.json in Resources */ = {isa = PBXBuildFile; fileRef = 09C31ADB2BD77DC300623F5C /* DrinkLoading.json */; };
 		09C7C9AF2B8DB57E00F62617 /* NavigationRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09C7C9AE2B8DB57E00F62617 /* NavigationRouter.swift */; };
 		09E3B6E82BC51396001BC529 /* (null) in Resources */ = {isa = PBXBuildFile; };
+		09E3B6EB2BC5139F001BC529 /* APIKEYS.plist in Resources */ = {isa = PBXBuildFile; fileRef = 09E3B6E92BC5139F001BC529 /* APIKEYS.plist */; };
+		09E3B6EC2BC5139F001BC529 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 09E3B6EA2BC5139F001BC529 /* GoogleService-Info.plist */; };
 		09F3BD9C2BA9EAE90087E5FC /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 09F3BD9B2BA9EAE90087E5FC /* Lottie */; };
 		09F869932B68E36800A56A4C /* Formatter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F869922B68E36800A56A4C /* Formatter.swift */; };
 		09F869962B68E46500A56A4C /* DrinkDetailView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 09F869952B68E46500A56A4C /* DrinkDetailView.swift */; };
@@ -89,8 +92,6 @@
 		2C69CDAC2B9DF61600F70F80 /* RecordViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C69CDAB2B9DF61600F70F80 /* RecordViewModel.swift */; };
 		2C7FD5522B848EEF00169512 /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2C7FD5512B848EEF00169512 /* Post.swift */; };
 		2C9707472BC51486001D57D5 /* DrinkLoading.json in Resources */ = {isa = PBXBuildFile; fileRef = 2C9707462BC51486001D57D5 /* DrinkLoading.json */; };
-		2C9743DD2BDE7FF000694EE9 /* APIKEYS.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2C9743DB2BDE7FF000694EE9 /* APIKEYS.plist */; };
-		2C9743DE2BDE7FF000694EE9 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 2C9743DC2BDE7FF000694EE9 /* GoogleService-Info.plist */; };
 		2CACB53C2B99BAC500DD6DCE /* FireStorageService.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2CACB53B2B99BAC500DD6DCE /* FireStorageService.swift */; };
 		7B0A8BC52B8C163E00740E61 /* Report.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0A8BC42B8C163E00740E61 /* Report.swift */; };
 		7B0A8BCD2B8CA7E900740E61 /* PostSearchList.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7B0A8BCC2B8CA7E900740E61 /* PostSearchList.swift */; };
@@ -222,6 +223,7 @@
 		09BCC1572B7C805400FF4D1B /* UserAgreementView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserAgreementView.swift; sourceTree = "<group>"; };
 		09BCC1592B7C8CD300FF4D1B /* IdentityVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = IdentityVerificationView.swift; sourceTree = "<group>"; };
 		09BCC15E2B7CFC7E00FF4D1B /* TermsAndVerificationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsAndVerificationView.swift; sourceTree = "<group>"; };
+		09C31ADB2BD77DC300623F5C /* DrinkLoading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = DrinkLoading.json; path = "../../../../../흐르미/Lottie/DrinkLoading.json"; sourceTree = "<group>"; };
 		09C7C9AE2B8DB57E00F62617 /* NavigationRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NavigationRouter.swift; sourceTree = "<group>"; };
 		09F869922B68E36800A56A4C /* Formatter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Formatter.swift; sourceTree = "<group>"; };
 		09F869952B68E46500A56A4C /* DrinkDetailView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DrinkDetailView.swift; sourceTree = "<group>"; };
@@ -250,8 +252,6 @@
 		2C69CDAB2B9DF61600F70F80 /* RecordViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RecordViewModel.swift; sourceTree = "<group>"; };
 		2C7FD5512B848EEF00169512 /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
 		2C9707462BC51486001D57D5 /* DrinkLoading.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = DrinkLoading.json; path = "../../../../../HrMi-JUDA/Lottie/DrinkLoading.json"; sourceTree = "<group>"; };
-		2C9743DB2BDE7FF000694EE9 /* APIKEYS.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = APIKEYS.plist; path = "../../../HrMi-JUDA/APIKEY & plist.plist/APIKEYS.plist"; sourceTree = "<group>"; };
-		2C9743DC2BDE7FF000694EE9 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "GoogleService-Info.plist"; path = "../../../HrMi-JUDA/APIKEY & plist.plist/GoogleService-Info.plist"; sourceTree = "<group>"; };
 		2CACB53B2B99BAC500DD6DCE /* FireStorageService.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FireStorageService.swift; sourceTree = "<group>"; };
 		7B0A8BC42B8C163E00740E61 /* Report.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Report.swift; sourceTree = "<group>"; };
 		7B0A8BCC2B8CA7E900740E61 /* PostSearchList.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PostSearchList.swift; sourceTree = "<group>"; };
@@ -425,9 +425,9 @@
 			isa = PBXGroup;
 			children = (
 				09BCC14E2B7C7E2900FF4D1B /* Clouds.json */,
+				09C31ADB2BD77DC300623F5C /* DrinkLoading.json */,
 				09BCC1492B7C7E2900FF4D1B /* Loading.json */,
 				09BCC14C2B7C7E2900FF4D1B /* Rain.json */,
-				2C9707462BC51486001D57D5 /* DrinkLoading.json */,
 				09BCC14D2B7C7E2900FF4D1B /* Snow.json */,
 				09BCC14B2B7C7E2900FF4D1B /* Sun.json */,
 				09BCC14A2B7C7E2900FF4D1B /* Thunder.json */,
@@ -857,7 +857,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				09BCC1512B7C7E2900FF4D1B /* Sun.json in Resources */,
-				2C9707472BC51486001D57D5 /* DrinkLoading.json in Resources */,
+				09C31ADC2BD77DC300623F5C /* DrinkLoading.json in Resources */,
 				09BCC1502B7C7E2900FF4D1B /* Thunder.json in Resources */,
 				B1B8FE8D2B5EAAAB00921BBE /* Colors.xcassets in Resources */,
 				B121A5732B5F910900667D42 /* Pretendard-Bold.otf in Resources */,
