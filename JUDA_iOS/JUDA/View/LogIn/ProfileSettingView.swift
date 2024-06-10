@@ -19,15 +19,9 @@ struct ProfileSettingView: View {
     @State private var userProfileImage: UIImage? // 사용자 프로필 이미지
     
     @State private var name: String = ""
-    var namePlaceholder: String {
-        guard let user = authViewModel.currentUser else { return "닉네임" }
-        return user.userField.name
-    }
     @State private var birthDate: String = ""
     @State private var selectedGender: Gender?
     
-    // 닉네임 형식을 만족하는지 판별하기 위한 상태 프로퍼티
-    @State private var isValidNameFormat: Bool = false
     // 생년월일 형식을 만족하는지 판별하기 위한 상태 프로퍼티
     @State private var isValidBirthFormat: Bool = false
     
@@ -38,6 +32,13 @@ struct ProfileSettingView: View {
     @Binding var viewType: TermsOrVerification
     // 알림 동의
     @Binding var notificationAllowed: Bool
+    
+    // 생년월일 형식을 만족하는지 판별하기 위한 포매터
+    private let formatter : DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyMMdd"
+        return formatter
+    }()
     
     var body: some View {
         ZStack {
@@ -102,8 +103,7 @@ struct ProfileSettingView: View {
                             .foregroundStyle(.mainBlack)
                         // 텍스트 필드
                         HStack {
-                            TextField("닉네임", text: $name,
-                                      prompt: Text(namePlaceholder))
+                            TextField("닉네임", text: $name)
                             .font(.medium16)
                             .foregroundStyle(.mainBlack)
                             .focused($focusedField, equals: .name)
@@ -111,7 +111,9 @@ struct ProfileSettingView: View {
                             .textInputAutocapitalization(.never)
                             .autocorrectionDisabled() // 자동 수정 비활성화
                             .onChange(of: name) { _ in
-                                isValidNameFormat = (name.count >= 2) && (name.count <= 10)
+                                // 닉네임 공백 불가. 10자 이내
+                                name = String(name.prefix(10)).replacingOccurrences(of: " ", with: "")
+                                authViewModel.isChangeUserName(changeName: name)
                             }
                             Spacer()
                             // 텍스트 한번에 지우는 xmark 버튼
@@ -131,7 +133,7 @@ struct ProfileSettingView: View {
                         // 닉네임 만족 기준
                         Text("닉네임을 2자~10자 이내로 적어주세요.")
                             .font(.light14)
-                            .foregroundStyle(name.isEmpty || isValidNameFormat ? .clear : .mainAccent01)
+                            .foregroundStyle(authViewModel.nicknameState == .invalidLength && !name.isEmpty ? .mainAccent01 : .clear)
                             .frame(maxWidth: .infinity, alignment: .leading)
                     }
                     // 생일 + 성별
@@ -177,6 +179,11 @@ struct ProfileSettingView: View {
                             }
                         }
                     }
+                    // 생년월일 만족 기준
+                    Text("생년월일이 유효하지 않습니다.")
+                        .font(.light14)
+                        .foregroundStyle(!isValidBirthFormat && !birthDate.isEmpty ? .mainAccent01 : .clear)
+                        .frame(maxWidth: .infinity, alignment: .leading)
                 }
                 .scrollIndicators(.hidden)
                 .scrollDismissesKeyboard(.immediately)
@@ -206,15 +213,23 @@ struct ProfileSettingView: View {
                 }
                 .buttonStyle(.borderedProminent)
                 .tint(.mainAccent03)
-                // 모든 정보 입력 시, 버튼 보이도록
-                .disabled(!isValidNameFormat || !isValidBirthFormat || selectedGender == nil)
+                // 모든 정보 입력이 유효할 때, 버튼 보이도록
+                .disabled(authViewModel.nicknameState != .completed || !isValidBirthFormat || selectedGender == nil)
                 .padding(.bottom, 10)
             }
             .padding(.horizontal, 20)
-            // 생일 6글자 치면 끝
             .onChange(of: birthDate) { _ in
+                // 생일 6글자 제한
+                birthDate = String(birthDate.prefix(6))
+                // 6자 입력 완료 시 생년월일 포맷 확인
                 if birthDate.count == 6 {
-                    isValidBirthFormat = true
+                    // 생년월일 형식 유효성. 현재 날짜 이전인지 판별
+                    if let userBirth = formatter.date(from: birthDate), userBirth < Date() {
+                        isValidBirthFormat = true
+                    } else {
+                        isValidBirthFormat = false
+                    }
+                    // 포커스 해제
                     focusedField = nil
                 } else {
                     isValidBirthFormat = false

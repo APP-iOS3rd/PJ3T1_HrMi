@@ -17,7 +17,6 @@ struct ChangeUserNameView: View {
     
     // 새롭게 변경할 user Name을 담는 프로퍼티
     @State private var userChangeNickName: String = ""
-    @State private var isCompleted: Bool = false
     
     var body: some View {
         VStack(alignment: .center, spacing: 15) {
@@ -34,8 +33,9 @@ struct ChangeUserNameView: View {
                 .textInputAutocapitalization(.never)
                 .autocorrectionDisabled() // 자동 수정 비활성화
                 .onChange(of: userChangeNickName) { _ in
-                    userChangeNickName = String(userChangeNickName.prefix(10))
-                    isCompleted = authViewModel.isChangeUserName(changeName: userChangeNickName)
+                    // 닉네임 공백 불가. 10자 이내
+                    userChangeNickName = String(userChangeNickName.prefix(10)).replacingOccurrences(of: " ", with: "")
+                    authViewModel.isChangeUserName(changeName: userChangeNickName)
                 }
                 Spacer()
                 // 텍스트 한번에 지우는 xmark 버튼
@@ -54,26 +54,18 @@ struct ChangeUserNameView: View {
             .background(.gray05)
             .clipShape(.rect(cornerRadius: 10))
             // 유저 닉네임 만족 기준
-            if !userChangeNickName.isEmpty && 
-                (userChangeNickName.count <= 1 || userChangeNickName.count > 10) {
+            if authViewModel.nicknameState == .invalidLength && !userChangeNickName.isEmpty {
                 Text("닉네임을 2자~10자 이내로 적어주세요.")
                     .font(.light14)
                     .foregroundStyle(.mainAccent01)
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
-            if userChangeNickName == authViewModel.currentUser?.userField.name {
+            if authViewModel.nicknameState == .aleadyUsing {
                 Text("현재 사용하고 있는 닉네임입니다.")
                     .font(.light14)
                     .foregroundStyle(.mainAccent01)
                     .frame(maxWidth: .infinity, alignment: .leading)
             }
-            if userChangeNickName.contains(" ") {
-                Text("공백은 사용이 불가합니다.")
-                    .font(.light14)
-                    .foregroundStyle(.mainAccent01)
-                    .frame(maxWidth: .infinity, alignment: .leading)
-            }
-            
             // spacer 대용 (키보드 숨기기 onTapGesture 영역)
             Rectangle()
                 .fill(.background)
@@ -85,6 +77,7 @@ struct ChangeUserNameView: View {
                 Task {
                     isFocused = false
                     await authViewModel.updateUserName(userName: userChangeNickName)
+                    userChangeNickName = ""
                     navigationRouter.back()
                 }
             } label: {
@@ -95,8 +88,8 @@ struct ChangeUserNameView: View {
                     .padding(.vertical, 5)
                 
             }
-            .disabled(!isCompleted)
-            .foregroundColor(isCompleted ? .white : .gray01)
+            .disabled(authViewModel.nicknameState != .completed)
+            .foregroundColor(authViewModel.nicknameState == .completed ? .white : .gray01)
             .buttonStyle(.borderedProminent)
             .tint(.mainAccent03)
         }

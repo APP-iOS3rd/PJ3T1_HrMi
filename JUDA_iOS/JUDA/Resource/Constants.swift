@@ -193,3 +193,11 @@ enum WhereUsedPostGridContent {
     case myPage
     case main
 }
+
+// 닉네임 변경 & 생성 시 조건에 대한 enum
+enum NickNameChange {
+    case invalidLength
+    case aleadyUsing
+    case completed
+    case userNotFound
+}

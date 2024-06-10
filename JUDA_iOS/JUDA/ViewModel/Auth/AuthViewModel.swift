@@ -29,6 +29,7 @@ final class AuthViewModel: ObservableObject {
     // Error
     @Published var showError: Bool = false
     @Published var errorMessage: String = ""
+    @Published var nicknameState: NickNameChange = .invalidLength
     // 로그인 다이얼로그
     @Published var isShowLoginDialog: Bool = false
     // Nonce : 암호와된 임의의 난수
@@ -120,11 +121,18 @@ final class AuthViewModel: ObservableObject {
     
     // MyPage / Setting 에서 사용
     // 유저 닉네임 수정 시, 2글자 이상 10글자 이하 && 기존 닉네임과 같은지 체크
-    func isChangeUserName(changeName: String) -> Bool {
-        guard let user = currentUser else {
-            return false
+    func isChangeUserName(changeName: String) {
+        if changeName.count < 2 || changeName.count > 10 { // 닉네임 길이
+            nicknameState = .invalidLength
+        } else {
+            nicknameState = .completed
         }
-        return changeName.count >= 2 && changeName.count <= 10 && user.userField.name != changeName && user.userField.name.contains(" ")
+        
+        if let user = currentUser { // 로그인한 유저의 닉네임 변경 시, 기존 닉네임과 동일한지
+            if user.userField.name == changeName {
+                nicknameState = .aleadyUsing
+            }
+        }
     }
     
     // 유저 프로필 사진 변경 시, 사용되는 메서드
